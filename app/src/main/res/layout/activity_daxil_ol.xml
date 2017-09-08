@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.start.laundryapp.DaxilOl"
+    android:background="#e2e1e1">
+
+    <TextView
+        android:id="@+id/daxilOl_AppName_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appTitle"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
+    <ImageView
+        android:id="@+id/daxilOl_AppLogo"
+        tools:ignore="ContentDescription"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/laundryicon"
+        android:layout_below="@+id/daxilOl_AppName_tv"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/daxilol_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/daxilol_title"
+        android:layout_below="@+id/daxilOl_AppLogo"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="20dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/daxilol_emailtelefon_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/daxilol_title"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/daxilol_emailtelefon_tv"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:labelFor="@+id/daxilol_emailtelefon_et"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            />
+
+        <EditText
+            android:id="@+id/daxilol_emailtelefon_et"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="text"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/daxilol_shifre_ll"
+        android:layout_below="@id/daxilol_emailtelefon_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/daxilol_shifre_tv"
+            android:textSize="18sp"
+            android:layout_weight="1"
+            android:labelFor="@+id/daxilol_shifre_et"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            />
+
+        <EditText
+            android:id="@+id/daxilol_shifre_et"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="textPassword"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/daxilol_unudulmushShifre_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="@string/daxilol_unudulmushShifre_tv"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/daxilol_shifre_ll" />
+
+
+    <Button
+        android:id="@+id/daxilol_btn"
+        style="@android:style/Widget.Button.Inset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Daxil_ol_btn_txt"
+        android:layout_below="@+id/daxilol_unudulmushShifre_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp" />
+
+    <ImageView
+        android:id="@+id/facebook_login_img"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        tools:ignore="ContentDescription"
+        android:layout_below="@+id/daxilol_btn"
+        android:src="@drawable/facebook"/>
+
+
+</RelativeLayout>

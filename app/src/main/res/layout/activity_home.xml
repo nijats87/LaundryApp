@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.start.laundryapp.Home"
+    android:background="#e2e1e1">
+
+    <TextView
+        android:id="@+id/home_appname_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appTitle"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
+    <ImageView
+        android:id="@+id/home_AppLogo"
+        tools:ignore="ContentDescription"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/laundryicon"
+        android:layout_below="@+id/home_appname_tv"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/home_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/home_AppLogo"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/home_firstline_logos_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/home_yenisifarish_icon"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:src="@drawable/add2"
+                android:layout_weight="1"/>
+
+            <ImageView
+                android:id="@+id/home_sifarishler_icon"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/sopping2" />
+
+            <ImageView
+                android:id="@+id/home_sifarishizle_icon"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/eye2" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_firstline_title_ll"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/home_yenisifarish_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/home_yeni_sifarish_tv"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/home_sifarishler_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/home_sifarishler_tv"
+                android:textColor="@android:color/black"
+                />
+
+            <TextView
+                android:id="@+id/home_sifarishizle_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/home_sifarish_izle_tv"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_secondline_logos_ll"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/home_odenish_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/payment192"
+                android:layout_weight="1"/>
+            <ImageView
+                android:id="@+id/home_personalinfo_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/person192"
+                android:layout_weight="1" />
+            <ImageView
+                android:id="@+id/home_feedback_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/feedback192"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_secondline_title_ll"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/home_odenish_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/home_odenish_tv"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/home_personalinfo_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/home_personalinfo_tv"
+                android:textColor="@android:color/black"
+                />
+
+            <TextView
+                android:id="@+id/home_feedback_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/home_feedback_tv"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_thirdline_logos_ll"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/home_ayarlar_icon"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/settings196" />
+
+            <ImageView
+                android:id="@+id/home_chixish_icon"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/exit192"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_thirdline_title_ll"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/home_ayarlar_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/home_ayarlar_tv"
+                android:textColor="@android:color/black" />
+
+            <TextView
+                android:id="@+id/home_chixish_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/home_chixish_tv"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_nameSurname_ll"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/home_adSoyad_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/ad_soyad_tv"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textColor="@android:color/black"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

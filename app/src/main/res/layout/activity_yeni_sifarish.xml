@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e2e1e1"
+    tools:context="com.start.laundryapp.YeniSifarish">
+
+    <TextView
+        android:id="@+id/yenisifarish_appname_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appTitle"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
+    <ImageView
+        android:id="@+id/yenisifarish_appname_logo"
+        tools:ignore="ContentDescription"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/laundryicon"
+        android:layout_below="@+id/yenisifarish_appname_tv"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/yenisifarish_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/yenisifarish_title"
+        android:layout_below="@+id/yenisifarish_appname_logo"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="20dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/yenisifarish_data_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_below="@+id/yenisifarish_title"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/yenisifarish_paltarsayi_tv"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:labelFor="@+id/yenisifarish_paltarsayi_et"
+                android:textColor="@android:color/black"
+                />
+
+            <EditText
+                android:id="@+id/yenisifarish_paltarsayi_et"
+                style="@style/Widget.AppCompat.AutoCompleteTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="text"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/yenisifarish_achiqlama_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:labelFor="@+id/yenisifarish_achiqlama_et"
+                android:text="@string/yenisifarish_achiqlama_tv"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/yenisifarish_achiqlama_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="text"
+                android:textColor="#000000"
+                />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:labelFor="@+id/yenisifarish_menteqe_et"
+                android:text="@string/yenisifarish_menteqe_tv"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/yenisifarish_menteqe_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="text"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/yenisifarish_sifarishnovu_tv"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:labelFor="@+id/yenisifarish_sifarishnovu_et"
+                android:textColor="@android:color/black"
+                />
+
+            <EditText
+                android:id="@+id/yenisifarish_sifarishnovu_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="text"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/yenisifarish_icramuddeti_tv"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:labelFor="@+id/yenisifarish_icramuddeti_et"
+                android:textColor="@android:color/black"
+                />
+
+            <EditText
+                android:id="@+id/yenisifarish_icramuddeti_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="text"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/yenisifarish_qeyd_tv"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:labelFor="@+id/yenisifarish_qeyd_et"
+                android:textColor="@android:color/black"
+                />
+
+            <EditText
+                android:id="@+id/yenisifarish_qeyd_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="text"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/sifarishver_btn"
+        style="@android:style/Widget.Button.Inset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/yenisifarish_data_ll"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/yenisifarish_btn_text"
+        android:textColor="@android:color/black" />
+
+    <ImageView
+        android:id="@+id/yenisifarish_addphoto_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/yenisifarish_data_ll"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="45dp"
+        android:src="@drawable/addphoto"
+        tools:ignore="ContentDescription" />
+
+
+</RelativeLayout>

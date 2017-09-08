@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e2e1e1"
+    tools:context="com.start.laundryapp.Qeydiyyat">
+
+    <TextView
+        android:id="@+id/main_AppName_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appTitle"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
+    <ImageView
+        android:id="@+id/main_AppLogo"
+        tools:ignore="ContentDescription"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/laundryicon"
+        android:layout_below="@+id/main_AppName_tv"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/qeydiyyat_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/qeydiyyat_title"
+        android:layout_below="@+id/main_AppLogo"
+        android:layout_centerHorizontal="true"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="20dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/qeydiyyat_data_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/qeydiyyat_title"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/qeydiyyat_ad_tv"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:labelFor="@+id/qeydiyyat_ad_et"
+                android:textColor="@android:color/black"
+                />
+
+            <EditText
+                android:id="@+id/qeydiyyat_ad_et"
+                style="@style/Widget.AppCompat.AutoCompleteTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="text"
+                android:textColor="#000000" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:labelFor="@+id/qeydiyyat_soyad_et"
+                android:text="@string/qeydiyyat_soyad_tv"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/qeydiyyat_soyad_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="text"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:labelFor="@+id/qeydiyyat_email_et"
+                android:text="@string/qeydiyyat_email_tv"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/qeydiyyat_email_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="textEmailAddress"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/qeydiyyat_telefon_tv"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:labelFor="@+id/qeydiyyat_telefon_et"
+                android:textColor="@android:color/black"
+                />
+
+            <EditText
+                android:id="@+id/qeydiyyat_telefon_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="phone"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/qeydiyyat_shifre_tv"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:labelFor="@+id/qeydiyyat_shifre_et"
+                android:textColor="@android:color/black"
+                />
+
+            <EditText
+                android:id="@+id/qeydiyyat_shifre_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="textPassword"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/qeydiyyat_unvan_tv"
+                android:textSize="18sp"
+                android:layout_weight="1"
+                android:labelFor="@+id/qeydiyyat_unvan_et"
+                android:textColor="@android:color/black"
+                />
+
+            <EditText
+                android:id="@+id/qeydiyyat_unvan_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:inputType="text"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/qeydiyyat_checkbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="false"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:text="@string/qeydiyyat_checkbox_text"
+        android:layout_below="@id/qeydiyyat_data_ll"/>
+
+    <Button
+        android:id="@+id/qeydiyyat_btn"
+        style="@android:style/Widget.Button.Inset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/qeydiyyat_checkbox"
+        android:layout_centerHorizontal="true"
+        android:text="@string/qeydiyyat_btn_text"
+        android:textColor="@android:color/black" />
+
+
+</RelativeLayout>

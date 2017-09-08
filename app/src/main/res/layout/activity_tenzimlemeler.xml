@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.start.laundryapp.Tenzimlemeler"
+    android:background="#e2e1e1">
+
+    <TextView
+        android:id="@+id/tenzimlemeler_appname_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/appTitle"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"/>
+    <ImageView
+        android:id="@+id/tenzimlemeler_AppLogo"
+        tools:ignore="ContentDescription"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/laundryicon"
+        android:layout_below="@+id/tenzimlemeler_appname_tv"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/tenzim_bildirish_icon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/notification"
+        tools:ignore="ContentDescription"
+        android:layout_below="@id/tenzimlemeler_AppLogo"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginStart="80dp"/>
+
+    <TextView
+        android:id="@+id/tenzim_bildirish_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tenzim_bildirish_tv"
+        android:textSize="25sp"
+        android:textColor="@android:color/black"
+        android:layout_alignTop="@+id/tenzim_bildirish_icon"
+        android:layout_alignLeft="@+id/tenzimlemeler_appname_tv"
+        android:layout_alignStart="@+id/tenzimlemeler_AppLogo"
+        android:layout_marginTop="20dp" />
+
+    <ImageView
+        android:id="@+id/tenzim_dil_icon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/language"
+        tools:ignore="ContentDescription"
+        android:layout_below="@id/tenzim_bildirish_icon"
+        android:layout_marginTop="40dp"
+        android:layout_alignStart="@id/tenzim_bildirish_icon"
+        android:layout_alignLeft="@id/tenzim_bildirish_icon"
+        />
+
+    <TextView
+        android:id="@+id/tenzim_dil_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tenzim_dilideyish"
+        android:textSize="25sp"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/tenzim_bildirish_tv"
+        android:layout_alignTop="@+id/tenzim_dil_icon"
+        android:layout_alignLeft="@+id/tenzim_bildirish_tv"
+        android:layout_alignStart="@+id/tenzim_bildirish_tv"
+        android:layout_marginTop="20dp" />
+
+
+    <ImageView
+        android:id="@+id/tenzim_haqqimizda_icon"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/infoblack"
+        tools:ignore="ContentDescription"
+        android:layout_below="@+id/tenzim_dil_icon"
+        android:layout_marginTop="40dp"
+        android:layout_alignStart="@+id/tenzim_dil_icon"
+        android:layout_alignLeft="@+id/tenzim_dil_icon"
+        />
+
+    <TextView
+        android:id="@+id/tenzim_haqqimizda_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tenzim_haqqimizda_tv"
+        android:textSize="25sp"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/tenzim_dil_tv"
+        android:layout_alignTop="@+id/tenzim_haqqimizda_icon"
+        android:layout_alignLeft="@+id/tenzim_dil_tv"
+        android:layout_alignStart="@+id/tenzim_dil_tv"
+        android:layout_marginTop="20dp" />
+
+
+
+
+
+</RelativeLayout>
