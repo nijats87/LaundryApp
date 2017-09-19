@@ -71,7 +71,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:inputType="text"
+                android:inputType="number"
                 android:textColor="#000000" />
 
         </LinearLayout>
@@ -107,29 +107,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:labelFor="@+id/yenisifarish_menteqe_et"
                 android:text="@string/yenisifarish_menteqe_tv"
+                android:labelFor="@+id/yenisifarish_menteqe_sp"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/yenisifarish_menteqe_et"
+            <Spinner
+                android:id="@+id/yenisifarish_menteqe_sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:inputType="text"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
@@ -138,23 +141,28 @@
                 android:text="@string/yenisifarish_sifarishnovu_tv"
                 android:textSize="18sp"
                 android:layout_weight="1"
-                android:labelFor="@+id/yenisifarish_sifarishnovu_et"
+                android:labelFor="@+id/yenisifarish_sifarishnovu_sp"
                 android:textColor="@android:color/black"
                 />
 
-            <EditText
-                android:id="@+id/yenisifarish_sifarishnovu_et"
+            <Spinner
+                android:id="@+id/yenisifarish_sifarishnovu_sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:inputType="text"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:id="@+id/icra_muddeti_ll">
+
 
             <TextView
                 android:layout_width="0dp"
@@ -162,17 +170,21 @@
                 android:text="@string/yenisifarish_icramuddeti_tv"
                 android:textSize="18sp"
                 android:layout_weight="1"
-                android:labelFor="@+id/yenisifarish_icramuddeti_et"
+                android:labelFor="@+id/yenisifarish_icramuddeti_sp"
                 android:textColor="@android:color/black"
                 />
 
-            <EditText
-                android:id="@+id/yenisifarish_icramuddeti_et"
+            <Spinner
+                android:id="@+id/yenisifarish_icramuddeti_sp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:inputType="text"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                />
+
+
         </LinearLayout>
 
          <LinearLayout
@@ -180,17 +192,17 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/yenisifarish_qeyd_tv"
-                android:textSize="18sp"
-                android:layout_weight="1"
-                android:labelFor="@+id/yenisifarish_qeyd_et"
-                android:textColor="@android:color/black"
-                />
+             <TextView
+                 android:id="@+id/textView"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="1"
+                 android:labelFor="@+id/yenisifarish_qeyd_et"
+                 android:text="@string/yenisifarish_qeyd_tv"
+                 android:textColor="@android:color/black"
+                 android:textSize="18sp" />
 
-            <EditText
+             <EditText
                 android:id="@+id/yenisifarish_qeyd_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -224,6 +236,7 @@
         android:layout_marginTop="45dp"
         android:src="@drawable/addphoto"
         tools:ignore="ContentDescription" />
+
 
 
 </RelativeLayout>
