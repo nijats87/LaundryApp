@@ -82,24 +82,6 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:labelFor="@+id/yenisifarish_achiqlama_et"
-                android:text="@string/yenisifarish_achiqlama_tv"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/yenisifarish_achiqlama_et"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:inputType="text"
-                android:textColor="#000000"
-                />
-
         </LinearLayout>
 
 
@@ -233,7 +215,6 @@
         android:layout_alignTop="@+id/yenisifarish_data_ll"
         android:layout_marginEnd="25dp"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="45dp"
         android:src="@drawable/addphoto"
         tools:ignore="ContentDescription" />
 

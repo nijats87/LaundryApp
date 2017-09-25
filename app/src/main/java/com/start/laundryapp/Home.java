@@ -33,6 +33,7 @@ public class Home extends AppCompatActivity {
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         String surname = intent.getStringExtra("surname");
+        String accessToken = intent.getStringExtra("accesToken");
 
         Typeface facile_font = Typeface.createFromAsset(getAssets(), "fonts/FacileSans.otf");
         nameSurname_tv.setTypeface(facile_font);

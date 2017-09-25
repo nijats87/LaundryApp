@@ -27,7 +27,6 @@
         <activity android:name=".YeniSifarish" />
         <activity android:name=".Personal_info" />
         <activity android:name=".Tenzimlemeler" />
-        <activity android:name=".Sifarish_novu"></activity>
     </application>
 
 </manifest>

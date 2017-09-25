@@ -30,11 +30,13 @@ import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.start.laundryapp.ServerAdress.server_URL;
+
 public class Qeydiyyat extends AppCompatActivity {
 
     EditText qeydiyyat_ad_et, qeydiyyat_soyad_et, qeydiyyat_email_et, qeydiyyat_telefon_et, qeydiyyat_shifre_et, qeydiyyat_unvan_et;
     Button qeydiyyat_btn;
-    String qeydiyyat_url = "http://138.201.157.254:8017/api/Account/Register";
+    String qeydiyyat_url = server_URL + "api/Account/Register";
     RequestQueue requestQueue;
     CheckBox qeydiyyat_checkbox;
 
@@ -62,18 +64,18 @@ public class Qeydiyyat extends AppCompatActivity {
         qeydiyyat_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    if (checkEditText(qeydiyyat_ad_et, "Ad"))
-                        return;
-                    if (checkEditText(qeydiyyat_soyad_et, "Soyad"))
-                        return;
-                    if (checkEditText(qeydiyyat_email_et, "Email"))
-                        return;
-                    if (checkEditText(qeydiyyat_telefon_et, "Telefon"))
-                        return;
-                    if (checkEditText(qeydiyyat_shifre_et, "Şifrə"))
-                        return;
-                    if (checkEditText(qeydiyyat_unvan_et, "Ünvan"))
-                        return;
+            if (checkEditText(qeydiyyat_ad_et, "Ad"))
+                return;
+            if (checkEditText(qeydiyyat_soyad_et, "Soyad"))
+                return;
+            if (checkEditText(qeydiyyat_email_et, "Email"))
+                return;
+            if (checkEditText(qeydiyyat_telefon_et, "Telefon"))
+                return;
+            if (checkEditText(qeydiyyat_shifre_et, "Şifrə"))
+                return;
+            if (checkEditText(qeydiyyat_unvan_et, "Ünvan"))
+                return;
 
 //                if (!qeydiyyat_checkbox.isChecked() || qeydiyyat_ad_et.getText().toString().matches("") || qeydiyyat_soyad_et.getText().toString().matches("") || qeydiyyat_email_et.getText().toString().matches("") ||
 //                        qeydiyyat_telefon_et.getText().toString().matches("") || qeydiyyat_shifre_et.getText().toString().matches("") || qeydiyyat_unvan_et.getText().toString().matches("")) {

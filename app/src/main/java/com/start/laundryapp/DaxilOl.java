@@ -39,6 +39,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.start.laundryapp.ServerAdress.server_URL;
+
 
 public class DaxilOl extends AppCompatActivity {
 
@@ -47,7 +49,7 @@ public class DaxilOl extends AppCompatActivity {
     Button daxilol_btn;
     ImageView facebook_login_img;
     RequestQueue requestQueue;
-    String daxilol_url = "http://138.201.157.254:8017/api/Account/Authenticate";
+    String daxilol_url = server_URL + "api/Account/Authenticate";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,11 +110,11 @@ public class DaxilOl extends AppCompatActivity {
                                     surname = (String) userData.get("surname");
                                     accessToken = result.getString("accessToken");
                                     SharedPreferences.Editor myPref = getSharedPreferences("accessToken", MODE_PRIVATE).edit();
-                                    myPref.putString("Authorization", "Bearer " + accessToken);
+                                    myPref.putString("Authorization", accessToken);
                                     myPref.apply();
                                 }
 
-                                Log.i("accessToken", String.valueOf(accessToken));
+                                Log.i("accessToken", accessToken);
 
                                 switch (loginResult) {
                                     case 1:
