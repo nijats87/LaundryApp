@@ -1,5 +1,6 @@
 package com.start.laundryapp;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -85,7 +86,8 @@ public class YeniSifarish extends AppCompatActivity {
         yenisifarish_addphoto_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("Button", "dasfsa");
+                Intent intent = new Intent(YeniSifarish.this, ClothesActivity.class);
+                startActivity(intent);
             }
         });
     }

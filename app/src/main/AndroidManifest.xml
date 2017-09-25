@@ -27,6 +27,7 @@
         <activity android:name=".YeniSifarish" />
         <activity android:name=".Personal_info" />
         <activity android:name=".Tenzimlemeler" />
+        <activity android:name=".ClothesActivity"></activity>
     </application>
 
 </manifest>
