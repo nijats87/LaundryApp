@@ -23,14 +23,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Haqqimizda"
+            android:name=".About"
             android:label="Haqqımızda" />
-        <activity android:name=".DaxilOl" />
-        <activity android:name=".Qeydiyyat" />
+        <activity android:name=".Login" />
+        <activity android:name=".Register" />
         <activity android:name=".Home" />
-        <activity android:name=".YeniSifarish" />
-        <activity android:name=".Personal_info" />
-        <activity android:name=".Tenzimlemeler" />
+        <activity android:name=".MakeOrder" />
+        <activity android:name=".PersonalInfo" />
+        <activity android:name=".Settings" />
         <activity android:name=".ClothesActivity"></activity>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"/>
     </application>

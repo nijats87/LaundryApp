@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.start.laundryapp.Personal_info"
+    tools:context="com.start.laundryapp.PersonalInfo"
     android:background="#e2e1e1">
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_centerHorizontal="true" />
 
     <ImageView
-        android:id="@+id/personal_info_icon"
+        android:id="@+id/personalinfo_icon"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/personblack"
@@ -39,39 +39,39 @@
         android:layout_marginStart="50dp"/>
 
     <TextView
-        android:id="@+id/personal_info_icon_tv"
+        android:id="@+id/personalinfo_icon_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/personal_info_tv"
+        android:text="@string/personalinfo_tv"
         android:textSize="25sp"
         android:textColor="@android:color/black"
-        android:layout_alignTop="@+id/personal_info_icon"
+        android:layout_alignTop="@+id/personalinfo_icon"
         android:layout_alignLeft="@+id/personalinfo_appname_tv"
         android:layout_alignStart="@+id/personalinfo_appname_tv"
         android:layout_marginTop="20dp" />
 
     <ImageView
-        android:id="@+id/personal_info_lock_icon"
+        android:id="@+id/personalinfo_lock_icon"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:src="@drawable/lockopen"
         tools:ignore="ContentDescription"
-        android:layout_below="@+id/personal_info_icon"
+        android:layout_below="@+id/personalinfo_icon"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="50dp"
         android:layout_marginStart="50dp"/>
 
     <TextView
-        android:id="@+id/personal_info_locker_tv"
+        android:id="@+id/personalinfo_locker_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/personal_info_locker_tv"
+        android:text="@string/personalinfo_locker_tv"
         android:textSize="25sp"
         android:textColor="@android:color/black"
-        android:layout_alignTop="@+id/personal_info_lock_icon"
-        android:layout_below="@+id/personal_info_icon_tv"
-        android:layout_alignLeft="@+id/personal_info_icon_tv"
-        android:layout_alignStart="@+id/personal_info_icon_tv"
+        android:layout_alignTop="@+id/personalinfo_lock_icon"
+        android:layout_below="@+id/personalinfo_icon_tv"
+        android:layout_alignLeft="@+id/personalinfo_icon_tv"
+        android:layout_alignStart="@+id/personalinfo_icon_tv"
         android:layout_marginTop="5dp" />
 
 </RelativeLayout>

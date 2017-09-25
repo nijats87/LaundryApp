@@ -31,62 +31,62 @@ import java.util.Map;
 
 import static com.start.laundryapp.ServerAdress.server_URL;
 
-public class YeniSifarish extends AppCompatActivity {
+public class MakeOrder extends AppCompatActivity {
 
-    EditText yenisifarish_paltarsayi, yenisifarish_qeyd;
-    Button sifarishver_btn;
-    ImageView yenisifarish_addphoto_btn;
+    EditText makeOrder_clothesCount_et, makeOrder_note_et;
+    Button makeOrder_btn;
+    ImageView makeOrder_addPhoto_btn;
     RequestQueue requestQueue;
-    Spinner yenisifarish_menteqe_sp, yenisifarish_sifarishnovu_sp, yenisifarish_icramuddeti_sp;
-    public String sifarishVer_url = server_URL + "api/services/app/order/create";
-    public String icraNovleri_url = server_URL + "api/services/app/orderExecutionType/all";
-    public String sifarishNovu_url = server_URL + "api/services/app/orderType/all";
-    public String menteqeNovu_url = server_URL + "api/services/app/terminalPoint/all";
-    private List<String> icraNovleri;
-    private List<String> sifarishNovleri;
-    private List<String> menteqeNovleri;
-    private ArrayAdapter<String> icraNovleriAdapter;
-    private ArrayAdapter<String> sifarishNovleriAdapter;
-    private ArrayAdapter<String> menteqeNovleriAdapter;
+    Spinner makeOrder_terminalPoint_sp, makeOrder_orderType_sp, makeOrder_executionType_sp;
+    public String MAKE_ORDER_URL = server_URL + "api/services/app/order/create";
+    public String EXECUTON_TYPES_URL = server_URL + "api/services/app/orderExecutionType/all";
+    public String ORDER_TYPES_URL = server_URL + "api/services/app/orderType/all";
+    public String TERMINAL_POINTS_URL = server_URL + "api/services/app/terminalPoint/all";
+    private List<String> executionTypes;
+    private List<String> orderTypes;
+    private List<String> terminalPoints;
+    private ArrayAdapter<String> executionTypesAdapter;
+    private ArrayAdapter<String> orderTypesAdapter;
+    private ArrayAdapter<String> terminalPointsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_yeni_sifarish);
+        setContentView(R.layout.activity_make_order);
 
-        yenisifarish_paltarsayi = (EditText) findViewById(R.id.yenisifarish_paltarsayi_et);
-        yenisifarish_menteqe_sp = (Spinner) findViewById(R.id.yenisifarish_menteqe_sp);
-        yenisifarish_sifarishnovu_sp = (Spinner) findViewById(R.id.yenisifarish_sifarishnovu_sp);
-        yenisifarish_qeyd = (EditText) findViewById(R.id.yenisifarish_qeyd_et);
-        yenisifarish_icramuddeti_sp = (Spinner) findViewById(R.id.yenisifarish_icramuddeti_sp);
-        sifarishver_btn = (Button) findViewById(R.id.sifarishver_btn);
-        yenisifarish_addphoto_btn = (ImageView) findViewById(R.id.yenisifarish_addphoto_btn);
+        makeOrder_clothesCount_et = (EditText) findViewById(R.id.makeOrder_clothesCount_et);
+        makeOrder_terminalPoint_sp = (Spinner) findViewById(R.id.makeOrder_terminalPoint_sp);
+        makeOrder_orderType_sp = (Spinner) findViewById(R.id.makeOrder_orderType_sp);
+        makeOrder_note_et = (EditText) findViewById(R.id.makeOrder_note_et);
+        makeOrder_executionType_sp = (Spinner) findViewById(R.id.makeOrder_executionType_sp);
+        makeOrder_btn = (Button) findViewById(R.id.makeOrder_btn);
+        makeOrder_addPhoto_btn = (ImageView) findViewById(R.id.makeOrder_addPhoto_btn);
 
-        icraNovleri = new ArrayList<>();
-        sifarishNovleri = new ArrayList<>();
-        menteqeNovleri = new ArrayList<>();
+        executionTypes = new ArrayList<>();
+        orderTypes = new ArrayList<>();
+        terminalPoints= new ArrayList<>();
 
-        icraNovleriAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, icraNovleri);
-        icraNovleriAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        yenisifarish_icramuddeti_sp.setAdapter(icraNovleriAdapter);
+        executionTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, executionTypes);
+        executionTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        makeOrder_executionType_sp.setAdapter(executionTypesAdapter);
 
-        sifarishNovleriAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sifarishNovleri);
-        sifarishNovleriAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        yenisifarish_sifarishnovu_sp.setAdapter(sifarishNovleriAdapter);
+        orderTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, orderTypes);
+        orderTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        makeOrder_orderType_sp.setAdapter(orderTypesAdapter);
 
-        menteqeNovleriAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, menteqeNovleri);
-        menteqeNovleriAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        yenisifarish_menteqe_sp.setAdapter(menteqeNovleriAdapter);
+        terminalPointsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, terminalPoints);
+        terminalPointsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        makeOrder_terminalPoint_sp.setAdapter(terminalPointsAdapter);
 
         getOrderTypesData();
         getExecutionTypesData();
         getTerminalPointsData();
 
 
-        yenisifarish_addphoto_btn.setOnClickListener(new View.OnClickListener() {
+        makeOrder_addPhoto_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(YeniSifarish.this, ClothesActivity.class);
+                Intent intent = new Intent(MakeOrder.this, ClothesActivity.class);
                 startActivity(intent);
             }
         });
@@ -96,7 +96,7 @@ public class YeniSifarish extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, icraNovleri_url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, EXECUTON_TYPES_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -114,9 +114,9 @@ public class YeniSifarish extends AppCompatActivity {
                         String nameRu = item.getString("nameRu");
                         String id = item.getString("id");
 
-                        icraNovleri.add(nameAz);
+                        executionTypes.add(nameAz);
                     }
-                    icraNovleriAdapter.notifyDataSetChanged();
+                    executionTypesAdapter.notifyDataSetChanged();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -138,7 +138,7 @@ public class YeniSifarish extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, sifarishNovu_url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, ORDER_TYPES_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -149,16 +149,16 @@ public class YeniSifarish extends AppCompatActivity {
                     JSONObject result = jsonObject.getJSONObject("result");
                     JSONArray items = result.getJSONArray("items");
 
-                    for (int i=0; i< items.length(); i++){
+                    for (int i = 0; i < items.length(); i++) {
                         JSONObject item = items.getJSONObject(i);
                         String name = item.getString("name");
                         String nameAz = item.getString("nameAz");
                         String nameRu = item.getString("nameRu");
                         String id = item.getString("id");
 
-                        sifarishNovleri.add(nameAz);
+                        orderTypes.add(nameAz);
                     }
-                    sifarishNovleriAdapter.notifyDataSetChanged();
+                    orderTypesAdapter.notifyDataSetChanged();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -193,7 +193,7 @@ public class YeniSifarish extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, menteqeNovu_url, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, TERMINAL_POINTS_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -204,7 +204,7 @@ public class YeniSifarish extends AppCompatActivity {
                     JSONObject result = jsonObject.getJSONObject("result");
                     JSONArray items = result.getJSONArray("items");
 
-                    for (int i=0; i< items.length(); i++){
+                    for (int i = 0; i < items.length(); i++) {
                         JSONObject item = items.getJSONObject(i);
                         String name = item.getString("name");
                         String nameAz = item.getString("nameAz");
@@ -213,9 +213,9 @@ public class YeniSifarish extends AppCompatActivity {
                         int longitude = item.getInt("longitude");
                         int latitude = item.getInt("latitude");
 
-                        menteqeNovleri.add(name);
+                        terminalPoints.add(name);
                     }
-                    menteqeNovleriAdapter.notifyDataSetChanged();
+                    terminalPointsAdapter.notifyDataSetChanged();
 
                 } catch (JSONException e) {
                     e.printStackTrace();

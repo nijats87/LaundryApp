@@ -1,12 +1,11 @@
 <resources>
     <string name="app_name">LaundryApp</string>
     <string name="appTitle">LaundryApp</string>
-    <string name="main_DaxilOl_tv">Daxil ol</string>
-    <string name="main_Qeydiyyat_tv">Qeydiyyat</string>
-    <string name="main_Haqqimizda_tv">Haqqimizda</string>
-    <string name="main_Cixish_tv">Çixis</string>
-    <string name="app_Haqqinda_title">LaundryApp haqqında</string>
-    <string name="app_Haqqinda_text">LaundryApp insanların vaxtına və büdcəsinə qənaət edərək şəxsi geyim əşyalarının
+    <string name="main_Login_tv">Daxil ol</string>
+    <string name="main_Register_tv">Qeydiyyat</string>
+    <string name="main_About_tv">Haqqimizda</string>
+    <string name="app_About_title">LaundryApp haqqında</string>
+    <string name="app_About_text">LaundryApp insanların vaxtına və büdcəsinə qənaət edərək şəxsi geyim əşyalarının
         quru və kimyəvi təmizlənməsinə yardım edən mobil proqram təminatıdır. Siz bu mobil tətbiq vasitəsilə sifarişi
         yaradaraq geyimlərinizi təmizlənməsi üçün şəhərin müxtəlif nöqtələrində yerləşdirilən avtomatlaşdırılmış seyflərə
         yerləşdirirsiniz. Seçdiyiniz təmizlənmə növünə görə geyimləriniz son dərəcə müasir üsullarla təmizlənir.
@@ -14,43 +13,42 @@
         LaundryApp mobil tətbiqi vasitəsilə məlumat alırsınız. LaundryApp sizin şəxsi əşyalarınızın təhlükəsizliyini qorumaq
         üçün maksimum müdafiə üsullarından istifadə edir.
     </string>
-    <string name="qeydiyyat_title">Qeydiyyat</string>
-    <string name="qeydiyyat_ad_tv">*Ad:</string>
-    <string name="qeydiyyat_soyad_tv">*Soyad:</string>
-    <string name="qeydiyyat_email_tv">*E-mail:</string>
-    <string name="qeydiyyat_telefon_tv">*Telefon:</string>
-    <string name="qeydiyyat_unvan_tv">*Ünvan:</string>
-    <string name="qeydiyyat_shifre_tv">*Şifrə:</string>
-    <string name="qeydiyyat_pinkod_tv">*Pin kod:</string>
-    <string name="qeydiyyat_btn_text">Qeydiyyat</string>
-    <string name="qeydiyyat_checkbox_text">Qaydalarla tanış oldum və qəbul edirəm.</string>
-    <string name="daxilol_title">Login</string>
-    <string name="daxilol_emailtelefon_tv">E-mail və ya telefon:</string>
-    <string name="daxilol_shifre_tv">Şifrə:</string>
-    <string name="daxilol_unudulmushShifre_tv"><u>Şifrəni unutmusan?</u></string>
-    <string name="home_yeni_sifarish_tv">Yeni sifariş</string>
-    <string name="home_sifarishler_tv">Sifarişlər</string>
-    <string name="home_sifarish_izle_tv">Sifariş izlə</string>
-    <string name="home_odenish_tv">Ödəniş</string>
+    <string name="register_title">Qeydiyyat</string>
+    <string name="register_name_tv">*Ad:</string>
+    <string name="register_surname_tv">*Soyad:</string>
+    <string name="register_email_tv">*E-mail:</string>
+    <string name="register_phone_tv">*Telefon:</string>
+    <string name="register_address_tv">*Ünvan:</string>
+    <string name="register_password_tv">*Şifrə:</string>
+    <string name="register_pin_tv">*Pin kod:</string>
+    <string name="register_btn_text">Qeydiyyat</string>
+    <string name="register_checkbox_text">Qaydalarla tanış oldum və qəbul edirəm.</string>
+    <string name="login_title">Daxil ol</string>
+    <string name="login_emailPhone_tv">E-mail və ya telefon:</string>
+    <string name="login_password_tv">Şifrə:</string>
+    <string name="login_forgetpassword_tv"><u>Şifrəni unutmusan?</u></string>
+    <string name="home_neworder_tv">Yeni sifariş</string>
+    <string name="home_orders_tv">Sifarişlər</string>
+    <string name="home_checkorder_tv">Sifariş izlə</string>
+    <string name="home_payment_tv">Ödəniş</string>
     <string name="home_personalinfo_tv">Şəxsi məlumatlar</string>
     <string name="home_feedback_tv">Şikayət və təklif</string>
-    <string name="home_ayarlar_tv">Tənzimləmələr</string>
-    <string name="home_chixish_tv">Çıxış</string>
-    <string name="yenisifarish_title">Yeni sifariş</string>
-    <string name="yenisifarish_paltarsayi_tv">Paltar sayı</string>
-    <string name="yenisifarish_achiqlama_tv">Açıqlama</string>
-    <string name="yenisifarish_menteqe_tv">Məntəqə</string>
-    <string name="yenisifarish_sifarishnovu_tv">Sifariş növü</string>
-    <string name="yenisifarish_icramuddeti_tv">İcra müddəti</string>
-    <string name="yenisifarish_qeyd_tv">Qeyd</string>
-    <string name="yenisifarish_btn_text">Sifariş ver</string>
-    <string name="ad_soyad_tv">Ad Soyad</string>
-    <string name="personal_info_tv">Məlumatları dəyiş</string>
-    <string name="personal_info_locker_tv">Şifrəni və Pin kodu dəyiş</string>
-    <string name="tenzim_bildirish_tv">Bildiriş</string>
-    <string name="tenzim_dilideyish">Dili dəyiş</string>
-    <string name="tenzim_haqqimizda_tv">Haqqımızda</string>
-    <string name="Daxil_ol_btn_txt">Daxil ol</string>
+    <string name="home_settings_tv">Tənzimləmələr</string>
+    <string name="home_exit_tv">Çıxış</string>
+    <string name="makeorder_title_tv">Yeni sifariş</string>
+    <string name="makeOrder_clothesCount_et">Paltar sayı</string>
+    <string name="makeOrder_terminalPoint_tv">Məntəqə</string>
+    <string name="makeOrder_orderType_tv">Sifariş növü</string>
+    <string name="makeOrder_executionType_tv">İcra müddəti</string>
+    <string name="makeOrder_note_tv">Qeyd</string>
+    <string name="makeOrder_btn_text">Sifariş ver</string>
+    <string name="makeOrder_nameSurname_tv">Ad Soyad</string>
+    <string name="personalinfo_tv">Məlumatları dəyiş</string>
+    <string name="personalinfo_locker_tv">Şifrəni və Pin kodu dəyiş</string>
+    <string name="settings_notifications_tv">Bildiriş</string>
+    <string name="settings_language_tv">Dili dəyiş</string>
+    <string name="settings_about_tv">Haqqımızda</string>
+    <string name="login_btn_txt">Daxil ol</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

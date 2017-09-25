@@ -3,7 +3,7 @@ package com.start.laundryapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Personal_info extends AppCompatActivity {
+public class PersonalInfo extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,9 +2,7 @@ package com.start.laundryapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,63 +25,58 @@ import com.android.volley.toolbox.Volley;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import static com.start.laundryapp.ServerAdress.server_URL;
 
 
-public class DaxilOl extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
-    EditText daxilol_emailtelefon_et, daxilol_shifre_et;
-    TextView daxilol_unudulmushShifre_tv;
-    Button daxilol_btn;
+    EditText login_emailPhone_et, login_password_et;
+    TextView login_forgetPassword_tv;
+    Button login_btn;
     ImageView facebook_login_img;
     RequestQueue requestQueue;
-    String daxilol_url = server_URL + "api/Account/Authenticate";
+    String login_url = server_URL + "api/Account/Authenticate";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_daxil_ol);
+        setContentView(R.layout.activity_login);
 
 
-        daxilol_emailtelefon_et = (EditText) findViewById(R.id.daxilol_emailtelefon_et);
+        login_emailPhone_et = (EditText) findViewById(R.id.login_emailPhone_et);
 
-        daxilol_shifre_et = (EditText) findViewById(R.id.daxilol_shifre_et);
+        login_password_et = (EditText) findViewById(R.id.login_password_et);
 
 
-        daxilol_unudulmushShifre_tv = (TextView) findViewById(R.id.daxilol_unudulmushShifre_tv);
-        daxilol_btn = (Button) findViewById(R.id.daxilol_btn);
+        login_forgetPassword_tv = (TextView) findViewById(R.id.login_forgetPassword_tv);
+        login_btn = (Button) findViewById(R.id.login_btn);
         facebook_login_img = (ImageView) findViewById(R.id.facebook_login_img);
 
         requestQueue = Volley.newRequestQueue(this);
 
-        daxilol_btn.setOnClickListener(new View.OnClickListener() {
+        login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (daxilol_emailtelefon_et.getText().toString().matches("")) {
+                if (login_emailPhone_et.getText().toString().matches("")) {
                     YoYo.with(Techniques.Shake)
                             .duration(600)
                             .repeat(1)
-                            .playOn(daxilol_emailtelefon_et);
+                            .playOn(login_emailPhone_et);
                     return;
                 }
-                if (daxilol_shifre_et.getText().toString().matches("")) {
+                if (login_password_et.getText().toString().matches("")) {
                     YoYo.with(Techniques.Shake)
                             .duration(600)
                             .repeat(1)
-                            .playOn(daxilol_shifre_et);
+                            .playOn(login_password_et);
                 } else {
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, daxilol_url, new Response.Listener<String>() {
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, login_url, new Response.Listener<String>() {
                         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                         @Override
                         public void onResponse(String response) {
@@ -118,40 +110,40 @@ public class DaxilOl extends AppCompatActivity {
 
                                 switch (loginResult) {
                                     case 1:
-                                        Intent intent = new Intent(DaxilOl.this, Home.class);
+                                        Intent intent = new Intent(Login.this, Home.class);
                                         intent.putExtra("name", name);
                                         intent.putExtra("surname", surname);
                                         startActivity(intent);
                                         break;
                                     case 2:
-                                        Toast.makeText(DaxilOl.this, "InvalidEmailAddressOrPhoneNumber", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "InvalidEmailAddressOrPhoneNumber", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 3:
-                                        Toast.makeText(DaxilOl.this, "InvalidPassword", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "InvalidPassword", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 4:
-                                        Toast.makeText(DaxilOl.this, "UserIsNotActive", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "UserIsNotActive", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 5:
-                                        Toast.makeText(DaxilOl.this, "InvalidTenancyName", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "InvalidTenancyName", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 6:
-                                        Toast.makeText(DaxilOl.this, "TenantIsNotActive", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "TenantIsNotActive", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 7:
-                                        Toast.makeText(DaxilOl.this, "UserEmailIsNotConfirmed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "UserEmailIsNotConfirmed", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 8:
-                                        Toast.makeText(DaxilOl.this, "UnknownExternalLogin", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "UnknownExternalLogin", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 9:
-                                        Toast.makeText(DaxilOl.this, "LockedOut", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "LockedOut", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 10:
-                                        Toast.makeText(DaxilOl.this, "UserPhoneNumberIsNotConfirmed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "UserPhoneNumberIsNotConfirmed", Toast.LENGTH_SHORT).show();
                                         break;
                                     default:
-                                        Toast.makeText(DaxilOl.this, "UnknownError", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Login.this, "UnknownError", Toast.LENGTH_SHORT).show();
                                         break;
                                 }
 
@@ -169,8 +161,8 @@ public class DaxilOl extends AppCompatActivity {
                         @Override
                         protected Map<String, String> getParams() throws AuthFailureError {
                             Map<String, String> params = new HashMap<>();
-                            params.put("emailAddressOrPhoneNumber", daxilol_emailtelefon_et.getText().toString());
-                            params.put("password", daxilol_shifre_et.getText().toString());
+                            params.put("emailAddressOrPhoneNumber", login_emailPhone_et.getText().toString());
+                            params.put("password", login_password_et.getText().toString());
                             return params;
                         }
                     };

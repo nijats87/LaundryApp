@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e2e1e1"
-    tools:context="com.start.laundryapp.Qeydiyyat">
+    tools:context="com.start.laundryapp.Register">
 
     <TextView
         android:id="@+id/main_AppName_tv"
@@ -27,10 +27,10 @@
         android:layout_below="@+id/main_AppName_tv"
         android:layout_centerHorizontal="true" />
     <TextView
-        android:id="@+id/qeydiyyat_title"
+        android:id="@+id/register_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/qeydiyyat_title"
+        android:text="@string/register_title"
         android:layout_below="@+id/main_AppLogo"
         android:layout_centerHorizontal="true"
         android:textSize="30sp"
@@ -40,13 +40,13 @@
         />
 
     <LinearLayout
-        android:id="@+id/qeydiyyat_data_ll"
+        android:id="@+id/register_data_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_below="@+id/qeydiyyat_title"
+        android:layout_below="@+id/register_title"
         android:layout_centerHorizontal="true">
 
         <LinearLayout
@@ -57,15 +57,15 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/qeydiyyat_ad_tv"
+                android:text="@string/register_name_tv"
                 android:textSize="18sp"
                 android:layout_weight="1"
-                android:labelFor="@+id/qeydiyyat_ad_et"
+                android:labelFor="@+id/register_name_et"
                 android:textColor="@android:color/black"
                 />
 
             <EditText
-                android:id="@+id/qeydiyyat_ad_et"
+                android:id="@+id/register_name_et"
                 style="@style/Widget.AppCompat.AutoCompleteTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -85,12 +85,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:labelFor="@+id/qeydiyyat_soyad_et"
-                android:text="@string/qeydiyyat_soyad_tv"
+                android:text="@string/register_surname_tv"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/qeydiyyat_soyad_et"
+                android:id="@+id/register_surname_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -107,13 +107,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:labelFor="@+id/qeydiyyat_email_et"
-                android:text="@string/qeydiyyat_email_tv"
+                android:labelFor="@+id/register_email_et"
+                android:text="@string/register_email_tv"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/qeydiyyat_email_et"
+                android:id="@+id/register_email_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -129,15 +129,15 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/qeydiyyat_telefon_tv"
+                android:text="@string/register_phone_tv"
                 android:textSize="18sp"
                 android:layout_weight="1"
-                android:labelFor="@+id/qeydiyyat_telefon_et"
+                android:labelFor="@+id/register_phone_et"
                 android:textColor="@android:color/black"
                 />
 
             <EditText
-                android:id="@+id/qeydiyyat_telefon_et"
+                android:id="@+id/register_phone_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -153,15 +153,15 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/qeydiyyat_shifre_tv"
+                android:text="@string/register_password_tv"
                 android:textSize="18sp"
                 android:layout_weight="1"
-                android:labelFor="@+id/qeydiyyat_shifre_et"
+                android:labelFor="@+id/register_password_et"
                 android:textColor="@android:color/black"
                 />
 
             <EditText
-                android:id="@+id/qeydiyyat_shifre_et"
+                android:id="@+id/register_password_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -177,15 +177,15 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/qeydiyyat_unvan_tv"
+                android:text="@string/register_address_tv"
                 android:textSize="18sp"
                 android:layout_weight="1"
-                android:labelFor="@+id/qeydiyyat_unvan_et"
+                android:labelFor="@+id/register_address_et"
                 android:textColor="@android:color/black"
                 />
 
             <EditText
-                android:id="@+id/qeydiyyat_unvan_et"
+                android:id="@+id/register_address_et"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -196,23 +196,23 @@
     </LinearLayout>
 
     <CheckBox
-        android:id="@+id/qeydiyyat_checkbox"
+        android:id="@+id/register_checkbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:checked="false"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:text="@string/qeydiyyat_checkbox_text"
-        android:layout_below="@id/qeydiyyat_data_ll"/>
+        android:text="@string/register_checkbox_text"
+        android:layout_below="@id/register_data_ll"/>
 
     <Button
-        android:id="@+id/qeydiyyat_btn"
+        android:id="@+id/register_btn"
         style="@android:style/Widget.Button.Inset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/qeydiyyat_checkbox"
+        android:layout_below="@id/register_checkbox"
         android:layout_centerHorizontal="true"
-        android:text="@string/qeydiyyat_btn_text"
+        android:text="@string/register_btn_text"
         android:textColor="@android:color/black" />
 
 

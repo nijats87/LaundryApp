@@ -2,7 +2,6 @@ package com.start.laundryapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,60 +20,57 @@ import com.android.volley.toolbox.Volley;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.ref.ReferenceQueue;
-import java.lang.reflect.Array;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.start.laundryapp.ServerAdress.server_URL;
 
-public class Qeydiyyat extends AppCompatActivity {
+public class Register extends AppCompatActivity {
 
-    EditText qeydiyyat_ad_et, qeydiyyat_soyad_et, qeydiyyat_email_et, qeydiyyat_telefon_et, qeydiyyat_shifre_et, qeydiyyat_unvan_et;
-    Button qeydiyyat_btn;
-    String qeydiyyat_url = server_URL + "api/Account/Register";
+    EditText register_name_et, register_surname_et, register_email_et, register_phone_et, register_password_et, register_address_et;
+    Button register_btn;
+    String regsiter_url = server_URL + "api/Account/Register";
     RequestQueue requestQueue;
-    CheckBox qeydiyyat_checkbox;
+    CheckBox register_checkbox;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_qeydiyyat);
+        setContentView(R.layout.activity_register);
 
-        qeydiyyat_ad_et = (EditText) findViewById(R.id.qeydiyyat_ad_et);
-        qeydiyyat_soyad_et = (EditText) findViewById(R.id.qeydiyyat_soyad_et);
-        qeydiyyat_email_et = (EditText) findViewById(R.id.qeydiyyat_email_et);
-        qeydiyyat_telefon_et = (EditText) findViewById(R.id.qeydiyyat_telefon_et);
-        qeydiyyat_shifre_et = (EditText) findViewById(R.id.qeydiyyat_shifre_et);
-        qeydiyyat_unvan_et = (EditText) findViewById(R.id.qeydiyyat_unvan_et);
-        qeydiyyat_checkbox = (CheckBox) findViewById(R.id.qeydiyyat_checkbox);
+        register_name_et = (EditText) findViewById(R.id.register_name_et);
+        register_surname_et = (EditText) findViewById(R.id.register_surname_et);
+        register_email_et = (EditText) findViewById(R.id.register_email_et);
+        register_phone_et = (EditText) findViewById(R.id.register_phone_et);
+        register_password_et = (EditText) findViewById(R.id.register_password_et);
+        register_address_et = (EditText) findViewById(R.id.register_address_et);
+        register_checkbox = (CheckBox) findViewById(R.id.register_checkbox);
 
-        final String shifre = qeydiyyat_shifre_et.getText().toString();
+        final String shifre = register_password_et.getText().toString();
 
-        qeydiyyat_btn = (Button) findViewById(R.id.qeydiyyat_btn);
+        register_btn = (Button) findViewById(R.id.register_btn);
 
         requestQueue = Volley.newRequestQueue(this);
 
 
-        qeydiyyat_btn.setOnClickListener(new View.OnClickListener() {
+        register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            if (checkEditText(qeydiyyat_ad_et, "Ad"))
+            if (checkEditText(register_name_et, "Ad"))
                 return;
-            if (checkEditText(qeydiyyat_soyad_et, "Soyad"))
+            if (checkEditText(register_surname_et, "Soyad"))
                 return;
-            if (checkEditText(qeydiyyat_email_et, "Email"))
+            if (checkEditText(register_email_et, "Email"))
                 return;
-            if (checkEditText(qeydiyyat_telefon_et, "Telefon"))
+            if (checkEditText(register_phone_et, "Telefon"))
                 return;
-            if (checkEditText(qeydiyyat_shifre_et, "Şifrə"))
+            if (checkEditText(register_password_et, "Şifrə"))
                 return;
-            if (checkEditText(qeydiyyat_unvan_et, "Ünvan"))
+            if (checkEditText(register_address_et, "Ünvan"))
                 return;
 
 //                if (!qeydiyyat_checkbox.isChecked() || qeydiyyat_ad_et.getText().toString().matches("") || qeydiyyat_soyad_et.getText().toString().matches("") || qeydiyyat_email_et.getText().toString().matches("") ||
@@ -84,15 +80,15 @@ public class Qeydiyyat extends AppCompatActivity {
 //                            .repeat(1)
 //                            .playOn(qeydiyyat_btn);
 //                } else if (shifre.length() < 4) {
-//                    Toast.makeText(Qeydiyyat.this, "Şifrə 3 simvoldan az ola bilməz", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Register.this, "Şifrə 3 simvoldan az ola bilməz", Toast.LENGTH_SHORT).show();
                  else {
-                        if( !qeydiyyat_checkbox.isChecked())
+                        if( !register_checkbox.isChecked())
                             YoYo.with(Techniques.Shake)
                             .duration(600)
                             .repeat(1)
-                            .playOn(qeydiyyat_checkbox);
+                            .playOn(register_checkbox);
                         else{
-                            StringRequest stringRequest = new StringRequest(Request.Method.POST, qeydiyyat_url, new Response.Listener<String>() {
+                            StringRequest stringRequest = new StringRequest(Request.Method.POST, regsiter_url, new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
                                     try {
@@ -104,25 +100,25 @@ public class Qeydiyyat extends AppCompatActivity {
 
                                         switch (registerResult) {
                                             case 1:
-                                                Toast.makeText(Qeydiyyat.this, "Qeydiyyat uğurla tamamlandı.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Register.this, "Register uğurla tamamlandı.", Toast.LENGTH_SHORT).show();
                                                 break;
                                             case 2:
-                                                Toast.makeText(Qeydiyyat.this, "E-mail düzgün formatda deyil", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Register.this, "E-mail düzgün formatda deyil", Toast.LENGTH_SHORT).show();
                                                 break;
                                             case 3:
-                                                Toast.makeText(Qeydiyyat.this, "Telefon nömrəsi düzgün formatda deyil", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Register.this, "Telefon nömrəsi düzgün formatda deyil", Toast.LENGTH_SHORT).show();
                                                 break;
                                             case 4:
-                                                Toast.makeText(Qeydiyyat.this, "Şifrə düzgün deyil", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Register.this, "Şifrə düzgün deyil", Toast.LENGTH_SHORT).show();
                                                 break;
                                             case 5:
-                                                Toast.makeText(Qeydiyyat.this, "Bu e-mail artıq mövcuddur", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Register.this, "Bu e-mail artıq mövcuddur", Toast.LENGTH_SHORT).show();
                                                 break;
                                             case 6:
-                                                Toast.makeText(Qeydiyyat.this, "Bu telefon nömrəsi artıq mövcuddur", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Register.this, "Bu telefon nömrəsi artıq mövcuddur", Toast.LENGTH_SHORT).show();
                                                 break;
                                             default:
-                                                Toast.makeText(Qeydiyyat.this, "Zəhmət olmasa məlumatları düzgün daxil edin", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Register.this, "Zəhmət olmasa məlumatları düzgün daxil edin", Toast.LENGTH_SHORT).show();
                                                 break;
                                         }
 
@@ -139,12 +135,12 @@ public class Qeydiyyat extends AppCompatActivity {
                                 @Override
                                 protected Map<String, String> getParams() throws AuthFailureError {
                                     Map<String, String> params = new HashMap<>();
-                                    params.put("name", qeydiyyat_ad_et.getText().toString());
-                                    params.put("surname", qeydiyyat_soyad_et.getText().toString());
-                                    params.put("emailAddress", qeydiyyat_email_et.getText().toString());
-                                    params.put("phoneNumber", qeydiyyat_telefon_et.getText().toString());
-                                    params.put("password", qeydiyyat_shifre_et.getText().toString());
-                                    params.put("homeAddress", qeydiyyat_unvan_et.getText().toString());
+                                    params.put("name", register_name_et.getText().toString());
+                                    params.put("surname", register_surname_et.getText().toString());
+                                    params.put("emailAddress", register_email_et.getText().toString());
+                                    params.put("phoneNumber", register_phone_et.getText().toString());
+                                    params.put("password", register_password_et.getText().toString());
+                                    params.put("homeAddress", register_address_et.getText().toString());
                                     return params;
                                 }
                             };
