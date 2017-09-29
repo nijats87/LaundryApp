@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_add_photo"
-        android:icon="@drawable/addphoto"
+        android:icon="@drawable/addphotowhite"
         android:title="Add photo"
         app:showAsAction="always" />
 </menu>

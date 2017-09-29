@@ -10,7 +10,6 @@ public class ExecutionTypeModel {
     private String nameRu;
     private Integer ordinal;
     private Integer id;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public String getName() {
         return name;
@@ -36,20 +35,20 @@ public class ExecutionTypeModel {
         this.nameRu = nameRu;
     }
 
+    public Integer getOrdinal() {
+        return ordinal;
+    }
+
+    public void setOrdinal(Integer ordinal) {
+        this.ordinal = ordinal;
+    }
+
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }

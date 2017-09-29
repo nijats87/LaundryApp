@@ -17,12 +17,25 @@ import android.widget.ImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.util.ArrayList;
+
 public class ClothesActivity extends AppCompatActivity {
+
+
+    private ArrayList<String> clothesNames;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clothes);
+
+
+       clothesNames = getIntent().getStringArrayListExtra("clothesNames");
+
+        System.out.println(clothesNames);;
+
+
     }
 
     @Override
@@ -57,9 +70,17 @@ public class ClothesActivity extends AppCompatActivity {
                 Uri resultUri = result.getUri();
                 ((ImageView) findViewById(R.id.myImageView)).setImageURI(resultUri);
 
+                Intent intent = new Intent(ClothesActivity.this, ClothesType.class);
+                intent.putExtra("croppedImgURI", resultUri.toString());
+                intent.putStringArrayListExtra("clothesNames", clothesNames);
+                startActivity(intent);
+
+
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
         }
+
     }
+
 }

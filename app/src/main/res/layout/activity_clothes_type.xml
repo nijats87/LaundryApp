@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.start.laundryapp.ClothesType"
+    android:background="#e2e1e1">
+
+    <ImageView
+            android:id="@+id/croppedImage"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/addphoto"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+    <Spinner
+        android:id="@+id/clothesTypesSpinner"
+        android:layout_width="250dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="45dp"
+        android:layout_below="@+id/croppedImage"
+        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+        >
+    </Spinner>
+
+    <EditText
+        android:id="@+id/notes_et"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_below="@id/clothesTypesSpinner"
+        android:layout_alignStart="@id/clothesTypesSpinner"
+        android:layout_alignLeft="@id/clothesTypesSpinner"
+        android:hint="Add notes"/>
+
+    <Button
+        android:id="@+id/cancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Cancel"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@id/notes_et"
+        />
+
+    <Button
+        android:id="@+id/doneBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@+id/cancelBtn"
+        android:layout_marginRight="50dp"
+        />
+
+</RelativeLayout>
