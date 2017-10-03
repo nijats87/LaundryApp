@@ -8,10 +8,20 @@
     tools:context="com.start.laundryapp.ClothesActivity"
     android:background="#e2e1e1">
 
-    <ImageView
-        android:id="@+id/myImageView"
+
+    <LinearLayout
+        android:id="@+id/rw_ll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            >
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
 
 </RelativeLayout>

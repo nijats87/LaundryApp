@@ -33,7 +33,7 @@
         <activity android:name=".Settings" />
         <activity android:name=".ClothesActivity" />
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
-        <activity android:name=".ClothesType"></activity>
+        <activity android:name=".EditClothesActivity"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.ArrayMap;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.start.laundryapp.models.ClothesModel;
 import com.start.laundryapp.models.ClothesTypeModel;
 
 import org.json.JSONArray;
@@ -31,7 +34,7 @@ import java.util.Map;
 
 import static com.start.laundryapp.ServerAdress.server_URL;
 
-public class ClothesType extends AppCompatActivity {
+public class EditClothesActivity extends AppCompatActivity {
 
     ImageView croppedImage;
     Spinner clothesTypesSpinner;
@@ -43,11 +46,14 @@ public class ClothesType extends AppCompatActivity {
     private ArrayAdapter<String> clothesTypesAdapter;
     private List<String> clothesTypeAz;
 
+    ClothesModel clothesModel = new ClothesModel();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clothes_type);
 
+        getClothesTypesData();
         croppedImage = (ImageView) findViewById(R.id.croppedImage);
         clothesTypesSpinner = (Spinner) findViewById(R.id.clothesTypesSpinner);
         notes_et = (EditText) findViewById(R.id.notes_et);
@@ -58,17 +64,36 @@ public class ClothesType extends AppCompatActivity {
         clothesTypeAz = new ArrayList<>();
 
         Intent intent = getIntent();
-        String imgURI = intent.getStringExtra("croppedImgURI");
-        Uri crpImgURI = Uri.parse(imgURI);
-        croppedImage.setImageURI(crpImgURI);
+        clothesModel.imageUri = intent.getStringExtra("croppedImgURI");
+        croppedImage.setImageURI(Uri.parse(clothesModel.imageUri));
 
-        clothesTypesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, clothesTypeAz);
+        clothesTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, clothesTypeAz);
         clothesTypesAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         clothesTypesSpinner.setAdapter(clothesTypesAdapter);
 
-        System.out.println(clothesNames);
-        getClothesTypesData();
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent data = new Intent();
+                setResult(RESULT_CANCELED, data);
+                finish();
+            }
+        });
 
+        doneBtn.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                //TODO: validate
+                clothesModel.clothTypeId = clothesNames.get(clothesTypesSpinner.getSelectedItemPosition()).getId();
+                clothesModel.note = notes_et.getText().toString();
+                Intent data = new Intent();
+                data.putExtra("clothesModel", new Gson().toJson(clothesModel));
+                setResult(RESULT_OK, data);
+                finish();
+            }
+        });
 
 
     }
@@ -83,7 +108,7 @@ public class ClothesType extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject result = jsonObject.getJSONObject("result");
                     JSONArray items = result.getJSONArray("items");
-                    for (int i =0; i<items.length(); i++){
+                    for (int i = 0; i < items.length(); i++) {
                         ClothesTypeModel clothesTypeModel = new ClothesTypeModel();
                         JSONObject item = items.getJSONObject(i);
                         clothesTypeModel.setName(item.getString("name"));
@@ -122,7 +147,11 @@ public class ClothesType extends AppCompatActivity {
             }
         };
         requestQueue.add(stringRequest);
+
     }
 
+
 }
+
+
 

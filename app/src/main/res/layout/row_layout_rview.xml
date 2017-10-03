@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="#e2e1e1">
+
+    <ImageView
+        android:id="@+id/row_layout_image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/addphoto"
+        />
+
+    <TextView
+        android:id="@+id/row_layout_tw"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_toRightOf="@id/row_layout_image"
+        android:layout_toEndOf="@id/row_layout_image"
+        android:text="here will be some text"
+        android:textStyle="bold"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="3dp"
+        android:layout_marginStart="3dp"/>
+
+    <TextView
+        android:id="@+id/row_layout_tw1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignStart="@id/row_layout_tw"
+        android:layout_alignLeft="@id/row_layout_tw"
+        android:layout_below="@id/row_layout_tw"
+        android:text="Here will be notes"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:textAppearanceSmall"
+        />
+
+</RelativeLayout>
