@@ -48,6 +48,9 @@ public class EditClothesActivity extends AppCompatActivity {
 
     EditClothesModel editClothesModel = new EditClothesModel();
 
+    int clothTypeId;
+    int pos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +69,12 @@ public class EditClothesActivity extends AppCompatActivity {
         Intent intent = getIntent();
         editClothesModel.imageUri = intent.getStringExtra("croppedImgURI");
         croppedImage.setImageURI(Uri.parse(editClothesModel.imageUri));
+        clothTypeId = intent.getIntExtra("clothTypeId", -1);
+        pos = intent.getIntExtra("pos", -1);
+        String note = intent.getStringExtra("note");
+        notes_et.setText(note);
+
+
 
         clothesTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, clothesTypeAz);
         clothesTypesAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -89,6 +98,7 @@ public class EditClothesActivity extends AppCompatActivity {
                 editClothesModel.note = notes_et.getText().toString();
                 Intent data = new Intent();
                 data.putExtra("editClothesModel", new Gson().toJson(editClothesModel));
+                data.putExtra("pos", pos);
                 setResult(RESULT_OK, data);
                 finish();
             }
@@ -107,6 +117,8 @@ public class EditClothesActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONObject result = jsonObject.getJSONObject("result");
                     JSONArray items = result.getJSONArray("items");
+
+                    int pos = -1;
                     for (int i = 0; i < items.length(); i++) {
                         ClothesTypeModel clothesTypeModel = new ClothesTypeModel();
                         JSONObject item = items.getJSONObject(i);
@@ -114,12 +126,19 @@ public class EditClothesActivity extends AppCompatActivity {
                         clothesTypeModel.setNameAz(item.getString("nameAz"));
                         clothesTypeModel.setNameRu(item.getString("nameRu"));
                         clothesTypeModel.setOrdinal(item.getInt("ordinal"));
-                        clothesTypeModel.setId(item.getInt("id"));
+                        int id = item.getInt("id");
+                        if (id == clothTypeId) {
+                            pos = i;
+                        }
+                        clothesTypeModel.setId(id);
                         clothesNames.add(clothesTypeModel);
                         clothesTypeAz.add(clothesTypeModel.getNameAz());
                     }
 
                     clothesTypesAdapter.notifyDataSetChanged();
+                    if (pos > -1){
+                        clothesTypesSpinner.setSelection(pos);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

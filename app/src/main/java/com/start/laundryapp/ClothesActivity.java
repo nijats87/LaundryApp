@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -19,7 +18,8 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 public class ClothesActivity extends AppCompatActivity {
 
-    ClothesRecyclerAdapter adapter = new ClothesRecyclerAdapter();
+    ClothesRecyclerAdapter adapter = new ClothesRecyclerAdapter(this);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +55,12 @@ public class ClothesActivity extends AppCompatActivity {
                 .start(this);
     }
 
-    int clothesEditedCode = 12321;
+    int clothesAddedCode = 12321;
+    public static int clothesEditedCode = 2323;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == clothesEditedCode) {
+        if (requestCode == clothesAddedCode) {
             if (resultCode == RESULT_OK) {
                 EditClothesModel model = new Gson().fromJson(data.getStringExtra("editClothesModel"), EditClothesModel.class);
                 adapter.data.add(model);
@@ -71,13 +72,24 @@ public class ClothesActivity extends AppCompatActivity {
             }
         }
 
+        if (requestCode == clothesEditedCode) {
+            if (resultCode == RESULT_OK) {
+                EditClothesModel model = new Gson().fromJson(data.getStringExtra("editClothesModel"), EditClothesModel.class);
+                int pos = data.getIntExtra("pos", -1);
+                adapter.data.set(pos, model);
+                adapter.notifyDataSetChanged();
+            } else if (resultCode == RESULT_CANCELED) {
+                Toast.makeText(this, "Tapped cancel", Toast.LENGTH_SHORT).show();
+            }
+        }
+
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 Intent intent = new Intent(ClothesActivity.this, EditClothesActivity.class);
                 intent.putExtra("croppedImgURI", resultUri.toString());
-                startActivityForResult(intent, clothesEditedCode);
+                startActivityForResult(intent, clothesAddedCode);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
