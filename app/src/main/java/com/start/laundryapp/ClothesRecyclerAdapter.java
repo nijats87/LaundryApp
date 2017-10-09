@@ -71,6 +71,11 @@ public class ClothesRecyclerAdapter extends RecyclerView.Adapter<ClothesRecycler
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteItem(position);
+                        if (data.isEmpty()){
+                            View b = context.findViewById(R.id.confirmClothesBtn);
+                            b.setVisibility(View.GONE);
+                        }
+
                     }
                 })
                         .setNegativeButton("Xeyr", new DialogInterface.OnClickListener() {
