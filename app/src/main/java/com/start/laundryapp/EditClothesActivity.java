@@ -21,7 +21,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.start.laundryapp.models.ClothesModel;
+import com.start.laundryapp.models.EditClothesModel;
 import com.start.laundryapp.models.ClothesTypeModel;
 
 import org.json.JSONArray;
@@ -46,7 +46,7 @@ public class EditClothesActivity extends AppCompatActivity {
     private ArrayAdapter<String> clothesTypesAdapter;
     private List<String> clothesTypeAz;
 
-    ClothesModel clothesModel = new ClothesModel();
+    EditClothesModel editClothesModel = new EditClothesModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +64,8 @@ public class EditClothesActivity extends AppCompatActivity {
         clothesTypeAz = new ArrayList<>();
 
         Intent intent = getIntent();
-        clothesModel.imageUri = intent.getStringExtra("croppedImgURI");
-        croppedImage.setImageURI(Uri.parse(clothesModel.imageUri));
+        editClothesModel.imageUri = intent.getStringExtra("croppedImgURI");
+        croppedImage.setImageURI(Uri.parse(editClothesModel.imageUri));
 
         clothesTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, clothesTypeAz);
         clothesTypesAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -81,15 +81,14 @@ public class EditClothesActivity extends AppCompatActivity {
         });
 
         doneBtn.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
                 //TODO: validate
-                clothesModel.clothTypeId = clothesNames.get(clothesTypesSpinner.getSelectedItemPosition()).getId();
-                clothesModel.note = notes_et.getText().toString();
+                editClothesModel.clothTypeId = clothesNames.get(clothesTypesSpinner.getSelectedItemPosition()).getId();
+                editClothesModel.clothName = clothesNames.get(clothesTypesSpinner.getSelectedItemPosition()).getNameAz();
+                editClothesModel.note = notes_et.getText().toString();
                 Intent data = new Intent();
-                data.putExtra("clothesModel", new Gson().toJson(clothesModel));
+                data.putExtra("editClothesModel", new Gson().toJson(editClothesModel));
                 setResult(RESULT_OK, data);
                 finish();
             }

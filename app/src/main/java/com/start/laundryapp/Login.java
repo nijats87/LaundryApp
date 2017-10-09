@@ -3,6 +3,7 @@ package com.start.laundryapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -68,9 +70,8 @@ public class Login extends AppCompatActivity {
                             .duration(600)
                             .repeat(1)
                             .playOn(login_emailPhone_et);
-                    return;
                 }
-                if (login_password_et.getText().toString().matches("")) {
+                else if (login_password_et.getText().toString().matches("")) {
                     YoYo.with(Techniques.Shake)
                             .duration(600)
                             .repeat(1)
@@ -101,8 +102,10 @@ public class Login extends AppCompatActivity {
                                     name = (String) userData.get("name");
                                     surname = (String) userData.get("surname");
                                     accessToken = result.getString("accessToken");
-                                    SharedPreferences.Editor myPref = getSharedPreferences("accessToken", MODE_PRIVATE).edit();
+                                    SharedPreferences.Editor myPref =  PreferenceManager.getDefaultSharedPreferences(Login.this).edit();
                                     myPref.putString("Authorization", accessToken);
+                                    myPref.putString("userName", name);
+                                    myPref.putString("userSurname", surname);
                                     myPref.apply();
                                 }
 
@@ -111,9 +114,7 @@ public class Login extends AppCompatActivity {
                                 switch (loginResult) {
                                     case 1:
                                         Intent intent = new Intent(Login.this, Home.class);
-                                        intent.putExtra("name", name);
-                                        intent.putExtra("surname", surname);
-                                        startActivity(intent);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);                                        startActivity(intent);
                                         break;
                                     case 2:
                                         Toast.makeText(Login.this, "InvalidEmailAddressOrPhoneNumber", Toast.LENGTH_SHORT).show();
@@ -167,9 +168,15 @@ public class Login extends AppCompatActivity {
                         }
                     };
                     requestQueue.add(stringRequest);
+                    stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                            1000,
+                            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
                 }
+
             }
         });
+
     }
 
     public void customToast() {

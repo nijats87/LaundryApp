@@ -103,6 +103,11 @@ public class MakeOrder extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //
+    }
+
     private void getExecutionTypesData() {
 
         requestQueue = Volley.newRequestQueue(this);

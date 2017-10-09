@@ -1,7 +1,11 @@
 package com.start.laundryapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,9 +34,12 @@ public class Home extends AppCompatActivity {
         home_nameSurname_tv = (TextView) findViewById(R.id.home_nameSurname_tv);
 
         Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
-        String surname = intent.getStringExtra("surname");
-        String accessToken = intent.getStringExtra("accesToken");
+/*        String name = intent.getStringExtra("name");
+        String surname = intent.getStringExtra("surname");*/
+
+        SharedPreferences myPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String name = myPref.getString("userName", "name");
+        String surname = myPref.getString("userSurname", "surname");
 
         Typeface facile_font = Typeface.createFromAsset(getAssets(), "fonts/FacileSans.otf");
         home_nameSurname_tv.setTypeface(facile_font);
@@ -61,6 +68,18 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Home.this, Settings.class);
                 startActivity(intent);
+            }
+        });
+
+        home_exit_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(Home.this).edit();
+                editor.remove("Authorization");
+                editor.apply();
+
+                finish();
+                startActivity(new Intent(Home.this, MainActivity.class));
             }
         });
 

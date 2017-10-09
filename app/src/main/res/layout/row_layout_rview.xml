@@ -3,10 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:background="#e2e1e1">
+    android:background="#e2e1e1"
+    android:id="@+id/rll">
 
     <ImageView
-        android:id="@+id/row_layout_image"
+        android:id="@+id/clothes_image"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginLeft="5dp"
@@ -16,11 +17,11 @@
         />
 
     <TextView
-        android:id="@+id/row_layout_tw"
+        android:id="@+id/clothes_type_tv"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_toRightOf="@id/row_layout_image"
-        android:layout_toEndOf="@id/row_layout_image"
+        android:layout_toRightOf="@id/clothes_image"
+        android:layout_toEndOf="@id/clothes_image"
         android:text="here will be some text"
         android:textStyle="bold"
         android:textAppearance="?android:textAppearanceLarge"
@@ -29,15 +30,33 @@
         android:layout_marginStart="3dp"/>
 
     <TextView
-        android:id="@+id/row_layout_tw1"
+        android:id="@+id/clothes_note_tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignStart="@id/row_layout_tw"
-        android:layout_alignLeft="@id/row_layout_tw"
-        android:layout_below="@id/row_layout_tw"
+        android:layout_alignStart="@id/clothes_type_tv"
+        android:layout_alignLeft="@id/clothes_type_tv"
+        android:layout_below="@id/clothes_type_tv"
         android:text="Here will be notes"
         android:gravity="center_vertical"
         android:textAppearance="?android:textAppearanceSmall"
+        />
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@android:color/black"
+        android:layout_alignParentBottom="true"
+        />
+
+    <ImageView
+        android:id="@+id/delete_item_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/delete_item"
+        android:contentDescription="ignore"
         />
 
 </RelativeLayout>

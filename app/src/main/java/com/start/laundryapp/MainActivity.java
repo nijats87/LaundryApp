@@ -2,6 +2,7 @@ package com.start.laundryapp;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (PreferenceManager.getDefaultSharedPreferences(this).contains("Authorization")) {
+            startActivity(new Intent(this, Home.class));
+            finish();
+        }
+
         setContentView(R.layout.activity_main);
 
         main_AppName_tv = (TextView)findViewById(R.id.main_AppName_tv);

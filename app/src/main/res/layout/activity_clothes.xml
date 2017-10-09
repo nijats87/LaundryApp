@@ -8,11 +8,24 @@
     tools:context="com.start.laundryapp.ClothesActivity"
     android:background="#e2e1e1">
 
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="250dp"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:text="Zəhmət olmasa yuxarı sağ küncdən paltarları daxil edin"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        android:layout_marginTop="5dp"/>
+
 
     <LinearLayout
         android:id="@+id/rw_ll"
+        android:layout_below="@+id/tv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -21,7 +34,15 @@
             android:scrollbars="vertical"
             >
         </android.support.v7.widget.RecyclerView>
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/confirmClothesBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rw_ll"
+        android:layout_centerHorizontal="true"
+        android:text="Təsdiqlə"
+        android:visibility="invisible"/>
 
 </RelativeLayout>
