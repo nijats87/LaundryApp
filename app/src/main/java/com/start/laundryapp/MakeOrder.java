@@ -21,6 +21,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.start.laundryapp.models.EditClothesModel;
 import com.start.laundryapp.models.ExecutionTypeModel;
 import com.start.laundryapp.models.OrderTypeModel;
 import com.start.laundryapp.models.TerminalPointsModel;
@@ -30,6 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +60,8 @@ public class MakeOrder extends AppCompatActivity {
     private ArrayAdapter<String> executionTypesAdapter;
     private ArrayAdapter<String> orderTypesAdapter;
     private ArrayAdapter<String> terminalPointsAdapter;
+
+    List<EditClothesModel> clothesModels = new ArrayList<>();
 
 
     @Override
@@ -98,14 +104,23 @@ public class MakeOrder extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MakeOrder.this, ClothesActivity.class);
-                startActivity(intent);
+                intent.putExtra("clothesModels", new Gson().toJson(clothesModels));
+                startActivityForResult(intent, clothesCode);
             }
         });
     }
 
+    int clothesCode = 23245;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //
+        if (requestCode == clothesCode) {
+            if (resultCode == RESULT_OK) {
+                Type listType = new TypeToken<ArrayList<EditClothesModel>>(){}.getType();
+                clothesModels = new Gson().fromJson(data.getStringExtra("clothesModels"), listType);
+                makeOrder_clothesCount_et.setText(String.valueOf(clothesModels.size()));
+            }
+        }
     }
 
     private void getExecutionTypesData() {

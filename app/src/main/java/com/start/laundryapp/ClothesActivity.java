@@ -11,22 +11,47 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.start.laundryapp.models.EditClothesModel;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 public class ClothesActivity extends AppCompatActivity {
 
     ClothesRecyclerAdapter adapter = new ClothesRecyclerAdapter(this);
-
+    Button confirmClothesBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clothes);
+
+        Intent intent = getIntent();
+        Type listType = new TypeToken<ArrayList<EditClothesModel>>(){}.getType();
+        adapter.data = new Gson().fromJson(intent.getStringExtra("clothesModels"), listType);
+        adapter.notifyDataSetChanged();
+        if (!adapter.data.isEmpty()) {
+            findViewById(R.id.confirmClothesBtn).setVisibility(View.VISIBLE);
+        }
+
+        confirmClothesBtn = (Button)findViewById(R.id.confirmClothesBtn);
+
+        confirmClothesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent data = new Intent();
+                data.putExtra("clothesModels", new Gson().toJson(adapter.data));
+                setResult(RESULT_OK, data);
+                finish();
+            }
+        });
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -101,7 +126,10 @@ public class ClothesActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        new AlertDialog.Builder(this)
+        if (adapter.data.isEmpty()){
+            super.onBackPressed();
+        }else {
+              new AlertDialog.Builder(this)
                 .setTitle("Really Exit?")
                 .setMessage("Are you sure you want to exit?")
                 .setNegativeButton("Xeyr", null)
@@ -111,5 +139,10 @@ public class ClothesActivity extends AppCompatActivity {
                         ClothesActivity.super.onBackPressed();
                     }
                 }).create().show();
+        }
+
+
     }
+
+
 }
