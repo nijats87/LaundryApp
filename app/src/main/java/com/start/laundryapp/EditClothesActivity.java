@@ -54,7 +54,7 @@ public class EditClothesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clothes_type);
+        setContentView(R.layout.activity_edit_clothes_type);
 
         getClothesTypesData();
         croppedImage = (ImageView) findViewById(R.id.croppedImage);

@@ -9,12 +9,14 @@
     android:background="#e2e1e1">
 
     <ImageView
-            android:id="@+id/croppedImage"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:src="@drawable/addphoto"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"/>
+        android:id="@+id/croppedImage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/addphoto"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="ignore"
+        />
 
     <Spinner
         android:id="@+id/clothesTypesSpinner"
@@ -33,7 +35,10 @@
         android:layout_below="@id/clothesTypesSpinner"
         android:layout_alignStart="@id/clothesTypesSpinner"
         android:layout_alignLeft="@id/clothesTypesSpinner"
-        android:hint="Add notes"/>
+        android:hint="Add notes"
+        android:maxLines="1"
+        android:inputType="text"
+        />
 
     <Button
         android:id="@+id/cancelBtn"

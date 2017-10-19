@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_add_photo"
-        android:icon="@drawable/addphotowhite"
+        android:icon="@drawable/ic_shopping_basket_white_48dp"
         android:title="Add photo"
         app:showAsAction="always" />
 </menu>

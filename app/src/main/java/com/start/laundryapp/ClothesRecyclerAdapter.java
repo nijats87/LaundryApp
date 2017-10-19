@@ -116,7 +116,7 @@ public class ClothesRecyclerAdapter extends RecyclerView.Adapter<ClothesRecycler
 
     private void deleteItem(int position) {
         data.remove(position);
-        notifyItemRemoved(position);
+        notifyDataSetChanged();
     }
 
 

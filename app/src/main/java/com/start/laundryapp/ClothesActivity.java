@@ -46,10 +46,7 @@ public class ClothesActivity extends AppCompatActivity {
         confirmClothesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent data = new Intent();
-                data.putExtra("clothesModels", new Gson().toJson(adapter.data));
-                setResult(RESULT_OK, data);
-                finish();
+                setResultAndFinish();
             }
         });
 
@@ -74,8 +71,6 @@ public class ClothesActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
     private void openCamera() {
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
@@ -94,8 +89,6 @@ public class ClothesActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 View b = findViewById(R.id.confirmClothesBtn);
                 b.setVisibility(View.VISIBLE);
-            } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "Tapped cancel", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -124,19 +117,27 @@ public class ClothesActivity extends AppCompatActivity {
 
     }
 
+    void setResultAndFinish() {
+        Intent intent = new Intent();
+        intent.putExtra("clothesModels", new Gson().toJson(adapter.data));
+        ClothesActivity.this.setResult(RESULT_OK, intent);
+        finish();
+    }
+
+
     @Override
     public void onBackPressed() {
         if (adapter.data.isEmpty()){
-            super.onBackPressed();
+            setResultAndFinish();
         }else {
               new AlertDialog.Builder(this)
-                .setTitle("Really Exit?")
-                .setMessage("Are you sure you want to exit?")
+                .setTitle("Geri qayıtsanız seçdiyiniz paltarlar siyahıdan silinəcək.")
+                .setMessage("Geri qayıtmağa əminsinizmi?")
                 .setNegativeButton("Xeyr", null)
-                .setPositiveButton("Beli", new DialogInterface.OnClickListener() {
-
+                .setPositiveButton("Bəli", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-                        ClothesActivity.super.onBackPressed();
+                        adapter.data.clear();
+                        setResultAndFinish();
                     }
                 }).create().show();
         }

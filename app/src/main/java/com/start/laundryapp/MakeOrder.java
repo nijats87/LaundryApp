@@ -2,7 +2,6 @@ package com.start.laundryapp;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.ArrayMap;
@@ -22,6 +21,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.start.laundryapp.models.EditClothesModel;
 import com.start.laundryapp.models.ExecutionTypeModel;
@@ -32,10 +34,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import static com.start.laundryapp.ServerAdress.server_URL;
@@ -46,6 +49,7 @@ public class MakeOrder extends AppCompatActivity {
     Button makeOrder_btn;
     ImageView makeOrder_addPhoto_btn;
     RequestQueue requestQueue;
+    String numberOfClothes;
     Spinner makeOrder_terminalPoint_sp, makeOrder_orderType_sp, makeOrder_executionType_sp;
     public String MAKE_ORDER_URL = server_URL + "api/services/app/order/create";
     public String EXECUTON_TYPES_URL = server_URL + "api/services/app/orderExecutionType/all";
@@ -61,7 +65,13 @@ public class MakeOrder extends AppCompatActivity {
     private ArrayAdapter<String> orderTypesAdapter;
     private ArrayAdapter<String> terminalPointsAdapter;
 
+    JSONArray clothesArray;
+
     List<EditClothesModel> clothesModels = new ArrayList<>();
+
+    TerminalPointsModel terminalPointsModel = new TerminalPointsModel();
+    OrderTypeModel orderTypeModel = new OrderTypeModel();
+    ExecutionTypeModel executionTypeModel = new ExecutionTypeModel();
 
 
     @Override
@@ -84,6 +94,10 @@ public class MakeOrder extends AppCompatActivity {
         terminalPointsAz = new ArrayList<>();
         orderTypeAz = new ArrayList<>();
 
+        terminalPointsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, terminalPointsAz);
+        terminalPointsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        makeOrder_terminalPoint_sp.setAdapter(terminalPointsAdapter);
+
         executionTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, executionTypeAz);
         executionTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         makeOrder_executionType_sp.setAdapter(executionTypesAdapter);
@@ -92,13 +106,9 @@ public class MakeOrder extends AppCompatActivity {
         orderTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         makeOrder_orderType_sp.setAdapter(orderTypesAdapter);
 
-        terminalPointsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, terminalPointsAz);
-        terminalPointsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        makeOrder_terminalPoint_sp.setAdapter(terminalPointsAdapter);
-
+        getTerminalPointsData();
         getOrderTypesData();
         getExecutionTypesData();
-        getTerminalPointsData();
 
         makeOrder_addPhoto_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,54 +118,80 @@ public class MakeOrder extends AppCompatActivity {
                 startActivityForResult(intent, clothesCode);
             }
         });
+
+        makeOrder_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeOrder();
+            }
+        });
+
     }
 
-    int clothesCode = 23245;
+    public int clothesCode = 23245;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == clothesCode) {
             if (resultCode == RESULT_OK) {
-                Type listType = new TypeToken<ArrayList<EditClothesModel>>(){}.getType();
+                Type listType = new TypeToken<ArrayList<EditClothesModel>>() {
+                }.getType();
                 clothesModels = new Gson().fromJson(data.getStringExtra("clothesModels"), listType);
                 makeOrder_clothesCount_et.setText(String.valueOf(clothesModels.size()));
+                numberOfClothes = makeOrder_clothesCount_et.getText().toString();
+                System.out.println(clothesModels);
+
+                Gson gson = new GsonBuilder().create();
+                JsonArray myArray = gson.toJsonTree(clothesModels).getAsJsonArray();
+                System.out.println(myArray);
             }
         }
     }
 
-    private void getExecutionTypesData() {
+    private void getTerminalPointsData() {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, EXECUTON_TYPES_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, TERMINAL_POINTS_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
+                Log.i("response", response);
+
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    System.out.println(jsonObject);
                     JSONObject result = jsonObject.getJSONObject("result");
                     JSONArray items = result.getJSONArray("items");
 
+                    int pos = -1;
+                    int terminalPointId = -1;
+
                     for (int i = 0; i < items.length(); i++) {
-                        ExecutionTypeModel executionTypeModel = new ExecutionTypeModel();
                         JSONObject item = items.getJSONObject(i);
-                        executionTypeModel.setName(item.getString("name"));
-                        executionTypeModel.setNameAz(item.getString("nameAz"));
-                        executionTypeModel.setNameRu(item.getString("nameRu"));
-                        executionTypeModel.setOrdinal(item.getInt("ordinal"));
-                        executionTypeModel.setId(item.getInt("id"));
+                        terminalPointsModel.setName(item.getString("name"));
+                        terminalPointsModel.setNameAz(item.getString("nameAz"));
+                        terminalPointsModel.setNameRu(item.getString("nameRu"));
+                        terminalPointsModel.setOrdinal(item.getInt("ordinal"));
+                        int id = item.getInt("id");
+                        if (id == terminalPointId) {
+                            pos = i;
+                        }
+                        terminalPointsModel.setId(id);
+                        terminalPointsModel.setLatitude(item.getInt("latitude"));
+                        terminalPointsModel.setLongitude(item.getInt("longitude"));
 
-                        executionTypes.add(executionTypeModel);
+                        terminalPoints.add(terminalPointsModel);
 
-                        executionTypeAz.add(executionTypeModel.getNameAz());
-
-
+                        terminalPointsAz.add(terminalPointsModel.getName());
                     }
-                    executionTypesAdapter.notifyDataSetChanged();
+                    terminalPointsAdapter.notifyDataSetChanged();
+                    if (pos > -1) {
+                        makeOrder_terminalPoint_sp.setSelection(pos);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+
                 }
 
             }
@@ -164,10 +200,21 @@ public class MakeOrder extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
 
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> mHeader = new ArrayMap<String, String>();
+
+                SharedPreferences myPref = getSharedPreferences("accessToken", MODE_PRIVATE);
+                String accessToken = myPref.getString("Authorization", null);
+
+                mHeader.put("Authorization", "Bearer " + accessToken);
+                return mHeader;
+
+            }
+        };
 
         requestQueue.add(stringRequest);
-
     }
 
     private void getOrderTypesData() {
@@ -186,14 +233,12 @@ public class MakeOrder extends AppCompatActivity {
                     JSONArray items = result.getJSONArray("items");
 
                     for (int i = 0; i < items.length(); i++) {
-                        OrderTypeModel orderTypeModel = new OrderTypeModel();
                         JSONObject item = items.getJSONObject(i);
                         orderTypeModel.setName(item.getString("name"));
                         orderTypeModel.setNameAz(item.getString("nameAz"));
                         orderTypeModel.setNameRu(item.getString("nameRu"));
                         orderTypeModel.setOrdinal(item.getInt("ordinal"));
                         orderTypeModel.setId(item.getInt("id"));
-
 
                         orderTypes.add(orderTypeModel);
 
@@ -230,43 +275,37 @@ public class MakeOrder extends AppCompatActivity {
 
     }
 
-    private void getTerminalPointsData() {
+    private void getExecutionTypesData() {
 
         requestQueue = Volley.newRequestQueue(this);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, TERMINAL_POINTS_URL, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, EXECUTON_TYPES_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
-                Log.i("response", response);
-
                 try {
                     JSONObject jsonObject = new JSONObject(response);
+                    System.out.println("executionTypeData: " + jsonObject);
                     JSONObject result = jsonObject.getJSONObject("result");
                     JSONArray items = result.getJSONArray("items");
 
                     for (int i = 0; i < items.length(); i++) {
-                        TerminalPointsModel terminalPointsModel = new TerminalPointsModel();
                         JSONObject item = items.getJSONObject(i);
-                        terminalPointsModel.setName(item.getString("name"));
-                        terminalPointsModel.setNameAz(item.getString("nameAz"));
-                        terminalPointsModel.setNameRu(item.getString("nameRu"));
-                        terminalPointsModel.setOrdinal(item.getInt("ordinal"));
-                        terminalPointsModel.setId(item.getInt("id"));
-                        terminalPointsModel.setLatitude(item.getInt("latitude"));
-                        terminalPointsModel.setLongitude(item.getInt("longitude"));
+                        executionTypeModel.setName(item.getString("name"));
+                        executionTypeModel.setNameAz(item.getString("nameAz"));
+                        executionTypeModel.setNameRu(item.getString("nameRu"));
+                        executionTypeModel.setOrdinal(item.getInt("ordinal"));
+                        executionTypeModel.setId(item.getInt("id"));
 
-                        terminalPoints.add(terminalPointsModel);
+                        executionTypes.add(executionTypeModel);
 
-                        terminalPointsAz.add(terminalPointsModel.getName());
+                        executionTypeAz.add(executionTypeModel.getNameAz());
                     }
-                    terminalPointsAdapter.notifyDataSetChanged();
+                    executionTypesAdapter.notifyDataSetChanged();
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -283,11 +322,68 @@ public class MakeOrder extends AppCompatActivity {
 
                 mHeader.put("Authorization", "Bearer " + accessToken);
                 return mHeader;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
 
+    private void makeOrder() {
+
+        requestQueue = Volley.newRequestQueue(this);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, MAKE_ORDER_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println(response);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                int terminalPointPos = makeOrder_terminalPoint_sp.getSelectedItemPosition();
+                int orderTypePos = makeOrder_orderType_sp.getSelectedItemPosition();
+                int execTypePos = makeOrder_executionType_sp.getSelectedItemPosition();
+                String notes = makeOrder_note_et.getText().toString();
+
+                params.put("numberOfClothes", numberOfClothes);
+                params.put("terminalPointId", String.valueOf(terminalPoints.get(terminalPointPos).getId()));
+                params.put("orderTypeId", String.valueOf(orderTypes.get(orderTypePos).getId()));
+                params.put("executionTypeId", String.valueOf(executionTypes.get(execTypePos).getId()));
+                params.put("notes", notes);
+                params.put("clothes", String.valueOf(clothesModels));
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> mHeader = new ArrayMap<String, String>();
+
+                SharedPreferences myPref = getSharedPreferences("accessToken", MODE_PRIVATE);
+                String accessToken = myPref.getString("Authorization", null);
+
+                mHeader.put("Authorization", "Bearer " + accessToken);
+                return mHeader;
             }
         };
 
         requestQueue.add(stringRequest);
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+
     }
 
 }
+
+
+
