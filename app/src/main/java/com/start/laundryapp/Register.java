@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.start.laundryapp.models.ApiResponse;
+import com.start.laundryapp.models.RegisterModel;
 import com.start.laundryapp.models.RegisterResultModel;
 import com.start.laundryapp.models.UserModel;
 
@@ -61,14 +62,14 @@ public class Register extends AppCompatActivity {
                 if (checkEditText(register_address_et))
                     return;
 
-                final UserModel userModel = new UserModel();
+                final RegisterModel registerModel = new RegisterModel();
 
-                userModel.name = register_name_et.getText().toString();
-                userModel.surname = register_surname_et.getText().toString();
-                userModel.emailAddress = register_email_et.getText().toString();
-                userModel.phoneNumber = register_phone_et.getText().toString();
-                userModel.password = register_password_et.getText().toString();
-                userModel.homeAddress = register_address_et.getText().toString();
+                registerModel.name = register_name_et.getText().toString();
+                registerModel.surname = register_surname_et.getText().toString();
+                registerModel.emailAddress = register_email_et.getText().toString();
+                registerModel.phoneNumber = register_phone_et.getText().toString();
+                registerModel.password = register_password_et.getText().toString();
+                registerModel.homeAddress = register_address_et.getText().toString();
 
 
                 if (!register_checkbox.isChecked())
@@ -77,7 +78,7 @@ public class Register extends AppCompatActivity {
                             .repeat(1)
                             .playOn(register_checkbox);
                 else {
-                    Api.getService().register(userModel).enqueue(new Callback<ApiResponse<RegisterResultModel>>() {
+                    Api.getService().register(registerModel).enqueue(new Callback<ApiResponse<RegisterResultModel>>() {
                         @Override
                         public void onResponse(Call<ApiResponse<RegisterResultModel>> call, Response<ApiResponse<RegisterResultModel>> response) {
                             if (response.isSuccessful()) {

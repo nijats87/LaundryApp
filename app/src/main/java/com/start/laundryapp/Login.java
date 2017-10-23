@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.start.laundryapp.models.ApiResponse;
@@ -76,9 +74,11 @@ public class Login extends AppCompatActivity {
                     Api.getService().login(loginModel).enqueue(new Callback<ApiResponse<LoginResultModel>>() {
                         @Override
                         public void onResponse(Call<ApiResponse<LoginResultModel>> call, Response<ApiResponse<LoginResultModel>> response) {
+
                             if (response.isSuccessful()) {
                                 ApiResponse<LoginResultModel> body = response.body();
                                 LoginResultModel result = body.result;
+
                                 switch (result.loginResult) {
                                     case 1:
                                         SharedPrefs.setToken("Bearer " + result.accessToken);

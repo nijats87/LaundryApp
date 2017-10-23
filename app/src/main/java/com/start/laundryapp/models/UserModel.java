@@ -10,6 +10,6 @@ public class UserModel {
     public String surname;
     public String emailAddress;
     public String phoneNumber;
-    public String password;
     public String homeAddress;
+
 }

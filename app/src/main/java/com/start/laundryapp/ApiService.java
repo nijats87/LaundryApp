@@ -28,7 +28,7 @@ interface ApiService {
     Call<ApiResponse<Void>> makeOrder(@Body MakeOrderModel body);
 
     @POST("/api/Account/Register")
-    Call<ApiResponse<RegisterResultModel>> register(@Body UserModel userModel);
+    Call<ApiResponse<RegisterResultModel>> register(@Body RegisterModel registerModel);
 
     @POST("/api/Account/Authenticate")
     Call<ApiResponse<LoginResultModel>> login(@Body LoginModel loginModel);
