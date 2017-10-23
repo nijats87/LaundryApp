@@ -2,29 +2,25 @@ package com.start.laundryapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.ArrayMap;
+import android.util.Log;
+import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.start.laundryapp.models.ApiResponse;
+import com.start.laundryapp.models.ItemsHolder;
+import com.start.laundryapp.models.OrderModel;
+import java.util.ArrayList;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.start.laundryapp.ServerAdress.server_URL;
 
 public class OrdersActivity extends AppCompatActivity {
 
-    public String GET_MY_ORDERS_URL = server_URL + "api/services/app/order/my";
-    RequestQueue requestQueue;
 
+    ArrayList<OrderModel> myOrders;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,34 +32,26 @@ public class OrdersActivity extends AppCompatActivity {
 
 
     public void getMyOrders() {
+        Call<ApiResponse<ItemsHolder<OrderModel>>> call = Api.getService().orders();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_MY_ORDERS_URL, new Response.Listener<String>() {
+        call.enqueue(new Callback<ApiResponse<ItemsHolder<OrderModel>>>() {
             @Override
-            public void onResponse(String response) {
-                System.out.println(response);
-
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray result = jsonObject.getJSONArray("result");
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+            public void onResponse(Call<ApiResponse<ItemsHolder<OrderModel>>> call, Response<ApiResponse<ItemsHolder<OrderModel>>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<ItemsHolder<OrderModel>> body = response.body();
+                    if (body.success) {
+                        myOrders = body.result.items;
+                        return;
+                    }
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
+                Toast.makeText(OrdersActivity.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
             }
-        }) {
+
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> mHeader = new ArrayMap<String, String>();
-                mHeader.put("Authorization", SharedPrefs.getToken());
-                return mHeader;
+            public void onFailure(Call<ApiResponse<ItemsHolder<OrderModel>>> call, Throwable t) {
+                Log.e("dsdsd", "onFailure: ", t);
             }
-        };
-        requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        });
     }
 }
