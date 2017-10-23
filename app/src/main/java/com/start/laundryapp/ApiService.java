@@ -29,4 +29,7 @@ interface ApiService {
 
     @POST("/api/Account/Register")
     Call<ApiResponse<RegisterResultModel>> register(@Body UserModel userModel);
+
+    @POST("/api/Account/Authenticate")
+    Call<ApiResponse<LoginResultModel>> login(@Body LoginModel loginModel);
 }
