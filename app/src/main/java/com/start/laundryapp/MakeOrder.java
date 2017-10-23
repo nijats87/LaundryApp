@@ -2,15 +2,12 @@ package com.start.laundryapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.preference.PreferenceManager;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.ArrayMap;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -19,57 +16,39 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
+import com.start.laundryapp.models.ApiResponse;
 import com.start.laundryapp.models.EditClothesModel;
 import com.start.laundryapp.models.ExecutionTypeModel;
+import com.start.laundryapp.models.ItemsHolder;
 import com.start.laundryapp.models.MakeOrderModel;
 import com.start.laundryapp.models.OrderClothesModel;
 import com.start.laundryapp.models.OrderTypeModel;
 import com.start.laundryapp.models.TerminalPointsModel;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Map;
-import java.util.StringTokenizer;
 
-import static com.start.laundryapp.ServerAdress.server_URL;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MakeOrder extends AppCompatActivity {
 
+    private static final String TAG = MakeOrder.class.getSimpleName();
     EditText makeOrder_clothesCount_et, makeOrder_note_et;
     Button makeOrder_btn;
     ImageView makeOrder_addPhoto_btn;
-    RequestQueue requestQueue;
     Spinner makeOrder_terminalPoint_sp, makeOrder_orderType_sp, makeOrder_executionType_sp;
-    public String MAKE_ORDER_URL = server_URL + "api/services/app/order/create";
-    public String EXECUTON_TYPES_URL = server_URL + "api/services/app/orderExecutionType/all";
-    public String ORDER_TYPES_URL = server_URL + "api/services/app/orderType/all";
-    public String TERMINAL_POINTS_URL = server_URL + "api/services/app/terminalPoint/all";
     private List<ExecutionTypeModel> executionTypes;
     private List<OrderTypeModel> orderTypes;
     private List<TerminalPointsModel> terminalPoints;
@@ -159,166 +138,84 @@ public class MakeOrder extends AppCompatActivity {
     }
 
     private void getTerminalPointsData() {
-
-        requestQueue = Volley.newRequestQueue(this);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, TERMINAL_POINTS_URL, new Response.Listener<String>() {
+        Api.getService().terminalPoints().enqueue(new Callback<ApiResponse<ItemsHolder<TerminalPointsModel>>>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(Call<ApiResponse<ItemsHolder<TerminalPointsModel>>> call, Response<ApiResponse<ItemsHolder<TerminalPointsModel>>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<ItemsHolder<TerminalPointsModel>> body = response.body();
+                    if (body.success) {
+                        terminalPoints = body.result.items;
 
-                Log.i("response", response);
-
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONObject result = jsonObject.getJSONObject("result");
-                    JSONArray items = result.getJSONArray("items");
-
-                    for (int i = 0; i < items.length(); i++) {
-                        JSONObject item = items.getJSONObject(i);
-                        TerminalPointsModel terminalPointsModel = new TerminalPointsModel();
-                        terminalPointsModel.setName(item.getString("name"));
-                        terminalPointsModel.setNameAz(item.getString("nameAz"));
-                        terminalPointsModel.setNameRu(item.getString("nameRu"));
-                        terminalPointsModel.setOrdinal(item.getInt("ordinal"));
-                        terminalPointsModel.setId(item.getInt("id"));
-                        terminalPointsModel.setLatitude(item.getInt("latitude"));
-                        terminalPointsModel.setLongitude(item.getInt("longitude"));
-
-                        terminalPoints.add(terminalPointsModel);
-
-                        terminalPointsAz.add(terminalPointsModel.getName());
+                        for (TerminalPointsModel point : terminalPoints) {
+                            terminalPointsAz.add(point.getName());
+                        }
+                        terminalPointsAdapter.notifyDataSetChanged();
+                        return;
                     }
-                    terminalPointsAdapter.notifyDataSetChanged();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-
                 }
 
+                Toast.makeText(MakeOrder.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-
+            public void onFailure(Call<ApiResponse<ItemsHolder<TerminalPointsModel>>> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
             }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> mHeader = new ArrayMap<String, String>();
-
-                mHeader.put("Authorization", SharedPrefs.getToken());
-                return mHeader;
-
-            }
-        };
-
-        requestQueue.add(stringRequest);
+        });
     }
 
     private void getOrderTypesData() {
-
-        requestQueue = Volley.newRequestQueue(this);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, ORDER_TYPES_URL, new Response.Listener<String>() {
+        Api.getService().orderTypes().enqueue(new Callback<ApiResponse<ItemsHolder<OrderTypeModel>>>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(Call<ApiResponse<ItemsHolder<OrderTypeModel>>> call, Response<ApiResponse<ItemsHolder<OrderTypeModel>>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<ItemsHolder<OrderTypeModel>> body = response.body();
+                    if (body.success) {
+                        orderTypes = body.result.items;
 
-                Log.i("response", response);
-
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONObject result = jsonObject.getJSONObject("result");
-                    JSONArray items = result.getJSONArray("items");
-
-                    for (int i = 0; i < items.length(); i++) {
-                        JSONObject item = items.getJSONObject(i);
-                        OrderTypeModel orderTypeModel = new OrderTypeModel();
-                        orderTypeModel.setName(item.getString("name"));
-                        orderTypeModel.setNameAz(item.getString("nameAz"));
-                        orderTypeModel.setNameRu(item.getString("nameRu"));
-                        orderTypeModel.setOrdinal(item.getInt("ordinal"));
-                        orderTypeModel.setId(item.getInt("id"));
-
-                        orderTypes.add(orderTypeModel);
-
-                        orderTypeAz.add(orderTypeModel.getNameAz());
+                        for (OrderTypeModel type : orderTypes) {
+                            orderTypeAz.add(type.getNameAz());
+                        }
+                        orderTypesAdapter.notifyDataSetChanged();
+                        return;
                     }
-                    orderTypesAdapter.notifyDataSetChanged();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-
                 }
 
+                Toast.makeText(MakeOrder.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-
+            public void onFailure(Call<ApiResponse<ItemsHolder<OrderTypeModel>>> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
             }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> mHeader = new ArrayMap<String, String>();
-
-                mHeader.put("Authorization", SharedPrefs.getToken());
-                return mHeader;
-
-            }
-        };
-
-        requestQueue.add(stringRequest);
-
+        });
     }
 
     private void getExecutionTypesData() {
-
-        requestQueue = Volley.newRequestQueue(this);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, EXECUTON_TYPES_URL, new Response.Listener<String>() {
+        Api.getService().executionTypes().enqueue(new Callback<ApiResponse<ItemsHolder<ExecutionTypeModel>>>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(Call<ApiResponse<ItemsHolder<ExecutionTypeModel>>> call, Response<ApiResponse<ItemsHolder<ExecutionTypeModel>>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<ItemsHolder<ExecutionTypeModel>> body = response.body();
+                    if (body.success) {
+                        executionTypes = body.result.items;
 
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    System.out.println("executionTypeData: " + jsonObject);
-                    JSONObject result = jsonObject.getJSONObject("result");
-                    JSONArray items = result.getJSONArray("items");
-
-                    for (int i = 0; i < items.length(); i++) {
-                        JSONObject item = items.getJSONObject(i);
-                        ExecutionTypeModel executionTypeModel = new ExecutionTypeModel();
-                        executionTypeModel.setName(item.getString("name"));
-                        executionTypeModel.setNameAz(item.getString("nameAz"));
-                        executionTypeModel.setNameRu(item.getString("nameRu"));
-                        executionTypeModel.setOrdinal(item.getInt("ordinal"));
-                        executionTypeModel.setId(item.getInt("id"));
-
-                        executionTypes.add(executionTypeModel);
-
-                        executionTypeAz.add(executionTypeModel.getNameAz());
+                        for (ExecutionTypeModel type : executionTypes) {
+                            executionTypeAz.add(type.getNameAz());
+                        }
+                        executionTypesAdapter.notifyDataSetChanged();
+                        return;
                     }
-                    executionTypesAdapter.notifyDataSetChanged();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
+                Toast.makeText(MakeOrder.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
             }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> mHeader = new ArrayMap<String, String>();
 
-                mHeader.put("Authorization", SharedPrefs.getToken());
-                return mHeader;
+            @Override
+            public void onFailure(Call<ApiResponse<ItemsHolder<ExecutionTypeModel>>> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
             }
-        };
-        requestQueue.add(stringRequest);
+        });
     }
 
     private void makeOrder() {
@@ -359,47 +256,27 @@ public class MakeOrder extends AppCompatActivity {
         model.setNotes(notes);
         model.setClothes(orderClothesModels);
 
-        MyRequest myRequest = new MyRequest(Request.Method.POST, MAKE_ORDER_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.d("asdasdas", "onResponse: " + response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
+        Api.getService()
+                .makeOrder(model)
+                .enqueue(new Callback<ApiResponse<Void>>() {
+                    @Override
+                    public void onResponse(Call<ApiResponse<Void>> call, Response<ApiResponse<Void>> response) {
+                        if (response.isSuccessful()) {
+                            ApiResponse<Void> body = response.body();
+                            if (body.success) {
+                                //TODO: show success message
+                                return;
+                            }
+                        }
+                        Toast.makeText(MakeOrder.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
+                    }
 
-            }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> mHeader = new ArrayMap<String, String>();
-                mHeader.put("Authorization", SharedPrefs.getToken());
-                return mHeader;
-            }
-        };
+                    @Override
+                    public void onFailure(Call<ApiResponse<Void>> call, Throwable t) {
+                        Log.e(TAG, "onFailure: ", t);
+                    }
+                });
 
-        myRequest.json = new Gson().toJson(model);
-        requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(myRequest);
-    }
-
-    class MyRequest extends StringRequest {
-
-        public MyRequest(int method, String url, Response.Listener<String> listener, Response.ErrorListener errorListener) {
-            super(method, url, listener, errorListener);
-        }
-
-        public String json = "";
-
-        @Override
-        public byte[] getBody() throws AuthFailureError {
-            return json.getBytes(StandardCharsets.UTF_8);
-        }
-
-        @Override
-        public String getBodyContentType() {
-            return "application/json; charset=utf-8";
-        }
     }
 
     @Override
