@@ -33,13 +33,10 @@ public class Home extends AppCompatActivity {
 
         home_nameSurname_tv = (TextView) findViewById(R.id.home_nameSurname_tv);
 
-        Intent intent = getIntent();
-/*        String name = intent.getStringExtra("name");
-        String surname = intent.getStringExtra("surname");*/
-
         SharedPreferences myPref = PreferenceManager.getDefaultSharedPreferences(this);
         String name = myPref.getString("userName", "name");
         String surname = myPref.getString("userSurname", "surname");
+
 
         Typeface facile_font = Typeface.createFromAsset(getAssets(), "fonts/FacileSans.otf");
         home_nameSurname_tv.setTypeface(facile_font);
@@ -51,6 +48,14 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Home.this, MakeOrder.class);
+                startActivity(intent);
+            }
+        });
+
+        home_orders_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, OrdersActivity.class);
                 startActivity(intent);
             }
         });
@@ -74,10 +79,7 @@ public class Home extends AppCompatActivity {
         home_exit_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(Home.this).edit();
-                editor.remove("Authorization");
-                editor.apply();
-
+                SharedPrefs.removeToken();
                 finish();
                 startActivity(new Intent(Home.this, MainActivity.class));
             }

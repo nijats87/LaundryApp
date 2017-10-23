@@ -60,17 +60,17 @@ public class Register extends AppCompatActivity {
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            if (checkEditText(register_name_et, "Ad"))
+            if (checkEditText(register_name_et))
                 return;
-            if (checkEditText(register_surname_et, "Soyad"))
+            if (checkEditText(register_surname_et))
                 return;
-            if (checkEditText(register_email_et, "Email"))
+            if (checkEditText(register_email_et))
                 return;
-            if (checkEditText(register_phone_et, "Telefon"))
+            if (checkEditText(register_phone_et))
                 return;
-            if (checkEditText(register_password_et, "Şifrə"))
+            if (checkEditText(register_password_et))
                 return;
-            if (checkEditText(register_address_et, "Ünvan"))
+            if (checkEditText(register_address_et))
                 return;
 
 //                if (!qeydiyyat_checkbox.isChecked() || qeydiyyat_ad_et.getText().toString().matches("") || qeydiyyat_soyad_et.getText().toString().matches("") || qeydiyyat_email_et.getText().toString().matches("") ||
@@ -100,7 +100,7 @@ public class Register extends AppCompatActivity {
 
                                         switch (registerResult) {
                                             case 1:
-                                                Toast.makeText(Register.this, "Register uğurla tamamlandı.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(Register.this, "Qeydiyyat uğurla tamamlandı.", Toast.LENGTH_SHORT).show();
                                                 break;
                                             case 2:
                                                 Toast.makeText(Register.this, "E-mail düzgün formatda deyil", Toast.LENGTH_SHORT).show();
@@ -151,7 +151,7 @@ public class Register extends AppCompatActivity {
         });
     }
 
-    private boolean checkEditText(EditText editText , String type) {
+    private boolean checkEditText(EditText editText) {
 
         if (editText.getText().toString().length() < 3) {
 //            if(type.equals("Ad") || type.equals("Soyad") || type.equals("Ünvan")|| type.equals("Şifrə"))

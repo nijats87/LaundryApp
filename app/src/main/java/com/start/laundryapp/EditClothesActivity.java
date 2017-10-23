@@ -156,10 +156,7 @@ public class EditClothesActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> mHeader = new ArrayMap<String, String>();
 
-                SharedPreferences myPref = getSharedPreferences("accessToken", MODE_PRIVATE);
-                String accessToken = myPref.getString("Authorization", null);
-
-                mHeader.put("Authorization", "Bearer " + accessToken);
+                mHeader.put("Authorization", SharedPrefs.getToken());
                 return mHeader;
 
             }

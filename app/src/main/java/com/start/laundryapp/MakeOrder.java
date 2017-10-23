@@ -1,10 +1,17 @@
 package com.start.laundryapp;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.ArrayMap;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -14,10 +21,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
@@ -27,6 +36,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.start.laundryapp.models.EditClothesModel;
 import com.start.laundryapp.models.ExecutionTypeModel;
+import com.start.laundryapp.models.MakeOrderModel;
+import com.start.laundryapp.models.OrderClothesModel;
 import com.start.laundryapp.models.OrderTypeModel;
 import com.start.laundryapp.models.TerminalPointsModel;
 
@@ -34,12 +45,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import static com.start.laundryapp.ServerAdress.server_URL;
 
@@ -49,7 +65,6 @@ public class MakeOrder extends AppCompatActivity {
     Button makeOrder_btn;
     ImageView makeOrder_addPhoto_btn;
     RequestQueue requestQueue;
-    String numberOfClothes;
     Spinner makeOrder_terminalPoint_sp, makeOrder_orderType_sp, makeOrder_executionType_sp;
     public String MAKE_ORDER_URL = server_URL + "api/services/app/order/create";
     public String EXECUTON_TYPES_URL = server_URL + "api/services/app/orderExecutionType/all";
@@ -65,14 +80,7 @@ public class MakeOrder extends AppCompatActivity {
     private ArrayAdapter<String> orderTypesAdapter;
     private ArrayAdapter<String> terminalPointsAdapter;
 
-    JSONArray clothesArray;
-
     List<EditClothesModel> clothesModels = new ArrayList<>();
-
-    TerminalPointsModel terminalPointsModel = new TerminalPointsModel();
-    OrderTypeModel orderTypeModel = new OrderTypeModel();
-    ExecutionTypeModel executionTypeModel = new ExecutionTypeModel();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,15 +118,18 @@ public class MakeOrder extends AppCompatActivity {
         getOrderTypesData();
         getExecutionTypesData();
 
-        makeOrder_addPhoto_btn.setOnClickListener(new View.OnClickListener() {
+
+        View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MakeOrder.this, ClothesActivity.class);
                 intent.putExtra("clothesModels", new Gson().toJson(clothesModels));
                 startActivityForResult(intent, clothesCode);
             }
-        });
+        };
 
+        makeOrder_clothesCount_et.setOnClickListener(listener);
+        makeOrder_addPhoto_btn.setOnClickListener(listener);
         makeOrder_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +149,6 @@ public class MakeOrder extends AppCompatActivity {
                 }.getType();
                 clothesModels = new Gson().fromJson(data.getStringExtra("clothesModels"), listType);
                 makeOrder_clothesCount_et.setText(String.valueOf(clothesModels.size()));
-                numberOfClothes = makeOrder_clothesCount_et.getText().toString();
                 System.out.println(clothesModels);
 
                 Gson gson = new GsonBuilder().create();
@@ -163,20 +173,14 @@ public class MakeOrder extends AppCompatActivity {
                     JSONObject result = jsonObject.getJSONObject("result");
                     JSONArray items = result.getJSONArray("items");
 
-                    int pos = -1;
-                    int terminalPointId = -1;
-
                     for (int i = 0; i < items.length(); i++) {
                         JSONObject item = items.getJSONObject(i);
+                        TerminalPointsModel terminalPointsModel = new TerminalPointsModel();
                         terminalPointsModel.setName(item.getString("name"));
                         terminalPointsModel.setNameAz(item.getString("nameAz"));
                         terminalPointsModel.setNameRu(item.getString("nameRu"));
                         terminalPointsModel.setOrdinal(item.getInt("ordinal"));
-                        int id = item.getInt("id");
-                        if (id == terminalPointId) {
-                            pos = i;
-                        }
-                        terminalPointsModel.setId(id);
+                        terminalPointsModel.setId(item.getInt("id"));
                         terminalPointsModel.setLatitude(item.getInt("latitude"));
                         terminalPointsModel.setLongitude(item.getInt("longitude"));
 
@@ -185,9 +189,6 @@ public class MakeOrder extends AppCompatActivity {
                         terminalPointsAz.add(terminalPointsModel.getName());
                     }
                     terminalPointsAdapter.notifyDataSetChanged();
-                    if (pos > -1) {
-                        makeOrder_terminalPoint_sp.setSelection(pos);
-                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -205,10 +206,7 @@ public class MakeOrder extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> mHeader = new ArrayMap<String, String>();
 
-                SharedPreferences myPref = getSharedPreferences("accessToken", MODE_PRIVATE);
-                String accessToken = myPref.getString("Authorization", null);
-
-                mHeader.put("Authorization", "Bearer " + accessToken);
+                mHeader.put("Authorization", SharedPrefs.getToken());
                 return mHeader;
 
             }
@@ -234,6 +232,7 @@ public class MakeOrder extends AppCompatActivity {
 
                     for (int i = 0; i < items.length(); i++) {
                         JSONObject item = items.getJSONObject(i);
+                        OrderTypeModel orderTypeModel = new OrderTypeModel();
                         orderTypeModel.setName(item.getString("name"));
                         orderTypeModel.setNameAz(item.getString("nameAz"));
                         orderTypeModel.setNameRu(item.getString("nameRu"));
@@ -262,10 +261,7 @@ public class MakeOrder extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> mHeader = new ArrayMap<String, String>();
 
-                SharedPreferences myPref = getSharedPreferences("accessToken", MODE_PRIVATE);
-                String accessToken = myPref.getString("Authorization", null);
-
-                mHeader.put("Authorization", "Bearer " + accessToken);
+                mHeader.put("Authorization", SharedPrefs.getToken());
                 return mHeader;
 
             }
@@ -291,6 +287,7 @@ public class MakeOrder extends AppCompatActivity {
 
                     for (int i = 0; i < items.length(); i++) {
                         JSONObject item = items.getJSONObject(i);
+                        ExecutionTypeModel executionTypeModel = new ExecutionTypeModel();
                         executionTypeModel.setName(item.getString("name"));
                         executionTypeModel.setNameAz(item.getString("nameAz"));
                         executionTypeModel.setNameRu(item.getString("nameRu"));
@@ -317,10 +314,7 @@ public class MakeOrder extends AppCompatActivity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> mHeader = new ArrayMap<String, String>();
 
-                SharedPreferences myPref = getSharedPreferences("accessToken", MODE_PRIVATE);
-                String accessToken = myPref.getString("Authorization", null);
-
-                mHeader.put("Authorization", "Bearer " + accessToken);
+                mHeader.put("Authorization", SharedPrefs.getToken());
                 return mHeader;
             }
         };
@@ -328,14 +322,47 @@ public class MakeOrder extends AppCompatActivity {
     }
 
     private void makeOrder() {
+        final List<OrderClothesModel> orderClothesModels = new ArrayList<>();
 
-        requestQueue = Volley.newRequestQueue(this);
+        for (EditClothesModel m : clothesModels) {
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, MAKE_ORDER_URL, new Response.Listener<String>() {
+            try {
+                Uri uri = Uri.parse(m.imageUri);
+                InputStream imageStream = getContentResolver().openInputStream(uri);
+                final Bitmap bm = BitmapFactory.decodeStream(imageStream);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                bm.compress(Bitmap.CompressFormat.JPEG, 70, bytes);
+                byte[] b = bytes.toByteArray();
+                String s = Base64.encodeToString(b, Base64.DEFAULT);
+
+                OrderClothesModel orderClothesModel = new OrderClothesModel();
+                orderClothesModel.clothesImageBase64 = s;
+                orderClothesModel.clothesTypeId = m.clothTypeId;
+                orderClothesModel.notes = m.note;
+                orderClothesModels.add(orderClothesModel);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        final MakeOrderModel model = new MakeOrderModel();
+
+        int terminalPointPos = makeOrder_terminalPoint_sp.getSelectedItemPosition();
+        int orderTypePos = makeOrder_orderType_sp.getSelectedItemPosition();
+        int execTypePos = makeOrder_executionType_sp.getSelectedItemPosition();
+        String notes = makeOrder_note_et.getText().toString();
+
+        model.setNumberOfClothes(clothesModels.size());
+        model.setTerminalPointId(terminalPoints.get(terminalPointPos).getId());
+        model.setOrderTypeId(orderTypes.get(orderTypePos).getId());
+        model.setExecutionTypeId(executionTypes.get(execTypePos).getId());
+        model.setNotes(notes);
+        model.setClothes(orderClothesModels);
+
+        MyRequest myRequest = new MyRequest(Request.Method.POST, MAKE_ORDER_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                System.out.println(response);
-
+                Log.d("asdasdas", "onResponse: " + response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -344,42 +371,52 @@ public class MakeOrder extends AppCompatActivity {
             }
         }) {
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-
-                int terminalPointPos = makeOrder_terminalPoint_sp.getSelectedItemPosition();
-                int orderTypePos = makeOrder_orderType_sp.getSelectedItemPosition();
-                int execTypePos = makeOrder_executionType_sp.getSelectedItemPosition();
-                String notes = makeOrder_note_et.getText().toString();
-
-                params.put("numberOfClothes", numberOfClothes);
-                params.put("terminalPointId", String.valueOf(terminalPoints.get(terminalPointPos).getId()));
-                params.put("orderTypeId", String.valueOf(orderTypes.get(orderTypePos).getId()));
-                params.put("executionTypeId", String.valueOf(executionTypes.get(execTypePos).getId()));
-                params.put("notes", notes);
-                params.put("clothes", String.valueOf(clothesModels));
-                return params;
-            }
-
-            @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> mHeader = new ArrayMap<String, String>();
-
-                SharedPreferences myPref = getSharedPreferences("accessToken", MODE_PRIVATE);
-                String accessToken = myPref.getString("Authorization", null);
-
-                mHeader.put("Authorization", "Bearer " + accessToken);
+                mHeader.put("Authorization", SharedPrefs.getToken());
                 return mHeader;
             }
         };
 
-        requestQueue.add(stringRequest);
-
+        myRequest.json = new Gson().toJson(model);
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(myRequest);
     }
 
+    class MyRequest extends StringRequest {
+
+        public MyRequest(int method, String url, Response.Listener<String> listener, Response.ErrorListener errorListener) {
+            super(method, url, listener, errorListener);
+        }
+
+        public String json = "";
+
+        @Override
+        public byte[] getBody() throws AuthFailureError {
+            return json.getBytes(StandardCharsets.UTF_8);
+        }
+
+        @Override
+        public String getBodyContentType() {
+            return "application/json; charset=utf-8";
+        }
+    }
 
     @Override
     public void onBackPressed() {
+        if (clothesModels.isEmpty()) {
+            finish();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle("Geri qayıtsanız seçdiyiniz paltarlar siyahıdan silinəcək.")
+                    .setMessage("Geri qayıtmağa əminsinizmi?")
+                    .setNegativeButton("Xeyr", null)
+                    .setPositiveButton("Bəli", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            finish();
+                        }
+                    }).create().show();
+        }
 
     }
 

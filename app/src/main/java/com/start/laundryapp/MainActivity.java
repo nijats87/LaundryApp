@@ -1,6 +1,7 @@
 package com.start.laundryapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (PreferenceManager.getDefaultSharedPreferences(this).contains("Authorization")) {
+        SharedPrefs.init(this);
+        if (SharedPrefs.getToken() != null) {
             startActivity(new Intent(this, Home.class));
             finish();
         }

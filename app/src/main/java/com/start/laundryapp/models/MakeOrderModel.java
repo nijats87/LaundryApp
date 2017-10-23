@@ -3,20 +3,22 @@ package com.start.laundryapp.models;
 
 import org.json.JSONArray;
 
+import java.util.List;
+
 public class MakeOrderModel {
 
-   private String numberOfClothes;
+   private int numberOfClothes;
    private int orderTypeId;
    private int terminalPointId;
    private int executionTypeId;
    private String notes;
-   private JSONArray clothes;
+   private List<OrderClothesModel> clothes;
 
-   public String getNumberOfClothes() {
+   public int getNumberOfClothes() {
       return numberOfClothes;
    }
 
-   public void setNumberOfClothes(String numberOfClothes) {
+   public void setNumberOfClothes(int numberOfClothes) {
       this.numberOfClothes = numberOfClothes;
    }
 
@@ -52,11 +54,11 @@ public class MakeOrderModel {
       this.notes = notes;
    }
 
-   public JSONArray getClothes() {
+   public List<OrderClothesModel> getClothes() {
       return clothes;
    }
 
-   public void setClothes(JSONArray clothes) {
+   public void setClothes(List<OrderClothesModel> clothes) {
       this.clothes = clothes;
    }
 

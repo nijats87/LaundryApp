@@ -102,11 +102,15 @@ public class Login extends AppCompatActivity {
                                     name = (String) userData.get("name");
                                     surname = (String) userData.get("surname");
                                     accessToken = result.getString("accessToken");
+                                    SharedPrefs.setToken("Bearer " + accessToken);
+
+
                                     SharedPreferences.Editor myPref =  PreferenceManager.getDefaultSharedPreferences(Login.this).edit();
-                                    myPref.putString("Authorization", accessToken);
                                     myPref.putString("userName", name);
                                     myPref.putString("userSurname", surname);
                                     myPref.apply();
+
+
                                 }
 
                                 Log.i("accessToken", accessToken);
@@ -114,7 +118,8 @@ public class Login extends AppCompatActivity {
                                 switch (loginResult) {
                                     case 1:
                                         Intent intent = new Intent(Login.this, Home.class);
-                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);                                        startActivity(intent);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
                                         break;
                                     case 2:
                                         Toast.makeText(Login.this, "InvalidEmailAddressOrPhoneNumber", Toast.LENGTH_SHORT).show();

@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.start.laundryapp.Home"
-    android:background="#e2e1e1">
+    android:background="#e2e1e1"
+    >
 
     <TextView
         android:id="@+id/home_appname_tv"
@@ -46,6 +47,7 @@
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:src="@drawable/add2"
+                android:contentDescription="ignore"
                 android:layout_weight="1"/>
 
             <ImageView
@@ -53,11 +55,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:contentDescription="ignore"
                 android:src="@drawable/sopping2" />
 
             <ImageView
                 android:id="@+id/home_checkOrder_icon"
                 android:layout_width="0dp"
+                android:contentDescription="ignore"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:src="@drawable/eye2" />
@@ -111,12 +115,14 @@
                 android:id="@+id/home_payment_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="ignore"
                 android:layout_weight="1"
                 android:src="@drawable/payment192" />
 
             <ImageView
                 android:id="@+id/home_personalinfo_icon"
                 android:layout_width="wrap_content"
+                android:contentDescription="ignore"
                 android:layout_height="wrap_content"
                 android:src="@drawable/person192"
                 android:layout_weight="1" />
@@ -125,6 +131,7 @@
                 android:id="@+id/home_feedback_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:contentDescription="ignore"
                 android:layout_weight="1"
                 android:src="@drawable/feedback192" />
 
@@ -176,12 +183,14 @@
                 android:id="@+id/home_settings_icon"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:contentDescription="ignore"
                 android:layout_weight="1"
                 android:src="@drawable/settings196" />
 
             <ImageView
                 android:id="@+id/home_exit_icon"
                 android:layout_width="0dp"
+                android:contentDescription="ignore"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/exit192" />
