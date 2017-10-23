@@ -26,4 +26,7 @@ interface ApiService {
 
     @POST("/api/services/app/order/create")
     Call<ApiResponse<Void>> makeOrder(@Body MakeOrderModel body);
+
+    @POST("/api/Account/Register")
+    Call<ApiResponse<RegisterResultModel>> register(@Body UserModel userModel);
 }

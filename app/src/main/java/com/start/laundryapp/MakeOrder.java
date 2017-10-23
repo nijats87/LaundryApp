@@ -264,7 +264,7 @@ public class MakeOrder extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             ApiResponse<Void> body = response.body();
                             if (body.success) {
-                                //TODO: show success message
+                                Toast.makeText(MakeOrder.this, "Sizin sifarişiniz qeydə alındı", Toast.LENGTH_SHORT).show();
                                 return;
                             }
                         }
