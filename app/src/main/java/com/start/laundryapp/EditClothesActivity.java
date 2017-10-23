@@ -6,12 +6,14 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.ArrayMap;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -21,8 +23,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.start.laundryapp.models.ApiResponse;
 import com.start.laundryapp.models.EditClothesModel;
 import com.start.laundryapp.models.ClothesTypeModel;
+import com.start.laundryapp.models.ItemsHolder;
+import com.start.laundryapp.models.TerminalPointsModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +36,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 import static com.start.laundryapp.ServerAdress.server_URL;
 
@@ -75,7 +83,6 @@ public class EditClothesActivity extends AppCompatActivity {
         notes_et.setText(note);
 
 
-
         clothesTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, clothesTypeAz);
         clothesTypesAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         clothesTypesSpinner.setAdapter(clothesTypesAdapter);
@@ -106,63 +113,40 @@ public class EditClothesActivity extends AppCompatActivity {
 
 
     }
+
     private void getClothesTypesData() {
-
-        requestQueue = Volley.newRequestQueue(this);
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, CLOTHES_TYPES_URL, new Response.Listener<String>() {
+        Api.getService().clothesTypes().enqueue(new Callback<ApiResponse<ItemsHolder<ClothesTypeModel>>>() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONObject result = jsonObject.getJSONObject("result");
-                    JSONArray items = result.getJSONArray("items");
+            public void onResponse(Call<ApiResponse<ItemsHolder<ClothesTypeModel>>> call, retrofit2.Response<ApiResponse<ItemsHolder<ClothesTypeModel>>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<ItemsHolder<ClothesTypeModel>> body = response.body();
+                    if (body.success) {
+                        clothesNames = body.result.items;
 
-                    int pos = -1;
-                    for (int i = 0; i < items.length(); i++) {
-                        ClothesTypeModel clothesTypeModel = new ClothesTypeModel();
-                        JSONObject item = items.getJSONObject(i);
-                        clothesTypeModel.setName(item.getString("name"));
-                        clothesTypeModel.setNameAz(item.getString("nameAz"));
-                        clothesTypeModel.setNameRu(item.getString("nameRu"));
-                        clothesTypeModel.setOrdinal(item.getInt("ordinal"));
-                        int id = item.getInt("id");
-                        if (id == clothTypeId) {
-                            pos = i;
+                        int pos = -1;
+                        for (int i = 0; i < clothesNames.size(); i++) {
+                            ClothesTypeModel type = clothesNames.get(i);
+                            clothesTypeAz.add(type.getNameAz());
+                            if (type.getId() == clothTypeId) {
+                                pos = i;
+                            }
                         }
-                        clothesTypeModel.setId(id);
-                        clothesNames.add(clothesTypeModel);
-                        clothesTypeAz.add(clothesTypeModel.getNameAz());
+                        clothesTypesAdapter.notifyDataSetChanged();
+                        if (pos > -1) {
+                            clothesTypesSpinner.setSelection(pos);
+                        }
+                        return;
                     }
-
-                    clothesTypesAdapter.notifyDataSetChanged();
-                    if (pos > -1){
-                        clothesTypesSpinner.setSelection(pos);
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
 
+                Toast.makeText(EditClothesActivity.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }) {
 
             @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> mHeader = new ArrayMap<String, String>();
-
-                mHeader.put("Authorization", SharedPrefs.getToken());
-                return mHeader;
-
+            public void onFailure(Call<ApiResponse<ItemsHolder<ClothesTypeModel>>> call, Throwable t) {
+                Log.e(EditClothesActivity.class.getSimpleName(), "onFailure: ", t);
             }
-        };
-        requestQueue.add(stringRequest);
-
+        });
     }
 
 

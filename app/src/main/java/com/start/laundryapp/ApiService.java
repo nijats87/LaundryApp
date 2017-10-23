@@ -21,6 +21,9 @@ interface ApiService {
     @GET("api/services/app/orderExecutionType/all")
     Call<ApiResponse<ItemsHolder<ExecutionTypeModel>>> executionTypes();
 
+    @GET("/api/services/app/clothesType/all")
+    Call<ApiResponse<ItemsHolder<ClothesTypeModel>>> clothesTypes();
+
     @POST("/api/services/app/order/create")
     Call<ApiResponse<Void>> makeOrder(@Body MakeOrderModel body);
 }

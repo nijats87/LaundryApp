@@ -27,10 +27,11 @@ public class Api {
                 public Response intercept(Interceptor.Chain chain) throws IOException {
                     Request original = chain.request();
 
+                    String token = SharedPrefs.getToken() == null ? "" : SharedPrefs.getToken();
                     Request request = original.newBuilder()
                             .header("User-Agent", "LaundryApp/1.0 Android")
                             .header("Accept", "application/json")
-                            .header("Authorization", SharedPrefs.getToken())
+                            .header("Authorization", token)
                             .build();
 
                     return chain.proceed(request);

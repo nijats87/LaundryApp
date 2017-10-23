@@ -1,5 +1,7 @@
 package com.start.laundryapp.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class TerminalPointsModel extends OrderTypeModel{
 
     private double longitude;
