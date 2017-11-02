@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="#b0cef5"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/orderNumber"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Sifarişin nömrəsi"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/orderNumber2"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="1568"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/ll1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/clothesCount"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Paltar sayı"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/clothesCount2"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="2"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll3"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/ll2"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/orderType"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Sifarişin növü"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/orderType2"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="Yaş təmizləmə"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll4"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/ll3"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/terminalPoint"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Məntəqə"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/terminalPoint2"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="Ə.Rəcəbli 145, Nərimanov r.,Bakı"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll5"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/ll4"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/orderStatus"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Status"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/orderStatus2"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="Aktiv"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll6"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_below="@id/ll5"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/orderDate"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="Sifarişin tarixi"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/orderDate2"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="18.10.2017"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_blue_dark">
+    </View>
+
+</RelativeLayout>

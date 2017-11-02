@@ -1,11 +1,9 @@
 package com.start.laundryapp;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,20 +18,12 @@ import com.start.laundryapp.models.ApiResponse;
 import com.start.laundryapp.models.EditClothesModel;
 import com.start.laundryapp.models.ClothesTypeModel;
 import com.start.laundryapp.models.ItemsHolder;
-import com.start.laundryapp.models.TerminalPointsModel;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-
-import static com.start.laundryapp.ServerAdress.server_URL;
 
 public class EditClothesActivity extends AppCompatActivity {
 
@@ -56,11 +46,11 @@ public class EditClothesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_clothes_type);
 
         getClothesTypesData();
-        croppedImage = (ImageView) findViewById(R.id.croppedImage);
-        clothesTypesSpinner = (Spinner) findViewById(R.id.clothesTypesSpinner);
-        notes_et = (EditText) findViewById(R.id.notes_et);
-        cancelBtn = (Button) findViewById(R.id.cancelBtn);
-        doneBtn = (Button) findViewById(R.id.doneBtn);
+        croppedImage = findViewById(R.id.croppedImage);
+        clothesTypesSpinner = findViewById(R.id.clothesTypesSpinner);
+        notes_et = findViewById(R.id.notes_et);
+        cancelBtn = findViewById(R.id.cancelBtn);
+        doneBtn = findViewById(R.id.doneBtn);
 
         clothesNames = new ArrayList<>();
         clothesTypeAz = new ArrayList<>();

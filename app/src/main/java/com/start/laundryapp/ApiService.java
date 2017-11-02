@@ -4,11 +4,7 @@ import com.start.laundryapp.models.*;
 import retrofit2.Call;
 import retrofit2.http.*;
 
-/**
- * Created by nijats87 on 10/23/2017.
- */
-
-interface ApiService {
+public interface ApiService {
     @GET("/api/services/app/order/my")
     Call<ApiResponse<ItemsHolder<OrderModel>>> orders();
 

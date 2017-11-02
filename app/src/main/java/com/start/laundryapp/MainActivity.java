@@ -27,12 +27,12 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        main_AppName_tv = (TextView)findViewById(R.id.main_AppName_tv);
-        main_Login_tv = (TextView)findViewById(R.id.main_Login_tv);
-        main_Register_tv = (TextView)findViewById(R.id.main_Register_tv);
+        main_AppName_tv = findViewById(R.id.main_AppName_tv);
+        main_Login_tv = findViewById(R.id.main_Login_tv);
+        main_Register_tv = findViewById(R.id.main_Register_tv);
 //        main_Haqqimizda_tv = (TextView)findViewById(R.id.main_Haqqimizda_tv);
 
-        main_AppLoqo = (ImageView)findViewById(R.id.main_AppLogo);
+        main_AppLoqo = findViewById(R.id.main_AppLogo);
 
         Typeface facile_font = Typeface.createFromAsset(getAssets(), "fonts/FacileSans.otf");
 

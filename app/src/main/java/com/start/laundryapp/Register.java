@@ -2,7 +2,6 @@ package com.start.laundryapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,7 +13,6 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.start.laundryapp.models.ApiResponse;
 import com.start.laundryapp.models.RegisterModel;
 import com.start.laundryapp.models.RegisterResultModel;
-import com.start.laundryapp.models.UserModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,17 +30,17 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        register_name_et = (EditText) findViewById(R.id.register_name_et);
-        register_surname_et = (EditText) findViewById(R.id.register_surname_et);
-        register_email_et = (EditText) findViewById(R.id.register_email_et);
-        register_phone_et = (EditText) findViewById(R.id.register_phone_et);
-        register_password_et = (EditText) findViewById(R.id.register_password_et);
-        register_address_et = (EditText) findViewById(R.id.register_address_et);
-        register_checkbox = (CheckBox) findViewById(R.id.register_checkbox);
+        register_name_et = findViewById(R.id.register_name_et);
+        register_surname_et = findViewById(R.id.register_surname_et);
+        register_email_et = findViewById(R.id.register_email_et);
+        register_phone_et = findViewById(R.id.register_phone_et);
+        register_password_et = findViewById(R.id.register_password_et);
+        register_address_et = findViewById(R.id.register_address_et);
+        register_checkbox = findViewById(R.id.register_checkbox);
 
         final String shifre = register_password_et.getText().toString();
 
-        register_btn = (Button) findViewById(R.id.register_btn);
+        register_btn = findViewById(R.id.register_btn);
 
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.start.laundryapp.adapters.ClothesRecyclerAdapter;
 import com.start.laundryapp.models.EditClothesModel;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -41,7 +42,7 @@ public class ClothesActivity extends AppCompatActivity {
             findViewById(R.id.confirmClothesBtn).setVisibility(View.VISIBLE);
         }
 
-        confirmClothesBtn = (Button)findViewById(R.id.confirmClothesBtn);
+        confirmClothesBtn = findViewById(R.id.confirmClothesBtn);
 
         confirmClothesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +51,7 @@ public class ClothesActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerViewClothes);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }

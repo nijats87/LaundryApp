@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class Api {
-    public final static String BASE_URL = "http://138.201.157.254:8017";
+    public final static String BASE_URL = "http://10.50.93.26:8017";
 
     private static Retrofit retrofit;
 
@@ -27,11 +27,12 @@ public class Api {
                 public Response intercept(Interceptor.Chain chain) throws IOException {
                     Request original = chain.request();
 
-                    String token = SharedPrefs.getToken() == null ? "" : SharedPrefs.getToken();
+                    String accessToken = SharedPrefs.getToken() == null ? "" : SharedPrefs.getToken();
+
                     Request request = original.newBuilder()
                             .header("User-Agent", "LaundryApp/1.0 Android")
                             .header("Accept", "application/json")
-                            .header("Authorization", token)
+                            .header("Authorization", accessToken)
                             .build();
 
                     return chain.proceed(request);

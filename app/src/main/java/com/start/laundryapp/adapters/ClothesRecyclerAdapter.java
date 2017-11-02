@@ -1,11 +1,8 @@
-package com.start.laundryapp;
+package com.start.laundryapp.adapters;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -13,10 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.start.laundryapp.ClothesActivity;
+import com.start.laundryapp.EditClothesActivity;
+import com.start.laundryapp.R;
 import com.start.laundryapp.models.EditClothesModel;
 
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class ClothesRecyclerAdapter extends RecyclerView.Adapter<ClothesRecycler
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View v = LayoutInflater.from(context).inflate(R.layout.row_layout_rview, parent, false);
+        final View v = LayoutInflater.from(context).inflate(R.layout.rl_clothes_rv, parent, false);
         return new ViewHolder(v);
     }
 

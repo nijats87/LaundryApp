@@ -8,4 +8,42 @@
     android:background="#e2e1e1"
     tools:context="com.start.laundryapp.OrdersActivity">
 
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rw_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/ordersRecyclerViewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sizin sifarişləriniz"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:layout_marginTop="5dp"
+            android:visibility="invisible"
+            android:gravity="center_horizontal"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewOrders"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/ordersRecyclerViewTitle"
+            android:orientation="vertical">
+        </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/noOrdersTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="SİZİN SİFARİŞİNİZ YOXDUR"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="35sp"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
+    </RelativeLayout>

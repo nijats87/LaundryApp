@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="80dp"
-    android:background="#e2e1e1"
+    android:background="#b0cef5"
     android:id="@+id/rll">
 
     <ImageView
@@ -14,6 +14,7 @@
         android:layout_marginStart="5dp"
         android:layout_centerVertical="true"
         android:src="@drawable/addphoto"
+        android:contentDescription="ignore"
         />
 
     <TextView

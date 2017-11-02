@@ -2,10 +2,12 @@ package com.start.laundryapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -22,6 +24,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
+import com.start.laundryapp.adapters.OrdersRecyclerAdapter;
 import com.start.laundryapp.models.ApiResponse;
 import com.start.laundryapp.models.EditClothesModel;
 import com.start.laundryapp.models.ExecutionTypeModel;
@@ -50,36 +53,35 @@ public class MakeOrder extends AppCompatActivity {
     ImageView makeOrder_addPhoto_btn;
     Spinner makeOrder_terminalPoint_sp, makeOrder_orderType_sp, makeOrder_executionType_sp;
     private List<ExecutionTypeModel> executionTypes;
-    private List<OrderTypeModel> orderTypes;
-    private List<TerminalPointsModel> terminalPoints;
+    public  List<OrderTypeModel> orderTypes;
+    public  List<TerminalPointsModel> terminalPoints;
+    private List<EditClothesModel> clothesModels;
     private List<String> executionTypeAz;
-    private List<String> orderTypeAz;
-    private List<String> terminalPointsAz;
+    public  List<String> orderTypeAz;
+    public  List<String> terminalPointsAz;
     private ArrayAdapter<String> executionTypesAdapter;
     private ArrayAdapter<String> orderTypesAdapter;
     private ArrayAdapter<String> terminalPointsAdapter;
-
-    List<EditClothesModel> clothesModels = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_order);
 
-        makeOrder_clothesCount_et = (EditText) findViewById(R.id.makeOrder_clothesCount_et);
-        makeOrder_terminalPoint_sp = (Spinner) findViewById(R.id.makeOrder_terminalPoint_sp);
-        makeOrder_orderType_sp = (Spinner) findViewById(R.id.makeOrder_orderType_sp);
-        makeOrder_note_et = (EditText) findViewById(R.id.makeOrder_note_et);
-        makeOrder_executionType_sp = (Spinner) findViewById(R.id.makeOrder_executionType_sp);
-        makeOrder_btn = (Button) findViewById(R.id.makeOrder_btn);
-        makeOrder_addPhoto_btn = (ImageView) findViewById(R.id.makeOrder_addPhoto_btn);
+        makeOrder_clothesCount_et = findViewById(R.id.makeOrder_clothesCount_et);
+        makeOrder_terminalPoint_sp = findViewById(R.id.makeOrder_terminalPoint_sp);
+        makeOrder_orderType_sp = findViewById(R.id.makeOrder_orderType_sp);
+        makeOrder_note_et = findViewById(R.id.makeOrder_note_et);
+        makeOrder_executionType_sp = findViewById(R.id.makeOrder_executionType_sp);
+        makeOrder_btn = findViewById(R.id.makeOrder_btn);
+        makeOrder_addPhoto_btn = findViewById(R.id.makeOrder_addPhoto_btn);
 
         executionTypes = new ArrayList<>();
-        orderTypes = new ArrayList<>();
         terminalPoints = new ArrayList<>();
         executionTypeAz = new ArrayList<>();
         terminalPointsAz = new ArrayList<>();
         orderTypeAz = new ArrayList<>();
+        clothesModels = new ArrayList<>();
 
         terminalPointsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, terminalPointsAz);
         terminalPointsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -145,6 +147,7 @@ public class MakeOrder extends AppCompatActivity {
                     ApiResponse<ItemsHolder<TerminalPointsModel>> body = response.body();
                     if (body.success) {
                         terminalPoints = body.result.items;
+                        System.out.println(terminalPoints);
 
                         for (TerminalPointsModel point : terminalPoints) {
                             terminalPointsAz.add(point.getName());
@@ -164,6 +167,7 @@ public class MakeOrder extends AppCompatActivity {
         });
     }
 
+
     private void getOrderTypesData() {
         Api.getService().orderTypes().enqueue(new Callback<ApiResponse<ItemsHolder<OrderTypeModel>>>() {
             @Override
@@ -176,6 +180,7 @@ public class MakeOrder extends AppCompatActivity {
                         for (OrderTypeModel type : orderTypes) {
                             orderTypeAz.add(type.getNameAz());
                         }
+
                         orderTypesAdapter.notifyDataSetChanged();
                         return;
                     }
@@ -264,7 +269,20 @@ public class MakeOrder extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             ApiResponse<Void> body = response.body();
                             if (body.success) {
+
+                                Thread thread = new Thread() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            Thread.sleep(1500);
+                                            MakeOrder.this.finish();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                };
                                 Toast.makeText(MakeOrder.this, "Sizin sifarişiniz qeydə alındı", Toast.LENGTH_SHORT).show();
+                                thread.start();
                                 return;
                             }
                         }

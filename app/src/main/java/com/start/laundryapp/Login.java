@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,12 +18,6 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.start.laundryapp.models.ApiResponse;
 import com.start.laundryapp.models.LoginModel;
 import com.start.laundryapp.models.LoginResultModel;
-import com.start.laundryapp.models.RegisterResultModel;
-
-import org.json.JSONException;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,6 +30,7 @@ public class Login extends AppCompatActivity {
     TextView login_forgetPassword_tv;
     Button login_btn;
     ImageView facebook_login_img;
+    public final String TAG = "LAUNDRY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +38,14 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        login_emailPhone_et = (EditText) findViewById(R.id.login_emailPhone_et);
+        login_emailPhone_et = findViewById(R.id.login_emailPhone_et);
 
-        login_password_et = (EditText) findViewById(R.id.login_password_et);
+        login_password_et = findViewById(R.id.login_password_et);
 
 
-        login_forgetPassword_tv = (TextView) findViewById(R.id.login_forgetPassword_tv);
-        login_btn = (Button) findViewById(R.id.login_btn);
-        facebook_login_img = (ImageView) findViewById(R.id.facebook_login_img);
+        login_forgetPassword_tv = findViewById(R.id.login_forgetPassword_tv);
+        login_btn = findViewById(R.id.login_btn);
+        facebook_login_img = findViewById(R.id.facebook_login_img);
 
 
         login_btn.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +74,7 @@ public class Login extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 ApiResponse<LoginResultModel> body = response.body();
                                 LoginResultModel result = body.result;
+                                Log.e(TAG, "accessToken: " + result.accessToken);
 
                                 switch (result.loginResult) {
                                     case 1:
