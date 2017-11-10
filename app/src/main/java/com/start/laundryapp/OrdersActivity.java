@@ -1,5 +1,6 @@
 package com.start.laundryapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,7 +33,9 @@ public class OrdersActivity extends AppCompatActivity {
     public OrdersRecyclerAdapter adapter = new OrdersRecyclerAdapter(this, new BaseRecyclerAdapter.OnClickListener<OrderModel>() {
         @Override
         public void onClick(OrderModel model, int position) {
-            System.out.println(model.id);
+            Intent in = new Intent(OrdersActivity.this, OrderInfoActivity.class);
+            in.putExtra("orderModel", new Gson().toJson(model));
+            OrdersActivity.this.startActivity(in);
         }
     });
 
