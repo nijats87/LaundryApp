@@ -16,8 +16,10 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -41,6 +43,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,27 +52,24 @@ import retrofit2.Response;
 public class MakeOrder extends AppCompatActivity {
 
     private static final String TAG = MakeOrder.class.getSimpleName();
-    EditText makeOrder_clothesCount_et, makeOrder_note_et;
-    Button makeOrder_btn;
-    ImageView makeOrder_addPhoto_btn;
-    Spinner makeOrder_terminalPoint_sp, makeOrder_orderType_sp, makeOrder_executionType_sp;
+    @BindView(R.id.makeOrder_orderType_sp) Spinner makeOrder_orderType_sp;
+    @BindView(R.id.makeOrder_terminalPoint_sp) Spinner makeOrder_terminalPoint_sp;
+    @BindView(R.id.makeOrder_executionType_sp) Spinner makeOrder_executionType_sp;
 
-    private List<EditClothesModel> clothesModels;
+    @BindView(R.id.makeOrder_note_et) EditText makeOrder_note_et;
+    @BindView(R.id.makeOrder_clothesCount_et) EditText makeOrder_clothesCount_et;
+
+    @BindView(R.id.makeOrder_btn) Button makeOrder_btn;
+    @BindView(R.id.makeOrder_addPhoto_btn) ImageView makeOrder_addPhoto_btn;
+
+
+    private List<EditClothesModel> clothesModels = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_order);
-
-        makeOrder_clothesCount_et = findViewById(R.id.makeOrder_clothesCount_et);
-        makeOrder_terminalPoint_sp = findViewById(R.id.makeOrder_terminalPoint_sp);
-        makeOrder_orderType_sp = findViewById(R.id.makeOrder_orderType_sp);
-        makeOrder_note_et = findViewById(R.id.makeOrder_note_et);
-        makeOrder_executionType_sp = findViewById(R.id.makeOrder_executionType_sp);
-        makeOrder_btn = findViewById(R.id.makeOrder_btn);
-        makeOrder_addPhoto_btn = findViewById(R.id.makeOrder_addPhoto_btn);
-
-        clothesModels = new ArrayList<>();
+        ButterKnife.bind(this);
 
         ArrayAdapter<String> terminalPointsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Home.terminalPointsAz);
         terminalPointsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
