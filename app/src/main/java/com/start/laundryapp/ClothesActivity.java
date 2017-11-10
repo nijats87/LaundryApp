@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.start.laundryapp.adapters.BaseRecyclerAdapter;
 import com.start.laundryapp.adapters.ClothesRecyclerAdapter;
 import com.start.laundryapp.models.EditClothesModel;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 
 public class ClothesActivity extends AppCompatActivity {
 
-    ClothesRecyclerAdapter adapter = new ClothesRecyclerAdapter(this, new ClothesRecyclerAdapter.OnClickListener(){
+    ClothesRecyclerAdapter adapter = new ClothesRecyclerAdapter(this, new BaseRecyclerAdapter.OnClickListener<EditClothesModel>(){
         @Override
         public void onClick(EditClothesModel model, int position) {
             Intent in = new Intent(ClothesActivity.this, EditClothesActivity.class);

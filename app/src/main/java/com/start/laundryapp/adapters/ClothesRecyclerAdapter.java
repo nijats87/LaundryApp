@@ -23,19 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ClothesRecyclerAdapter extends RecyclerView.Adapter<ClothesRecyclerAdapter.ViewHolder> {
+public class ClothesRecyclerAdapter extends BaseRecyclerAdapter<EditClothesModel, ClothesRecyclerAdapter.ViewHolder> {
 
-    public Activity context;
-
-    public List<EditClothesModel> data = new ArrayList<>();
-    private OnClickListener onClickListener;
-    public interface OnClickListener {
-         void onClick(EditClothesModel model, int position);
-    }
-
-    public ClothesRecyclerAdapter(Activity context, OnClickListener listener) {
-        this.context = context;
-        this.onClickListener = listener;
+    public ClothesRecyclerAdapter(Activity context, OnClickListener<EditClothesModel> listener) {
+        super(context, listener);
     }
 
     @Override
@@ -45,20 +36,10 @@ public class ClothesRecyclerAdapter extends RecyclerView.Adapter<ClothesRecycler
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-
-        final EditClothesModel model = data.get(position);
+    public void bindModel(ViewHolder holder, EditClothesModel model, final int position) {
         holder.image.setImageURI(Uri.parse(model.imageUri));
         holder.clothesType.setText(model.clothName);
         holder.note.setText(model.note);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickListener.onClick(model, position);
-            }
-        });
-
 
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,18 +51,17 @@ public class ClothesRecyclerAdapter extends RecyclerView.Adapter<ClothesRecycler
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteItem(position);
-                        if (data.isEmpty()){
+                        if (data.isEmpty()) {
                             View b = context.findViewById(R.id.confirmClothesBtn);
                             b.setVisibility(View.GONE);
                         }
 
                     }
-                })
-                        .setNegativeButton("Xeyr", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
+                }).setNegativeButton("Xeyr", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
                 final AlertDialog alertDialog = alert.create();
                 alertDialog.show();
 
@@ -89,27 +69,17 @@ public class ClothesRecyclerAdapter extends RecyclerView.Adapter<ClothesRecycler
         });
     }
 
-    @Override
-    public int getItemCount() {
-        return data.size();
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView clothesType, note;
         ImageView image, deleteBtn;
 
         ViewHolder(View view) {
             super(view);
-            clothesType = (TextView) view.findViewById(R.id.clothes_type_tv);
-            note = (TextView) view.findViewById(R.id.clothes_note_tv);
-            image = (ImageView) view.findViewById(R.id.clothes_image);
-            deleteBtn = (ImageView) view.findViewById(R.id.delete_item_btn);
-        }
-
-        @Override
-        public void onClick(View view) {
-
+            clothesType = view.findViewById(R.id.clothes_type_tv);
+            note = view.findViewById(R.id.clothes_note_tv);
+            image = view.findViewById(R.id.clothes_image);
+            deleteBtn = view.findViewById(R.id.delete_item_btn);
         }
     }
 
@@ -117,6 +87,4 @@ public class ClothesRecyclerAdapter extends RecyclerView.Adapter<ClothesRecycler
         data.remove(position);
         notifyDataSetChanged();
     }
-
-
 }
