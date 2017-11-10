@@ -1,6 +1,7 @@
 package com.start.laundryapp.adapters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -27,9 +28,14 @@ public class ClothesRecyclerAdapter extends RecyclerView.Adapter<ClothesRecycler
     public Activity context;
 
     public List<EditClothesModel> data = new ArrayList<>();
+    private OnClickListener onClickListener;
+    public interface OnClickListener {
+         void onClick(EditClothesModel model, int position);
+    }
 
-    public ClothesRecyclerAdapter(Activity context) {
+    public ClothesRecyclerAdapter(Activity context, OnClickListener listener) {
         this.context = context;
+        this.onClickListener = listener;
     }
 
     @Override
@@ -49,13 +55,7 @@ public class ClothesRecyclerAdapter extends RecyclerView.Adapter<ClothesRecycler
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("item", "clicked");
-                Intent in = new Intent(context, EditClothesActivity.class);
-                in.putExtra("croppedImgURI", model.imageUri);
-                in.putExtra("note", model.note);
-                in.putExtra("clothTypeId", model.clothTypeId);
-                in.putExtra("pos", position);
-                context.startActivityForResult(in, ClothesActivity.clothesEditedCode);
+                onClickListener.onClick(model, position);
             }
         });
 

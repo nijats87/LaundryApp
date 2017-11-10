@@ -26,7 +26,18 @@ import java.util.ArrayList;
 
 public class ClothesActivity extends AppCompatActivity {
 
-    ClothesRecyclerAdapter adapter = new ClothesRecyclerAdapter(this);
+    ClothesRecyclerAdapter adapter = new ClothesRecyclerAdapter(this, new ClothesRecyclerAdapter.OnClickListener(){
+        @Override
+        public void onClick(EditClothesModel model, int position) {
+            Intent in = new Intent(ClothesActivity.this, EditClothesActivity.class);
+            in.putExtra("croppedImgURI", model.imageUri);
+            in.putExtra("note", model.note);
+            in.putExtra("clothTypeId", model.clothTypeId);
+            in.putExtra("pos", position);
+            ClothesActivity.this.startActivityForResult(in, clothesEditedCode);
+        }
+    });
+
     Button confirmClothesBtn;
 
     @Override
@@ -79,7 +90,7 @@ public class ClothesActivity extends AppCompatActivity {
     }
 
     int clothesAddedCode = 12321;
-    public static int clothesEditedCode = 2323;
+    int clothesEditedCode = 2323;
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
