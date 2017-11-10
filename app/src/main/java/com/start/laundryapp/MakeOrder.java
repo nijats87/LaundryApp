@@ -52,16 +52,8 @@ public class MakeOrder extends AppCompatActivity {
     Button makeOrder_btn;
     ImageView makeOrder_addPhoto_btn;
     Spinner makeOrder_terminalPoint_sp, makeOrder_orderType_sp, makeOrder_executionType_sp;
-    private List<ExecutionTypeModel> executionTypes;
-    public  List<OrderTypeModel> orderTypes;
-    public  List<TerminalPointsModel> terminalPoints;
+
     private List<EditClothesModel> clothesModels;
-    private List<String> executionTypeAz;
-    public  List<String> orderTypeAz;
-    public  List<String> terminalPointsAz;
-    private ArrayAdapter<String> executionTypesAdapter;
-    private ArrayAdapter<String> orderTypesAdapter;
-    private ArrayAdapter<String> terminalPointsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,28 +68,19 @@ public class MakeOrder extends AppCompatActivity {
         makeOrder_btn = findViewById(R.id.makeOrder_btn);
         makeOrder_addPhoto_btn = findViewById(R.id.makeOrder_addPhoto_btn);
 
-        executionTypes = new ArrayList<>();
-        terminalPoints = new ArrayList<>();
-        executionTypeAz = new ArrayList<>();
-        terminalPointsAz = new ArrayList<>();
-        orderTypeAz = new ArrayList<>();
         clothesModels = new ArrayList<>();
 
-        terminalPointsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, terminalPointsAz);
+        ArrayAdapter<String> terminalPointsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Home.terminalPointsAz);
         terminalPointsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         makeOrder_terminalPoint_sp.setAdapter(terminalPointsAdapter);
 
-        executionTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, executionTypeAz);
+        ArrayAdapter<String> executionTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Home.executionTypeAz);
         executionTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         makeOrder_executionType_sp.setAdapter(executionTypesAdapter);
 
-        orderTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, orderTypeAz);
+        ArrayAdapter<String> orderTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Home.orderTypeAz);
         orderTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         makeOrder_orderType_sp.setAdapter(orderTypesAdapter);
-
-        getTerminalPointsData();
-        getOrderTypesData();
-        getExecutionTypesData();
 
 
         View.OnClickListener listener = new View.OnClickListener() {
@@ -139,89 +122,6 @@ public class MakeOrder extends AppCompatActivity {
         }
     }
 
-    private void getTerminalPointsData() {
-        Api.getService().terminalPoints().enqueue(new Callback<ApiResponse<ItemsHolder<TerminalPointsModel>>>() {
-            @Override
-            public void onResponse(Call<ApiResponse<ItemsHolder<TerminalPointsModel>>> call, Response<ApiResponse<ItemsHolder<TerminalPointsModel>>> response) {
-                if (response.isSuccessful()) {
-                    ApiResponse<ItemsHolder<TerminalPointsModel>> body = response.body();
-                    if (body.success) {
-                        terminalPoints = body.result.items;
-                        System.out.println(terminalPoints);
-
-                        for (TerminalPointsModel point : terminalPoints) {
-                            terminalPointsAz.add(point.getName());
-                        }
-                        terminalPointsAdapter.notifyDataSetChanged();
-                        return;
-                    }
-                }
-
-                Toast.makeText(MakeOrder.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse<ItemsHolder<TerminalPointsModel>>> call, Throwable t) {
-                Log.e(TAG, "onFailure: ", t);
-            }
-        });
-    }
-
-
-    private void getOrderTypesData() {
-        Api.getService().orderTypes().enqueue(new Callback<ApiResponse<ItemsHolder<OrderTypeModel>>>() {
-            @Override
-            public void onResponse(Call<ApiResponse<ItemsHolder<OrderTypeModel>>> call, Response<ApiResponse<ItemsHolder<OrderTypeModel>>> response) {
-                if (response.isSuccessful()) {
-                    ApiResponse<ItemsHolder<OrderTypeModel>> body = response.body();
-                    if (body.success) {
-                        orderTypes = body.result.items;
-
-                        for (OrderTypeModel type : orderTypes) {
-                            orderTypeAz.add(type.getNameAz());
-                        }
-
-                        orderTypesAdapter.notifyDataSetChanged();
-                        return;
-                    }
-                }
-
-                Toast.makeText(MakeOrder.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse<ItemsHolder<OrderTypeModel>>> call, Throwable t) {
-                Log.e(TAG, "onFailure: ", t);
-            }
-        });
-    }
-
-    private void getExecutionTypesData() {
-        Api.getService().executionTypes().enqueue(new Callback<ApiResponse<ItemsHolder<ExecutionTypeModel>>>() {
-            @Override
-            public void onResponse(Call<ApiResponse<ItemsHolder<ExecutionTypeModel>>> call, Response<ApiResponse<ItemsHolder<ExecutionTypeModel>>> response) {
-                if (response.isSuccessful()) {
-                    ApiResponse<ItemsHolder<ExecutionTypeModel>> body = response.body();
-                    if (body.success) {
-                        executionTypes = body.result.items;
-
-                        for (ExecutionTypeModel type : executionTypes) {
-                            executionTypeAz.add(type.getNameAz());
-                        }
-                        executionTypesAdapter.notifyDataSetChanged();
-                        return;
-                    }
-                }
-
-                Toast.makeText(MakeOrder.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<ApiResponse<ItemsHolder<ExecutionTypeModel>>> call, Throwable t) {
-                Log.e(TAG, "onFailure: ", t);
-            }
-        });
-    }
 
     private void makeOrder() {
         final List<OrderClothesModel> orderClothesModels = new ArrayList<>();
@@ -255,9 +155,9 @@ public class MakeOrder extends AppCompatActivity {
         String notes = makeOrder_note_et.getText().toString();
 
         model.setNumberOfClothes(clothesModels.size());
-        model.setTerminalPointId(terminalPoints.get(terminalPointPos).getId());
-        model.setOrderTypeId(orderTypes.get(orderTypePos).getId());
-        model.setExecutionTypeId(executionTypes.get(execTypePos).getId());
+        model.setTerminalPointId(Home.terminalPoints.get(terminalPointPos).getId());
+        model.setOrderTypeId(Home.orderTypes.get(orderTypePos).getId());
+        model.setExecutionTypeId(Home.executionTypes.get(execTypePos).getId());
         model.setNotes(notes);
         model.setClothes(orderClothesModels);
 

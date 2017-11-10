@@ -12,12 +12,33 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.start.laundryapp.models.ApiResponse;
+import com.start.laundryapp.models.ExecutionTypeModel;
+import com.start.laundryapp.models.ItemsHolder;
+import com.start.laundryapp.models.OrderTypeModel;
+import com.start.laundryapp.models.TerminalPointsModel;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Home extends AppCompatActivity {
 
     ImageView home_newOrder_icon, home_orders_icon, home_checkOrder_icon, home_payment_icon, home_personalinfo_icon, home_feedback_icon, home_settings_icon, home_exit_icon;
     TextView home_nameSurname_tv;
     public final String TAG = "LAUNDRY";
+
+    public static List<TerminalPointsModel> terminalPoints = new ArrayList<>();
+    public static List<String> terminalPointsAz = new ArrayList<>();
+    public static List<ExecutionTypeModel> executionTypes = new ArrayList<>();
+    public static List<OrderTypeModel> orderTypes = new ArrayList<>();
+    public static List<String> executionTypeAz = new ArrayList<>();
+    public static List<String> orderTypeAz = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,13 +102,100 @@ public class Home extends AppCompatActivity {
         home_exit_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e(TAG,  "removed TOKEN: " + SharedPrefs.getToken());
+                Log.e(TAG, "removed TOKEN: " + SharedPrefs.getToken());
                 SharedPrefs.removeToken();
                 finish();
                 startActivity(new Intent(Home.this, MainActivity.class));
             }
         });
 
+        getTerminalPointsData();
+        getOrderTypesData();
+        getExecutionTypesData();
+    }
 
+    private void getTerminalPointsData() {
+        Api.getService().terminalPoints().enqueue(new Callback<ApiResponse<ItemsHolder<TerminalPointsModel>>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<ItemsHolder<TerminalPointsModel>>> call, Response<ApiResponse<ItemsHolder<TerminalPointsModel>>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<ItemsHolder<TerminalPointsModel>> body = response.body();
+                    if (body.success) {
+                        terminalPoints = body.result.items;
+                        System.out.println(terminalPoints);
+                        terminalPointsAz.clear();
+                        for (TerminalPointsModel point : terminalPoints) {
+                            terminalPointsAz.add(point.getName());
+                        }
+//                        terminalPointsAdapter.notifyDataSetChanged();
+                        return;
+                    }
+                }
+
+                Toast.makeText(Home.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<ItemsHolder<TerminalPointsModel>>> call, Throwable t) {
+                Toast.makeText(Home.this, "Request was not succesful.", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
+
+    private void getOrderTypesData() {
+        Api.getService().orderTypes().enqueue(new Callback<ApiResponse<ItemsHolder<OrderTypeModel>>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<ItemsHolder<OrderTypeModel>>> call, Response<ApiResponse<ItemsHolder<OrderTypeModel>>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<ItemsHolder<OrderTypeModel>> body = response.body();
+                    if (body.success) {
+                        orderTypes = body.result.items;
+                        orderTypeAz.clear();
+                        for (OrderTypeModel type : orderTypes) {
+                            orderTypeAz.add(type.getNameAz());
+                        }
+
+//                        orderTypesAdapter.notifyDataSetChanged();
+                        return;
+                    }
+                }
+
+                Toast.makeText(Home.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<ItemsHolder<OrderTypeModel>>> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
+
+    private void getExecutionTypesData() {
+        Api.getService().executionTypes().enqueue(new Callback<ApiResponse<ItemsHolder<ExecutionTypeModel>>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<ItemsHolder<ExecutionTypeModel>>> call, Response<ApiResponse<ItemsHolder<ExecutionTypeModel>>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<ItemsHolder<ExecutionTypeModel>> body = response.body();
+                    if (body.success) {
+                        executionTypes = body.result.items;
+                        executionTypeAz.clear();
+
+                        for (ExecutionTypeModel type : executionTypes) {
+                            executionTypeAz.add(type.getNameAz());
+                        }
+//                        executionTypesAdapter.notifyDataSetChanged();
+                        return;
+                    }
+                }
+
+                Toast.makeText(Home.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<ItemsHolder<ExecutionTypeModel>>> call, Throwable t) {
+                Log.e(TAG, "onFailure: ", t);
+            }
+        });
     }
 }

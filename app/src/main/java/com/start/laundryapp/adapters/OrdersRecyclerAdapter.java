@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.start.laundryapp.Home;
 import com.start.laundryapp.MakeOrder;
 import com.start.laundryapp.OrdersActivity;
 import com.start.laundryapp.R;
@@ -18,20 +19,11 @@ import com.start.laundryapp.models.TerminalPointsModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrdersRecyclerAdapter extends RecyclerView.Adapter<OrdersRecyclerAdapter.ViewHolder> {
+public class OrdersRecyclerAdapter extends BaseRecyclerAdapter<OrderModel, OrdersRecyclerAdapter.ViewHolder> {
 
-    public Activity context;
-
-    public List<OrderModel> data;
-    public List<OrderTypeModel> orderTypeModels = OrdersActivity.orderTypes;
-    public List<TerminalPointsModel> terminalPointsModels = OrdersActivity.terminalPoints;
-
-
-    public OrdersRecyclerAdapter(Activity context, List<OrderModel> data) {
-        this.context = context;
-        this.data = data;
+    public OrdersRecyclerAdapter(Activity context, OnClickListener<OrderModel> listener) {
+        super(context, listener);
     }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -39,59 +31,42 @@ public class OrdersRecyclerAdapter extends RecyclerView.Adapter<OrdersRecyclerAd
         return new ViewHolder(v);
     }
 
-
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        String orderType = "";
-        String terminalPoint = "";
+    public void bindModel(ViewHolder holder, OrderModel model, int position) {
+        holder.orderNumber.setText(String.valueOf(model.id));
+        holder.clothesCount.setText(String.valueOf(model.numberOfClothes));
+//                Default = 0,
+//                Pending = 10,
+//                Received = 20,
+//                OnDelivery = 30,
+//                OnLaundry = 40,
+//                Ready = 50,
+//                Completed = 60,
+//                Cancelled = 70
 
-        OrderModel orderData = data.get(position);
-
-        for (OrderTypeModel item : orderTypeModels) {
-            if (item.getId() == orderData.orderTypeId) {
-                orderType = item.getNameAz();
-            }
-        }
-        for (TerminalPointsModel item : terminalPointsModels) {
-            if (item.getId() == orderData.terminalPointId) {
-                terminalPoint = item.getName();
-            }
-        }
-
-
-        holder.orderNumber.setText(String.valueOf(orderData.id));
-        holder.clothesCount.setText(String.valueOf(orderData.numberOfClothes));
-        holder.orderType.setText(orderType);
-        holder.terminalPoint.setText(terminalPoint);
-        holder.orderDate.setText(String.valueOf(orderData.orderTypeId));
-        switch (orderData.status) {
+        switch (model.status) {
             case 10:
                 holder.orderStatus.setText("Pending");
+                break;
+            case 20:
+                holder.orderStatus.setText("Received");
                 break;
             case 70:
                 holder.orderStatus.setText("Cancelled");
                 break;
         }
-
     }
 
-    @Override
-    public int getItemCount() {
-        return data.size();
-    }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView orderNumber, clothesCount, orderType, terminalPoint, orderStatus, orderDate;
+        TextView orderNumber, clothesCount, orderStatus;
 
-        public ViewHolder(View view) {
+        ViewHolder(View view) {
             super(view);
             orderNumber = view.findViewById(R.id.orderNumber2);
             clothesCount = view.findViewById(R.id.clothesCount2);
-            orderType = view.findViewById(R.id.orderType2);
-            terminalPoint = view.findViewById(R.id.terminalPoint2);
             orderStatus = view.findViewById(R.id.orderStatus2);
-            orderDate = view.findViewById(R.id.orderDate2);
         }
     }
 }
