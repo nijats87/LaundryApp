@@ -13,7 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Sifariş #"
-        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:textSize="25sp"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
         />
 
     <android.support.v7.widget.RecyclerView

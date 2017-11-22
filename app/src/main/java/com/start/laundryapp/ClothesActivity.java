@@ -136,9 +136,6 @@ public class ClothesActivity extends AppCompatActivity {
 
     }
 
-
-
-
     @Override
     public void onBackPressed() {
         if (adapter.data.isEmpty()) {

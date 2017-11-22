@@ -10,7 +10,7 @@
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="false"></uses-feature>
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -40,7 +40,8 @@
         <activity android:name=".EditClothesActivity" />
         <activity android:name=".OrdersActivity" />
         <activity android:name=".OrderInfoActivity" />
-        <activity android:name=".OrderClothesInfoActivity"></activity>
+        <activity android:name=".OrderClothesInfoActivity" />
+        <activity android:name=".ImageViewerForOrder"></activity>
     </application>
 
 </manifest>

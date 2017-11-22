@@ -1,6 +1,7 @@
 package com.start.laundryapp.adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.start.laundryapp.Api;
 import com.start.laundryapp.Home;
+import com.start.laundryapp.ImageViewerForOrder;
 import com.start.laundryapp.R;
 import com.start.laundryapp.models.ClothesModel;
 import com.start.laundryapp.models.ClothesTypeModel;
@@ -47,8 +49,18 @@ public class OrderClothesInfoRecyclerAdapter extends BaseRecyclerAdapter<Clothes
                 break;
             }
         }
-        String uri = Api.BASE_URL + model.clothesImageUrl;
+        final String uri = Api.BASE_URL + model.clothesImageUrl;
         ImageLoader.getInstance().displayImage(uri, holder.orderClothesPhoto);
+
+
+        holder.orderClothesPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ImageViewerForOrder.class);
+                intent.putExtra("imageUri", uri);
+                context.startActivity(intent);
+            }
+        });
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
