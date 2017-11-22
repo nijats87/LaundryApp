@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.start.laundryapp.Api;
 import com.start.laundryapp.Home;
 import com.start.laundryapp.R;
@@ -46,6 +47,8 @@ public class OrderClothesInfoRecyclerAdapter extends BaseRecyclerAdapter<Clothes
                 break;
             }
         }
+        String uri = Api.BASE_URL + model.clothesImageUrl;
+        ImageLoader.getInstance().displayImage(uri, holder.orderClothesPhoto);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

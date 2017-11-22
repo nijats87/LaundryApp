@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.start.laundryapp.models.ApiResponse;
 import com.start.laundryapp.models.ClothesTypeModel;
 import com.start.laundryapp.models.ExecutionTypeModel;
@@ -46,6 +49,18 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        DisplayImageOptions displayImageOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this)
+                .defaultDisplayImageOptions(displayImageOptions)
+                .build();
+
+        ImageLoader.getInstance().init(config);
+
 
         home_newOrder_icon = findViewById(R.id.home_newOrder_icon);
         home_orders_icon = findViewById(R.id.home_orders_icon);
