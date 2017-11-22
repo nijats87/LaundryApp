@@ -3,8 +3,6 @@ package com.start.laundryapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.start.laundryapp.models.ApiResponse;
+import com.start.laundryapp.models.ClothesTypeModel;
 import com.start.laundryapp.models.ExecutionTypeModel;
 import com.start.laundryapp.models.ItemsHolder;
 import com.start.laundryapp.models.OrderTypeModel;
@@ -39,6 +38,9 @@ public class Home extends AppCompatActivity {
     public static List<OrderTypeModel> orderTypes = new ArrayList<>();
     public static List<String> executionTypeAz = new ArrayList<>();
     public static List<String> orderTypeAz = new ArrayList<>();
+    public static List<ClothesTypeModel> clothesNames = new ArrayList<>();
+    public static List<String> clothesNamesAz = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +114,7 @@ public class Home extends AppCompatActivity {
         getTerminalPointsData();
         getOrderTypesData();
         getExecutionTypesData();
+        getClothesTypesData();
     }
 
     private void getTerminalPointsData() {
@@ -195,6 +198,35 @@ public class Home extends AppCompatActivity {
             @Override
             public void onFailure(Call<ApiResponse<ItemsHolder<ExecutionTypeModel>>> call, Throwable t) {
                 Log.e(TAG, "onFailure: ", t);
+            }
+        });
+    }
+
+    private void getClothesTypesData() {
+        Api.getService().clothesTypes().enqueue(new Callback<ApiResponse<ItemsHolder<ClothesTypeModel>>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<ItemsHolder<ClothesTypeModel>>> call, Response<ApiResponse<ItemsHolder<ClothesTypeModel>>> response) {
+                if (response.isSuccessful()) {
+                    ApiResponse<ItemsHolder<ClothesTypeModel>> body = response.body();
+                    if (body.success) {
+                        clothesNames = body.result.items;
+
+                        clothesNamesAz.clear();
+
+                        for (int i = 0; i < clothesNames.size(); i++) {
+                            ClothesTypeModel type = clothesNames.get(i);
+                            clothesNamesAz.add(type.getNameAz());
+                        }
+                        return;
+                    }
+                }
+
+                Toast.makeText(Home.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<ItemsHolder<ClothesTypeModel>>> call, Throwable t) {
+                Log.e(EditClothesActivity.class.getSimpleName(), "onFailure: ", t);
             }
         });
     }

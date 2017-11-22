@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class ClothesActivity extends AppCompatActivity {
 
-    ClothesRecyclerAdapter adapter = new ClothesRecyclerAdapter(this, new BaseRecyclerAdapter.OnClickListener<EditClothesModel>(){
+    ClothesRecyclerAdapter adapter = new ClothesRecyclerAdapter(this, new BaseRecyclerAdapter.OnClickListener<EditClothesModel>() {
         @Override
         public void onClick(EditClothesModel model, int position) {
             Intent in = new Intent(ClothesActivity.this, EditClothesActivity.class);
@@ -68,6 +68,13 @@ public class ClothesActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    void setResultAndFinish() {
+        Intent intent = new Intent();
+        intent.putExtra("clothesModels", new Gson().toJson(adapter.data));
+        ClothesActivity.this.setResult(RESULT_OK, intent);
+        finish();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.clothes_activity_actions, menu);
@@ -84,6 +91,7 @@ public class ClothesActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
     private void openCamera() {
         CropImage.activity()
                 .setGuidelines(CropImageView.Guidelines.ON)
@@ -111,8 +119,6 @@ public class ClothesActivity extends AppCompatActivity {
                 int pos = data.getIntExtra("pos", -1);
                 adapter.data.set(pos, model);
                 adapter.notifyDataSetChanged();
-            } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(this, "Tapped cancel", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -124,35 +130,30 @@ public class ClothesActivity extends AppCompatActivity {
                 intent.putExtra("croppedImgURI", resultUri.toString());
                 startActivityForResult(intent, clothesAddedCode);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
+                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }
 
     }
 
-    void setResultAndFinish() {
-        Intent intent = new Intent();
-        intent.putExtra("clothesModels", new Gson().toJson(adapter.data));
-        ClothesActivity.this.setResult(RESULT_OK, intent);
-        finish();
-    }
+
 
 
     @Override
     public void onBackPressed() {
-        if (adapter.data.isEmpty()){
+        if (adapter.data.isEmpty()) {
             setResultAndFinish();
-        }else {
-              new AlertDialog.Builder(this)
-                .setTitle("Geri qayıtsanız seçdiyiniz paltarlar siyahıdan silinəcək.")
-                .setMessage("Geri qayıtmağa əminsinizmi?")
-                .setNegativeButton("Xeyr", null)
-                .setPositiveButton("Bəli", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        adapter.data.clear();
-                        setResultAndFinish();
-                    }
-                }).create().show();
+        } else {
+            new AlertDialog.Builder(this)
+                    .setTitle("Geri qayıtsanız seçdiyiniz paltarlar siyahıdan silinəcək.")
+                    .setMessage("Geri qayıtmağa əminsinizmi?")
+                    .setNegativeButton("Xeyr", null)
+                    .setPositiveButton("Bəli", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            adapter.data.clear();
+                            setResultAndFinish();
+                        }
+                    }).create().show();
         }
 
 

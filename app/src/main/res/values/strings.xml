@@ -49,7 +49,5 @@
     <string name="settings_language_tv">Dili dəyiş</string>
     <string name="settings_about_tv">Haqqımızda</string>
     <string name="login_btn_txt">Daxil ol</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">SİZİN SİFARİŞİNİZ YOXDUR</string>
 </resources>

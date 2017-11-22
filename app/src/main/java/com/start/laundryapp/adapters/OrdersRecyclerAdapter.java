@@ -34,7 +34,6 @@ public class OrdersRecyclerAdapter extends BaseRecyclerAdapter<OrderModel, Order
     @Override
     public void bindModel(ViewHolder holder, OrderModel model, int position) {
         holder.orderNumber.setText(String.valueOf(model.id));
-        holder.clothesCount.setText(String.valueOf(model.numberOfClothes));
 //                Default = 0,
 //                Pending = 10,
 //                Received = 20,
@@ -60,12 +59,11 @@ public class OrdersRecyclerAdapter extends BaseRecyclerAdapter<OrderModel, Order
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView orderNumber, clothesCount, orderStatus;
+        TextView orderNumber, orderStatus;
 
         ViewHolder(View view) {
             super(view);
             orderNumber = view.findViewById(R.id.orderNumber2);
-            clothesCount = view.findViewById(R.id.clothesCount2);
             orderStatus = view.findViewById(R.id.orderStatus2);
         }
     }

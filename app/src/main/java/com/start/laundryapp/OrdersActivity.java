@@ -2,6 +2,7 @@ package com.start.laundryapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,11 +17,6 @@ import com.start.laundryapp.adapters.OrdersRecyclerAdapter;
 import com.start.laundryapp.models.ApiResponse;
 import com.start.laundryapp.models.ItemsHolder;
 import com.start.laundryapp.models.OrderModel;
-import com.start.laundryapp.models.OrderTypeModel;
-import com.start.laundryapp.models.TerminalPointsModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,13 +52,14 @@ public class OrdersActivity extends AppCompatActivity {
         noOrdersTextView = findViewById(R.id.noOrdersTextView);
 
         getMyOrders();
+
     }
 
     public void getMyOrders() {
         Call<ApiResponse<ItemsHolder<OrderModel>>> call = Api.getService().orders();
         call.enqueue(new Callback<ApiResponse<ItemsHolder<OrderModel>>>() {
             @Override
-            public void onResponse(Call<ApiResponse<ItemsHolder<OrderModel>>> call, Response<ApiResponse<ItemsHolder<OrderModel>>> response) {
+            public void onResponse(@NonNull Call<ApiResponse<ItemsHolder<OrderModel>>> call, @NonNull Response<ApiResponse<ItemsHolder<OrderModel>>> response) {
                 if (response.isSuccessful()) {
                     ApiResponse<ItemsHolder<OrderModel>> body = response.body();
                     if (body.result.items.size() != 0) {
@@ -70,6 +67,7 @@ public class OrdersActivity extends AppCompatActivity {
                         adapter.data = body.result.items;
                         adapter.notifyDataSetChanged();
                         return;
+
                     } else {
                         noOrdersTextView.setVisibility(View.VISIBLE);
                         return;
@@ -78,7 +76,7 @@ public class OrdersActivity extends AppCompatActivity {
                 Toast.makeText(OrdersActivity.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
             }
 
-            public void onFailure(Call<ApiResponse<ItemsHolder<OrderModel>>> call, Throwable t) {
+            public void onFailure(@NonNull Call<ApiResponse<ItemsHolder<OrderModel>>> call, Throwable t) {
                 Log.e("dsdsd", "onFailure: ", t);
             }
         });

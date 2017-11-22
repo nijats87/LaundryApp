@@ -52,15 +52,22 @@ import retrofit2.Response;
 public class MakeOrder extends AppCompatActivity {
 
     private static final String TAG = MakeOrder.class.getSimpleName();
-    @BindView(R.id.makeOrder_orderType_sp) Spinner makeOrder_orderType_sp;
-    @BindView(R.id.makeOrder_terminalPoint_sp) Spinner makeOrder_terminalPoint_sp;
-    @BindView(R.id.makeOrder_executionType_sp) Spinner makeOrder_executionType_sp;
+    @BindView(R.id.makeOrder_orderType_sp)
+    Spinner makeOrder_orderType_sp;
+    @BindView(R.id.makeOrder_terminalPoint_sp)
+    Spinner makeOrder_terminalPoint_sp;
+    @BindView(R.id.makeOrder_executionType_sp)
+    Spinner makeOrder_executionType_sp;
 
-    @BindView(R.id.makeOrder_note_et) EditText makeOrder_note_et;
-    @BindView(R.id.makeOrder_clothesCount_et) EditText makeOrder_clothesCount_et;
+    @BindView(R.id.makeOrder_note_et)
+    EditText makeOrder_note_et;
+    @BindView(R.id.makeOrder_clothesCount_et)
+    EditText makeOrder_clothesCount_et;
 
-    @BindView(R.id.makeOrder_btn) Button makeOrder_btn;
-    @BindView(R.id.makeOrder_addPhoto_btn) ImageView makeOrder_addPhoto_btn;
+    @BindView(R.id.makeOrder_btn)
+    Button makeOrder_btn;
+    @BindView(R.id.makeOrder_addPhoto_btn)
+    ImageView makeOrder_addPhoto_btn;
 
 
     private List<EditClothesModel> clothesModels = new ArrayList<>();
