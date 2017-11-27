@@ -1,64 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e2e1e1"
+    android:background="@drawable/whiteshirt"
     tools:context="com.start.laundryapp.MainActivity">
 
-        <TextView
-            android:id="@+id/main_AppName_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/appTitle"
-            android:textColor="@android:color/black"
-            android:textSize="30sp"
-            android:layout_marginTop="40dp"
-            android:layout_centerHorizontal="true" />
-        <ImageView
-            android:id="@+id/main_AppLogo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/laundryicon"
-            android:layout_below="@+id/main_AppName_tv"
-            android:layout_centerHorizontal="true"
-            tools:ignore="ContentDescription"/>
-        <TextView
-            android:id="@+id/main_Login_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/main_Login_tv"
-            android:textColor="@android:color/black"
-            android:layout_below="@id/main_AppLogo"
-            android:textSize="30sp"
-            android:layout_marginTop="80dp"
-            android:layout_centerHorizontal="true"/>
-        <TextView
-            android:id="@+id/main_Register_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/main_Register_tv"
-            android:textColor="@android:color/black"
-            android:textSize="30sp"
-            android:layout_below="@id/main_Login_tv"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/main_AppName_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="@string/appTitle"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:textSize="35sp" />
 
-        <!--<TextView-->
-            <!--android:id="@+id/main_Haqqimizda_tv"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/main_Haqqimizda_tv"-->
-            <!--android:textColor="@android:color/black"-->
-            <!--android:layout_below="@id/main_Qeydiyyat_tv"-->
-            <!--android:textSize="30sp"-->
-            <!--android:clickable="true"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--android:layout_centerHorizontal="true" />-->
+    <TextView
+        android:id="@+id/main_Login_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/main_Login_tv"
+        android:layout_marginTop="300dp"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="30sp" />
 
-
-
+    <TextView
+        android:id="@+id/main_Register_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main_Login_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/main_Register_tv"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="30sp" />
 
 </RelativeLayout>

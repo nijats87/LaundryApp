@@ -11,7 +11,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class ImageViewerForOrder extends AppCompatActivity {
 
-    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

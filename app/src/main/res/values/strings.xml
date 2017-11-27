@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">LaundryApp</string>
-    <string name="appTitle">LaundryApp</string>
+    <string name="appTitle">Laundry App</string>
     <string name="main_Login_tv">Daxil ol</string>
     <string name="main_Register_tv">Qeydiyyat</string>
     <string name="main_About_tv">Haqqimizda</string>

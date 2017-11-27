@@ -1,5 +1,6 @@
 package com.start.laundryapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -7,10 +8,11 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     TextView main_AppName_tv, main_Login_tv, main_Register_tv;
     ImageView main_AppLoqo;
@@ -18,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+
 
         SharedPrefs.init(this);
         if (SharedPrefs.getToken() != null) {
@@ -30,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
         main_AppName_tv = findViewById(R.id.main_AppName_tv);
         main_Login_tv = findViewById(R.id.main_Login_tv);
         main_Register_tv = findViewById(R.id.main_Register_tv);
-//        main_Haqqimizda_tv = (TextView)findViewById(R.id.main_Haqqimizda_tv);
 
         main_AppLoqo = findViewById(R.id.main_AppLogo);
 
@@ -39,15 +42,7 @@ public class MainActivity extends AppCompatActivity {
         main_AppName_tv.setTypeface(facile_font);
         main_Login_tv.setTypeface(facile_font);
         main_Register_tv.setTypeface(facile_font);
-//        main_Haqqimizda_tv.setTypeface(facile_font);
-//
-//        main_Haqqimizda_tv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, About.class);
-//                startActivity(intent);
-//            }
-//        });
+
 
         main_Register_tv.setOnClickListener(new View.OnClickListener() {
             @Override

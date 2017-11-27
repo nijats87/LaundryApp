@@ -41,7 +41,7 @@
         <activity android:name=".OrdersActivity" />
         <activity android:name=".OrderInfoActivity" />
         <activity android:name=".OrderClothesInfoActivity" />
-        <activity android:name=".ImageViewerForOrder"></activity>
+        <activity android:name=".ImageViewerForOrder" />
     </application>
 
 </manifest>
