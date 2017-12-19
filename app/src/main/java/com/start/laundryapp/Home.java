@@ -145,7 +145,6 @@ public class Home extends AppCompatActivity {
                         for (TerminalPointsModel point : terminalPoints) {
                             terminalPointsAz.add(point.getName());
                         }
-//                        terminalPointsAdapter.notifyDataSetChanged();
                         return;
                     }
                 }

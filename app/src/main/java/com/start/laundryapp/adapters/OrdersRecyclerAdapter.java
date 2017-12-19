@@ -45,13 +45,13 @@ public class OrdersRecyclerAdapter extends BaseRecyclerAdapter<OrderModel, Order
 
         switch (model.status) {
             case 10:
-                holder.orderStatus.setText("Pending");
+                holder.orderStatus.setText("Təsdiq olunmayıb");
                 break;
             case 20:
-                holder.orderStatus.setText("Received");
+                holder.orderStatus.setText("Təsdiqlənib");
                 break;
             case 70:
-                holder.orderStatus.setText("Cancelled");
+                holder.orderStatus.setText("Ləğv olunub");
                 break;
         }
     }

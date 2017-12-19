@@ -30,5 +30,5 @@ public interface ApiService {
     Call<ApiResponse<LoginResultModel>> login(@Body LoginModel loginModel);
 
     @POST("api/services/app/order/cancel/{id}")
-    Call<ApiResponse<Integer>> cancelOrder (@Path("id") Integer id);
+    Call<ApiResponse<Void>> cancelOrder (@Path("id") Integer id);
 }

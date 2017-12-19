@@ -76,19 +76,20 @@ public class OrderInfoActivity extends AppCompatActivity {
         orderCancel_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Api.getService().cancelOrder(orderModel.id).enqueue(new Callback<ApiResponse<Integer>>() {
+                Api.getService().cancelOrder(orderModel.id).enqueue(new Callback<ApiResponse<Void>>() {
                     @Override
-                    public void onResponse(Call<ApiResponse<Integer>> call, Response<ApiResponse<Integer>> response) {
+                    public void onResponse(Call<ApiResponse<Void>> call, Response<ApiResponse<Void>> response) {
                         Toast.makeText(OrderInfoActivity.this, "Status changed", Toast.LENGTH_SHORT).show();
                     }
+
                     @Override
-                    public void onFailure(Call<ApiResponse<Integer>> call, Throwable t) {
+                    public void onFailure(Call<ApiResponse<Void>> call, Throwable t) {
                     }
                 });
-
             }
+
         });
 
-
     }
+
 }
