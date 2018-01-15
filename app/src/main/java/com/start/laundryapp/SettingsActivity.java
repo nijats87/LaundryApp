@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class Settings extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     TextView settings_about_tv;
 
@@ -20,7 +20,7 @@ public class Settings extends AppCompatActivity {
         settings_about_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Settings.this, About.class);
+                Intent intent = new Intent(SettingsActivity.this, AboutActivity.class);
                 startActivity(intent);
 
             }

@@ -1,23 +1,14 @@
 package com.start.laundryapp.adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.start.laundryapp.Home;
-import com.start.laundryapp.MakeOrder;
-import com.start.laundryapp.OrdersActivity;
 import com.start.laundryapp.R;
 import com.start.laundryapp.models.OrderModel;
-import com.start.laundryapp.models.OrderTypeModel;
-import com.start.laundryapp.models.TerminalPointsModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class OrdersRecyclerAdapter extends BaseRecyclerAdapter<OrderModel, OrdersRecyclerAdapter.ViewHolder> {
 

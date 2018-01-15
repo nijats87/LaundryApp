@@ -1,20 +1,15 @@
 package com.start.laundryapp;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     EditText login_emailPhone_et, login_password_et;
     TextView login_forgetPassword_tv;
@@ -82,43 +77,43 @@ public class Login extends AppCompatActivity {
                                 switch (result.loginResult) {
                                     case 1:
                                         SharedPrefs.setToken("Bearer " + result.accessToken);
-                                        SharedPreferences.Editor myPref = PreferenceManager.getDefaultSharedPreferences(Login.this).edit();
+                                        SharedPreferences.Editor myPref = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).edit();
                                         myPref.putString("userName", result.userData.name);
                                         myPref.putString("userSurname", result.userData.surname);
                                         myPref.apply();
-                                        Intent intent = new Intent(Login.this, Home.class);
+                                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
                                         break;
                                     case 2:
-                                        Toast.makeText(Login.this, "InvalidEmailAddressOrPhoneNumber", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "InvalidEmailAddressOrPhoneNumber", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 3:
-                                        Toast.makeText(Login.this, "InvalidPassword", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "InvalidPassword", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 4:
-                                        Toast.makeText(Login.this, "UserIsNotActive", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "UserIsNotActive", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 5:
-                                        Toast.makeText(Login.this, "InvalidTenancyName", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "InvalidTenancyName", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 6:
-                                        Toast.makeText(Login.this, "TenantIsNotActive", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "TenantIsNotActive", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 7:
-                                        Toast.makeText(Login.this, "UserEmailIsNotConfirmed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "UserEmailIsNotConfirmed", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 8:
-                                        Toast.makeText(Login.this, "UnknownExternalLogin", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "UnknownExternalLogin", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 9:
-                                        Toast.makeText(Login.this, "LockedOut", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "LockedOut", Toast.LENGTH_SHORT).show();
                                         break;
                                     case 10:
-                                        Toast.makeText(Login.this, "UserPhoneNumberIsNotConfirmed", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "UserPhoneNumberIsNotConfirmed", Toast.LENGTH_SHORT).show();
                                         break;
                                     default:
-                                        Toast.makeText(Login.this, "UnknownError", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginActivity.this, "UnknownError", Toast.LENGTH_SHORT).show();
                                         break;
                                 }
                             }

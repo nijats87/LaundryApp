@@ -27,14 +27,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".About"
+            android:name=".AboutActivity"
             android:label="Haqqımızda" />
-        <activity android:name=".Login" />
-        <activity android:name=".Register" />
-        <activity android:name=".Home" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".HomeActivity" />
         <activity android:name=".MakeOrder" />
-        <activity android:name=".PersonalInfo" />
-        <activity android:name=".Settings" />
+        <activity android:name=".PersonalInfoActivity" />
+        <activity android:name=".SettingsActivity" />
         <activity android:name=".ClothesActivity" />
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
         <activity android:name=".EditClothesActivity" />
@@ -42,6 +42,22 @@
         <activity android:name=".OrderInfoActivity" />
         <activity android:name=".OrderClothesInfoActivity" />
         <activity android:name=".ImageViewerForOrder" />
+
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
+
+
 
 </manifest>

@@ -2,12 +2,10 @@ package com.start.laundryapp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -16,25 +14,18 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
-import com.start.laundryapp.adapters.OrdersRecyclerAdapter;
 import com.start.laundryapp.models.ApiResponse;
 import com.start.laundryapp.models.EditClothesModel;
-import com.start.laundryapp.models.ExecutionTypeModel;
-import com.start.laundryapp.models.ItemsHolder;
 import com.start.laundryapp.models.MakeOrderModel;
 import com.start.laundryapp.models.OrderClothesModel;
-import com.start.laundryapp.models.OrderTypeModel;
-import com.start.laundryapp.models.TerminalPointsModel;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -78,15 +69,15 @@ public class MakeOrder extends AppCompatActivity {
         setContentView(R.layout.activity_make_order);
         ButterKnife.bind(this);
 
-        ArrayAdapter<String> terminalPointsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Home.terminalPointsAz);
+        ArrayAdapter<String> terminalPointsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, HomeActivity.terminalPointsAz);
         terminalPointsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         makeOrder_terminalPoint_sp.setAdapter(terminalPointsAdapter);
 
-        ArrayAdapter<String> executionTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Home.executionTypeAz);
+        ArrayAdapter<String> executionTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, HomeActivity.executionTypeAz);
         executionTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         makeOrder_executionType_sp.setAdapter(executionTypesAdapter);
 
-        ArrayAdapter<String> orderTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Home.orderTypeAz);
+        ArrayAdapter<String> orderTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, HomeActivity.orderTypeAz);
         orderTypesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         makeOrder_orderType_sp.setAdapter(orderTypesAdapter);
 
@@ -163,9 +154,9 @@ public class MakeOrder extends AppCompatActivity {
         String notes = makeOrder_note_et.getText().toString();
 
         model.setNumberOfClothes(clothesModels.size());
-        model.setTerminalPointId(Home.terminalPoints.get(terminalPointPos).getId());
-        model.setOrderTypeId(Home.orderTypes.get(orderTypePos).getId());
-        model.setExecutionTypeId(Home.executionTypes.get(execTypePos).getId());
+        model.setTerminalPointId(HomeActivity.terminalPoints.get(terminalPointPos).getId());
+        model.setOrderTypeId(HomeActivity.orderTypes.get(orderTypePos).getId());
+        model.setExecutionTypeId(HomeActivity.executionTypes.get(execTypePos).getId());
         model.setNotes(notes);
         model.setClothes(orderClothesModels);
 

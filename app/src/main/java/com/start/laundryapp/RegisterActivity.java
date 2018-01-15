@@ -18,7 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Register extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     EditText register_name_et, register_surname_et, register_email_et, register_phone_et, register_password_et, register_address_et;
     Button register_btn;
@@ -37,8 +37,6 @@ public class Register extends AppCompatActivity {
         register_password_et = findViewById(R.id.register_password_et);
         register_address_et = findViewById(R.id.register_address_et);
         register_checkbox = findViewById(R.id.register_checkbox);
-
-        final String shifre = register_password_et.getText().toString();
 
         register_btn = findViewById(R.id.register_btn);
 
@@ -84,25 +82,25 @@ public class Register extends AppCompatActivity {
                                 if (body.success) {
                                     switch (body.result.registerResult) {
                                         case 1:
-                                            Toast.makeText(Register.this, "Qeydiyyat uğurla tamamlandı.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(RegisterActivity.this, "Qeydiyyat uğurla tamamlandı.", Toast.LENGTH_SHORT).show();
                                             break;
                                         case 2:
-                                            Toast.makeText(Register.this, "E-mail düzgün formatda deyil", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(RegisterActivity.this, "E-mail düzgün formatda deyil", Toast.LENGTH_SHORT).show();
                                             break;
                                         case 3:
-                                            Toast.makeText(Register.this, "Telefon nömrəsi düzgün formatda deyil", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(RegisterActivity.this, "Telefon nömrəsi düzgün formatda deyil", Toast.LENGTH_SHORT).show();
                                             break;
                                         case 4:
-                                            Toast.makeText(Register.this, "Şifrə düzgün deyil", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(RegisterActivity.this, "Şifrə düzgün deyil", Toast.LENGTH_SHORT).show();
                                             break;
                                         case 5:
-                                            Toast.makeText(Register.this, "Bu e-mail artıq mövcuddur", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(RegisterActivity.this, "Bu e-mail artıq mövcuddur", Toast.LENGTH_SHORT).show();
                                             break;
                                         case 6:
-                                            Toast.makeText(Register.this, "Bu telefon nömrəsi artıq mövcuddur", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(RegisterActivity.this, "Bu telefon nömrəsi artıq mövcuddur", Toast.LENGTH_SHORT).show();
                                             break;
                                         default:
-                                            Toast.makeText(Register.this, "Zəhmət olmasa məlumatları düzgün daxil edin", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(RegisterActivity.this, "Zəhmət olmasa məlumatları düzgün daxil edin", Toast.LENGTH_SHORT).show();
                                             break;
                                     }
                                 }

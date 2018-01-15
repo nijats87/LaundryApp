@@ -2,10 +2,7 @@ package com.start.laundryapp;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -25,11 +22,12 @@ public class MainActivity extends Activity {
 
         SharedPrefs.init(this);
         if (SharedPrefs.getToken() != null) {
-            startActivity(new Intent(this, Home.class));
+            startActivity(new Intent(this, HomeActivity.class));
             finish();
         }
 
         setContentView(R.layout.activity_main);
+
 
         main_AppName_tv = findViewById(R.id.main_AppName_tv);
         main_Login_tv = findViewById(R.id.main_Login_tv);
@@ -47,7 +45,7 @@ public class MainActivity extends Activity {
         main_Register_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Register.class);
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
@@ -55,7 +53,7 @@ public class MainActivity extends Activity {
         main_Login_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Login.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });

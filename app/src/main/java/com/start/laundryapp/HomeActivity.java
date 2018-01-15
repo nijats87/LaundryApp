@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -29,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Home extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     ImageView home_newOrder_icon, home_orders_icon, home_checkOrder_icon, home_payment_icon, home_personalinfo_icon, home_feedback_icon, home_settings_icon, home_exit_icon;
     TextView home_nameSurname_tv;
@@ -61,6 +62,9 @@ public class Home extends AppCompatActivity {
 
         ImageLoader.getInstance().init(config);
 
+        String token = FirebaseInstanceId.getInstance().getToken();
+
+        Log.i("token", "Token : " + token);
 
         home_newOrder_icon = findViewById(R.id.home_newOrder_icon);
         home_orders_icon = findViewById(R.id.home_orders_icon);
@@ -87,7 +91,7 @@ public class Home extends AppCompatActivity {
         home_newOrder_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Home.this, MakeOrder.class);
+                Intent intent = new Intent(HomeActivity.this, MakeOrder.class);
                 startActivity(intent);
             }
         });
@@ -95,7 +99,7 @@ public class Home extends AppCompatActivity {
         home_orders_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Home.this, OrdersActivity.class);
+                Intent intent = new Intent(HomeActivity.this, OrdersActivity.class);
                 startActivity(intent);
             }
         });
@@ -103,7 +107,7 @@ public class Home extends AppCompatActivity {
         home_personalinfo_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Home.this, PersonalInfo.class);
+                Intent intent = new Intent(HomeActivity.this, PersonalInfoActivity.class);
                 startActivity(intent);
             }
         });
@@ -111,7 +115,7 @@ public class Home extends AppCompatActivity {
         home_settings_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Home.this, Settings.class);
+                Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
                 startActivity(intent);
             }
         });
@@ -122,7 +126,7 @@ public class Home extends AppCompatActivity {
                 Log.e(TAG, "removed TOKEN: " + SharedPrefs.getToken());
                 SharedPrefs.removeToken();
                 finish();
-                startActivity(new Intent(Home.this, MainActivity.class));
+                startActivity(new Intent(HomeActivity.this, MainActivity.class));
             }
         });
 
@@ -149,12 +153,12 @@ public class Home extends AppCompatActivity {
                     }
                 }
 
-                Toast.makeText(Home.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<ApiResponse<ItemsHolder<TerminalPointsModel>>> call, Throwable t) {
-                Toast.makeText(Home.this, "Request was not succesful.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, "Request was not succesful.", Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "onFailure: ", t);
             }
         });
@@ -178,7 +182,7 @@ public class Home extends AppCompatActivity {
                     }
                 }
 
-                Toast.makeText(Home.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -206,7 +210,7 @@ public class Home extends AppCompatActivity {
                     }
                 }
 
-                Toast.makeText(Home.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -235,12 +239,12 @@ public class Home extends AppCompatActivity {
                     }
                 }
 
-                Toast.makeText(Home.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(HomeActivity.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<ApiResponse<ItemsHolder<ClothesTypeModel>>> call, Throwable t) {
-                Log.e(EditClothesActivity.class.getSimpleName(), "onFailure: ", t);
+                Log.e(TAG, "onFailure: ", t);
             }
         });
     }

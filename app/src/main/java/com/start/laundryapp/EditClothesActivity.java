@@ -2,8 +2,8 @@ package com.start.laundryapp;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -12,12 +12,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.google.gson.Gson;
-import com.start.laundryapp.models.ClothesModel;
-import com.start.laundryapp.models.EditClothesModel;
 import com.start.laundryapp.models.ClothesTypeModel;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.start.laundryapp.models.EditClothesModel;
 
 public class EditClothesActivity extends AppCompatActivity {
 
@@ -52,12 +48,12 @@ public class EditClothesActivity extends AppCompatActivity {
         notes_et.setText(note);
 
 
-        clothesTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Home.clothesNamesAz);
+        clothesTypesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, HomeActivity.clothesNamesAz);
         clothesTypesAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         clothesTypesSpinner.setAdapter(clothesTypesAdapter);
 
-        for (int i = 0; i < Home.clothesNames.size(); i++) {
-            ClothesTypeModel type = Home.clothesNames.get(i);
+        for (int i = 0; i < HomeActivity.clothesNames.size(); i++) {
+            ClothesTypeModel type = HomeActivity.clothesNames.get(i);
             if (type.getId() == clothTypeId) {
                 clothesTypesSpinner.setSelection(i);
                 break;
@@ -77,8 +73,8 @@ public class EditClothesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //TODO: validate
-                editClothesModel.clothTypeId = Home.clothesNames.get(clothesTypesSpinner.getSelectedItemPosition()).getId();
-                editClothesModel.clothName = Home.clothesNames.get(clothesTypesSpinner.getSelectedItemPosition()).getNameAz();
+                editClothesModel.clothTypeId = HomeActivity.clothesNames.get(clothesTypesSpinner.getSelectedItemPosition()).getId();
+                editClothesModel.clothName = HomeActivity.clothesNames.get(clothesTypesSpinner.getSelectedItemPosition()).getNameAz();
                 editClothesModel.note = notes_et.getText().toString();
                 Intent data = new Intent();
                 data.putExtra("editClothesModel", new Gson().toJson(editClothesModel));

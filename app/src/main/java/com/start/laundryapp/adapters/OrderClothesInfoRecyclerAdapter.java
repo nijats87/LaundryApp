@@ -2,11 +2,7 @@ package com.start.laundryapp.adapters;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +11,11 @@ import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.start.laundryapp.Api;
-import com.start.laundryapp.Home;
+import com.start.laundryapp.HomeActivity;
 import com.start.laundryapp.ImageViewerForOrder;
 import com.start.laundryapp.R;
 import com.start.laundryapp.models.ClothesModel;
 import com.start.laundryapp.models.ClothesTypeModel;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 
 
 public class OrderClothesInfoRecyclerAdapter extends BaseRecyclerAdapter<ClothesModel, OrderClothesInfoRecyclerAdapter.ViewHolder> {
@@ -43,7 +33,7 @@ public class OrderClothesInfoRecyclerAdapter extends BaseRecyclerAdapter<Clothes
     @Override
     public void bindModel(ViewHolder holder, ClothesModel model, int position) {
         holder.orderClothesNote.setText(model.notes);
-        for (ClothesTypeModel typeModel : Home.clothesNames) {
+        for (ClothesTypeModel typeModel : HomeActivity.clothesNames) {
             if (model.clothesTypeId == typeModel.getId()) {
                 holder.orderClothesName.setText(typeModel.getNameAz());
                 break;

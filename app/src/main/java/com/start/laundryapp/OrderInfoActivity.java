@@ -39,19 +39,19 @@ public class OrderInfoActivity extends AppCompatActivity {
 
         ((TextView) findViewById(R.id.orderInfo_clothesCount_tv)).setText(orderModel.numberOfClothes + "");
 
-        for (TerminalPointsModel model : Home.terminalPoints) {
+        for (TerminalPointsModel model : HomeActivity.terminalPoints) {
             if (model.getId() == orderModel.terminalPointId) {
                 ((TextView) findViewById(R.id.orderInfo_terminalPoint_tv)).setText(model.getName());
             }
         }
 
-        for (OrderTypeModel model : Home.orderTypes) {
+        for (OrderTypeModel model : HomeActivity.orderTypes) {
             if (model.getId() == orderModel.orderTypeId) {
                 ((TextView) findViewById(R.id.orderInfo_orderType_tv)).setText(model.getNameAz());
             }
         }
 
-        for (ExecutionTypeModel model : Home.executionTypes) {
+        for (ExecutionTypeModel model : HomeActivity.executionTypes) {
             if (model.getId() == orderModel.executionTypeId) {
                 ((TextView) findViewById(R.id.orderInfo_executionType_tv)).setText(model.getNameAz());
             }

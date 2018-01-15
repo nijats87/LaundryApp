@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.start.laundryapp.PersonalInfo"
+    tools:context="com.start.laundryapp.PersonalInfoActivity"
     android:background="#e2e1e1">
 
     <TextView
