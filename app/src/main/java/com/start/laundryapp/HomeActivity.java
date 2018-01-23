@@ -91,7 +91,7 @@ public class HomeActivity extends AppCompatActivity {
         home_newOrder_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, MakeOrder.class);
+                Intent intent = new Intent(HomeActivity.this, MakeOrderActivity.class);
                 startActivity(intent);
             }
         });

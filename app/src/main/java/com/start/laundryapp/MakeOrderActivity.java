@@ -40,9 +40,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MakeOrder extends AppCompatActivity {
+public class MakeOrderActivity extends AppCompatActivity {
 
-    private static final String TAG = MakeOrder.class.getSimpleName();
+    private static final String TAG = MakeOrderActivity.class.getSimpleName();
     @BindView(R.id.makeOrder_orderType_sp)
     Spinner makeOrder_orderType_sp;
     @BindView(R.id.makeOrder_terminalPoint_sp)
@@ -57,7 +57,6 @@ public class MakeOrder extends AppCompatActivity {
 
     @BindView(R.id.makeOrder_btn)
     Button makeOrder_btn;
-    @BindView(R.id.makeOrder_addPhoto_btn)
     ImageView makeOrder_addPhoto_btn;
 
 
@@ -85,14 +84,14 @@ public class MakeOrder extends AppCompatActivity {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MakeOrder.this, ClothesActivity.class);
+                Intent intent = new Intent(MakeOrderActivity.this, ClothesActivity.class);
                 intent.putExtra("clothesModels", new Gson().toJson(clothesModels));
                 startActivityForResult(intent, clothesCode);
             }
         };
 
         makeOrder_clothesCount_et.setOnClickListener(listener);
-        makeOrder_addPhoto_btn.setOnClickListener(listener);
+//        makeOrder_addPhoto_btn.setOnClickListener(listener);
         makeOrder_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,18 +173,18 @@ public class MakeOrder extends AppCompatActivity {
                                     public void run() {
                                         try {
                                             Thread.sleep(1500);
-                                            MakeOrder.this.finish();
+                                            MakeOrderActivity.this.finish();
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
                                     }
                                 };
-                                Toast.makeText(MakeOrder.this, "Sizin sifarişiniz qeydə alındı", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MakeOrderActivity.this, "Sizin sifarişiniz qeydə alındı", Toast.LENGTH_SHORT).show();
                                 thread.start();
                                 return;
                             }
                         }
-                        Toast.makeText(MakeOrder.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MakeOrderActivity.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
