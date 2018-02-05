@@ -15,7 +15,9 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        settings_about_tv = (TextView)findViewById(R.id.settings_about_tv);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        settings_about_tv = findViewById(R.id.settings_about_tv);
 
         settings_about_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -25,6 +27,12 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
 

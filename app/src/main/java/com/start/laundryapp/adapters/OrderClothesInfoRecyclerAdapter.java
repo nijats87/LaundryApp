@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.start.laundryapp.Api;
+import com.start.laundryapp.retrofit.Api;
 import com.start.laundryapp.HomeActivity;
-import com.start.laundryapp.ImageViewerForOrder;
+import com.start.laundryapp.ImageViewerForOrderClothesActivity;
 import com.start.laundryapp.R;
 import com.start.laundryapp.models.ClothesModel;
 import com.start.laundryapp.models.ClothesTypeModel;
@@ -46,7 +46,7 @@ public class OrderClothesInfoRecyclerAdapter extends BaseRecyclerAdapter<Clothes
         holder.orderClothesPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ImageViewerForOrder.class);
+                Intent intent = new Intent(context, ImageViewerForOrderClothesActivity.class);
                 intent.putExtra("imageUri", uri);
                 context.startActivity(intent);
             }

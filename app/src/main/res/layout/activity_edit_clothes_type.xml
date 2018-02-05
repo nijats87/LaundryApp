@@ -37,6 +37,7 @@
         android:layout_alignLeft="@id/clothesTypesSpinner"
         android:hint="Qeyd əlavə edin"
         android:maxLines="1"
+        android:maxLength="30"
         android:inputType="text"
         />
 

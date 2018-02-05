@@ -15,6 +15,7 @@ import com.start.laundryapp.models.ExecutionTypeModel;
 import com.start.laundryapp.models.OrderModel;
 import com.start.laundryapp.models.OrderTypeModel;
 import com.start.laundryapp.models.TerminalPointsModel;
+import com.start.laundryapp.retrofit.Api;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -23,13 +24,18 @@ import retrofit2.Response;
 public class OrderInfoActivity extends AppCompatActivity {
     OrderModel orderModel;
     Button orderCancel_btn;
+    TextView orderInfo_note_et;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_info);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         orderCancel_btn = findViewById(R.id.orderCancel_btn);
+
+        orderInfo_note_et = findViewById(R.id.orderInfo_note_et);
 
         Intent intent = getIntent();
         orderModel = new Gson().fromJson(intent.getStringExtra("orderModel"), OrderModel.class);
@@ -57,7 +63,7 @@ public class OrderInfoActivity extends AppCompatActivity {
             }
         }
 
-        ((TextView) findViewById(R.id.orderInfo_note_et)).setText(orderModel.notes);
+        orderInfo_note_et.setText(orderModel.notes.matches("") ? "-----" : orderModel.notes);
 
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
@@ -92,4 +98,9 @@ public class OrderInfoActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 }

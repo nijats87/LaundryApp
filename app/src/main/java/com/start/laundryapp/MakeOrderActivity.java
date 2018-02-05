@@ -26,6 +26,7 @@ import com.start.laundryapp.models.ApiResponse;
 import com.start.laundryapp.models.EditClothesModel;
 import com.start.laundryapp.models.MakeOrderModel;
 import com.start.laundryapp.models.OrderClothesModel;
+import com.start.laundryapp.retrofit.Api;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -45,18 +46,23 @@ public class MakeOrderActivity extends AppCompatActivity {
     private static final String TAG = MakeOrderActivity.class.getSimpleName();
     @BindView(R.id.makeOrder_orderType_sp)
     Spinner makeOrder_orderType_sp;
+
     @BindView(R.id.makeOrder_terminalPoint_sp)
     Spinner makeOrder_terminalPoint_sp;
+
     @BindView(R.id.makeOrder_executionType_sp)
     Spinner makeOrder_executionType_sp;
 
     @BindView(R.id.makeOrder_note_et)
     EditText makeOrder_note_et;
+
     @BindView(R.id.makeOrder_clothesCount_et)
     EditText makeOrder_clothesCount_et;
 
     @BindView(R.id.makeOrder_btn)
     Button makeOrder_btn;
+
+    @BindView(R.id.makeOrder_addPhoto_btn)
     ImageView makeOrder_addPhoto_btn;
 
 
@@ -67,6 +73,8 @@ public class MakeOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_order);
         ButterKnife.bind(this);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ArrayAdapter<String> terminalPointsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, HomeActivity.terminalPointsAz);
         terminalPointsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -90,8 +98,12 @@ public class MakeOrderActivity extends AppCompatActivity {
             }
         };
 
+//        makeOrder_note_et.setFilters(new InputFilter[] {new InputFilter.LengthFilter(20)});
+
         makeOrder_clothesCount_et.setOnClickListener(listener);
-//        makeOrder_addPhoto_btn.setOnClickListener(listener);
+
+        makeOrder_addPhoto_btn.setOnClickListener(listener);
+
         makeOrder_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,8 +207,8 @@ public class MakeOrderActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
+    public void backPressedAlert() {
+
         if (clothesModels.isEmpty()) {
             finish();
         } else {
@@ -213,6 +225,16 @@ public class MakeOrderActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        backPressedAlert();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        backPressedAlert();
+        return true;
+    }
 }
 
 

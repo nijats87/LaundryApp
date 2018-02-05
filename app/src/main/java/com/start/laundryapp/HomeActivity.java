@@ -22,6 +22,8 @@ import com.start.laundryapp.models.ExecutionTypeModel;
 import com.start.laundryapp.models.ItemsHolder;
 import com.start.laundryapp.models.OrderTypeModel;
 import com.start.laundryapp.models.TerminalPointsModel;
+import com.start.laundryapp.retrofit.Api;
+import com.start.laundryapp.retrofit.SharedPrefs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,7 +128,7 @@ public class HomeActivity extends AppCompatActivity {
                 Log.e(TAG, "removed TOKEN: " + SharedPrefs.getToken());
                 SharedPrefs.removeToken();
                 finish();
-                startActivity(new Intent(HomeActivity.this, MainActivity.class));
+                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             }
         });
 

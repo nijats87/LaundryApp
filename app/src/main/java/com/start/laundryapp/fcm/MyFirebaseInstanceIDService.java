@@ -1,4 +1,4 @@
-package com.start.laundryapp;
+package com.start.laundryapp.fcm;
 
 import android.util.Log;
 

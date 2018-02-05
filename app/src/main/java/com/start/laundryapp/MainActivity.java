@@ -9,6 +9,8 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.start.laundryapp.retrofit.SharedPrefs;
+
 public class MainActivity extends Activity {
 
     TextView main_AppName_tv, main_Login_tv, main_Register_tv;
@@ -47,6 +49,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -55,6 +58,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

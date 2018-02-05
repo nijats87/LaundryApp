@@ -1,5 +1,6 @@
 package com.start.laundryapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.start.laundryapp.models.ApiResponse;
 import com.start.laundryapp.models.RegisterModel;
 import com.start.laundryapp.models.RegisterResultModel;
+import com.start.laundryapp.retrofit.Api;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +31,8 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         register_name_et = findViewById(R.id.register_name_et);
         register_surname_et = findViewById(R.id.register_surname_et);
@@ -118,11 +122,22 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        startActivity(intent);
+        this.finish();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        onSupportNavigateUp();
+    }
+
     private boolean checkEditText(EditText editText) {
 
         if (editText.getText().toString().length() < 3) {
-//            if(type.equals("Ad") || type.equals("Soyad") || type.equals("Ünvan")|| type.equals("Şifrə"))
-//                Toast.makeText(this, type + " 3 simvoldan az ola bilməz", Toast.LENGTH_SHORT).show();
             YoYo.with(Techniques.Shake)
                     .duration(600)
                     .repeat(1)

@@ -1,4 +1,4 @@
-package com.start.laundryapp;
+package com.start.laundryapp.retrofit;
 
 import com.start.laundryapp.models.*;
 import retrofit2.Call;

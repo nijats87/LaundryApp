@@ -1,4 +1,4 @@
-package com.start.laundryapp;
+package com.start.laundryapp.fcm;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -11,6 +11,8 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.start.laundryapp.MainActivity;
+import com.start.laundryapp.R;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 

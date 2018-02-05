@@ -1,6 +1,6 @@
-package com.start.laundryapp;
+package com.start.laundryapp.retrofit;
 
-;import com.start.laundryapp.models.ApiResponse;
+;
 
 import java.io.IOException;
 
@@ -8,8 +8,6 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

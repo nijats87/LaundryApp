@@ -18,6 +18,8 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.start.laundryapp.models.ApiResponse;
 import com.start.laundryapp.models.LoginModel;
 import com.start.laundryapp.models.LoginResultModel;
+import com.start.laundryapp.retrofit.Api;
+import com.start.laundryapp.retrofit.SharedPrefs;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         login_emailPhone_et = findViewById(R.id.login_emailPhone_et);
         login_password_et = findViewById(R.id.login_password_et);
@@ -117,10 +121,14 @@ public class LoginActivity extends AppCompatActivity {
                                         break;
                                 }
                             }
+                            else {
+                                Toast.makeText(LoginActivity.this, "Request was not succesfull!", Toast.LENGTH_SHORT).show();
+                            }
                         }
 
                         @Override
                         public void onFailure(Call<ApiResponse<LoginResultModel>> call, Throwable t) {
+                            Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
 
                         }
                     });
@@ -129,5 +137,18 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        this.finish();
+        return true;
     }
 }

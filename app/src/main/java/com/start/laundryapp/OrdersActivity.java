@@ -3,6 +3,7 @@ package com.start.laundryapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import com.start.laundryapp.adapters.OrdersRecyclerAdapter;
 import com.start.laundryapp.models.ApiResponse;
 import com.start.laundryapp.models.ItemsHolder;
 import com.start.laundryapp.models.OrderModel;
+import com.start.laundryapp.retrofit.Api;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -37,12 +39,16 @@ public class OrdersActivity extends AppCompatActivity {
 
     TextView ordersRecyclerViewTitle, noOrdersTextView;
 
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        getMyOrders();
 
         recyclerView = findViewById(R.id.recyclerViewOrders);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -51,7 +57,14 @@ public class OrdersActivity extends AppCompatActivity {
         ordersRecyclerViewTitle = findViewById(R.id.ordersRecyclerViewTitle);
         noOrdersTextView = findViewById(R.id.noOrdersTextView);
 
-        getMyOrders();
+        swipeRefreshLayout = findViewById(R.id.swipe_layout);
+
+/*        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getMyOrders();
+            }
+        });*/
 
     }
 
@@ -82,4 +95,9 @@ public class OrdersActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 }

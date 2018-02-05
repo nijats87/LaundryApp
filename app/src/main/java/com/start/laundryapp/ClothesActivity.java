@@ -3,6 +3,7 @@ package com.start.laundryapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.start.laundryapp.adapters.BaseRecyclerAdapter;
 import com.start.laundryapp.adapters.ClothesRecyclerAdapter;
+import com.start.laundryapp.models.ClothesTypeModel;
 import com.start.laundryapp.models.EditClothesModel;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -45,6 +47,8 @@ public class ClothesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clothes);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         Type listType = new TypeToken<ArrayList<EditClothesModel>>(){}.getType();
@@ -136,8 +140,7 @@ public class ClothesActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
+    public void backPressedAlert(){
         if (adapter.data.isEmpty()) {
             setResultAndFinish();
         } else {
@@ -152,9 +155,16 @@ public class ClothesActivity extends AppCompatActivity {
                         }
                     }).create().show();
         }
-
-
     }
 
+    @Override
+    public void onBackPressed() {
+        backPressedAlert();
+    }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        backPressedAlert();
+        return true;
+    }
 }
