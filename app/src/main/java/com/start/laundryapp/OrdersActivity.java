@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,10 @@ public class OrdersActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    ProgressBar progressBar;
+
     public OrdersRecyclerAdapter adapter = new OrdersRecyclerAdapter(this, new BaseRecyclerAdapter.OnClickListener<OrderModel>() {
         @Override
         public void onClick(OrderModel model, int position) {
@@ -37,9 +42,7 @@ public class OrdersActivity extends AppCompatActivity {
         }
     });
 
-    TextView ordersRecyclerViewTitle, noOrdersTextView;
-
-    SwipeRefreshLayout swipeRefreshLayout;
+    TextView ordersRecyclerViewTitle, noOrdersTextView, refreshFail_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,9 @@ public class OrdersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_orders);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
 
         getMyOrders();
 
@@ -56,15 +62,17 @@ public class OrdersActivity extends AppCompatActivity {
 
         ordersRecyclerViewTitle = findViewById(R.id.ordersRecyclerViewTitle);
         noOrdersTextView = findViewById(R.id.noOrdersTextView);
+        refreshFail_tv = findViewById(R.id.refresh_fail_tv);
 
-        swipeRefreshLayout = findViewById(R.id.swipe_layout);
+        swipeRefreshLayout = findViewById(R.id.swipeLayout);
 
-/*        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
                 getMyOrders();
             }
-        });*/
+        });
 
     }
 
@@ -73,6 +81,10 @@ public class OrdersActivity extends AppCompatActivity {
         call.enqueue(new Callback<ApiResponse<ItemsHolder<OrderModel>>>() {
             @Override
             public void onResponse(@NonNull Call<ApiResponse<ItemsHolder<OrderModel>>> call, @NonNull Response<ApiResponse<ItemsHolder<OrderModel>>> response) {
+                progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
+                refreshFail_tv.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
                 if (response.isSuccessful()) {
                     ApiResponse<ItemsHolder<OrderModel>> body = response.body();
                     if (body.result.items.size() != 0) {
@@ -90,7 +102,11 @@ public class OrdersActivity extends AppCompatActivity {
             }
 
             public void onFailure(@NonNull Call<ApiResponse<ItemsHolder<OrderModel>>> call, Throwable t) {
-                Log.e("dsdsd", "onFailure: ", t);
+                swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
+                refreshFail_tv.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+                ordersRecyclerViewTitle.setVisibility(View.GONE);
             }
         });
     }

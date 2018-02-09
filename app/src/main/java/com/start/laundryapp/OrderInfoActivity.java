@@ -25,6 +25,9 @@ public class OrderInfoActivity extends AppCompatActivity {
     OrderModel orderModel;
     Button orderCancel_btn;
     TextView orderInfo_note_et;
+    double longitude;
+    double latitude;
+    String terminalPointName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,12 @@ public class OrderInfoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         orderModel = new Gson().fromJson(intent.getStringExtra("orderModel"), OrderModel.class);
 
+        switch (orderModel.status){
+            case 10:
+            case 20:
+                orderCancel_btn.setVisibility(View.VISIBLE);
+                break;
+        }
 
         ((TextView) findViewById(R.id.orderInfo_orderNumber)).setText("Sifariş #" + orderModel.id);
 
@@ -48,6 +57,9 @@ public class OrderInfoActivity extends AppCompatActivity {
         for (TerminalPointsModel model : HomeActivity.terminalPoints) {
             if (model.getId() == orderModel.terminalPointId) {
                 ((TextView) findViewById(R.id.orderInfo_terminalPoint_tv)).setText(model.getName());
+                latitude = model.getLatitude();
+                longitude = model.getLongitude();
+                terminalPointName = model.getName();
             }
         }
 
@@ -77,6 +89,17 @@ public class OrderInfoActivity extends AppCompatActivity {
 
         findViewById(R.id.goToPhotosBtn).setOnClickListener(listener);
         findViewById(R.id.orderInfo_clothesCount_tv).setOnClickListener(listener);
+
+        findViewById(R.id.orderInfo_terminalPoint_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OrderInfoActivity.this, MapsActivity.class);
+                intent.putExtra("longitude", longitude);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("terminalPointName", terminalPointName);
+                startActivity(intent);
+            }
+        });
 
 
         orderCancel_btn.setOnClickListener(new View.OnClickListener() {

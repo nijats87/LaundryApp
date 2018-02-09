@@ -71,8 +71,8 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="7dp"
         android:layout_below="@id/ll2"
-        android:background="@android:color/black"/>
+        android:background="@color/pretty_white"/>
 
 </RelativeLayout>

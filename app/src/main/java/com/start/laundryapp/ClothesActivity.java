@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -42,6 +43,8 @@ public class ClothesActivity extends AppCompatActivity {
     });
 
     Button confirmClothesBtn;
+    TextView clothes_tv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +53,19 @@ public class ClothesActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        clothes_tv = findViewById(R.id.clothes_tv);
+        confirmClothesBtn = findViewById(R.id.confirmClothesBtn);
+
         Intent intent = getIntent();
         Type listType = new TypeToken<ArrayList<EditClothesModel>>(){}.getType();
         adapter.data = new Gson().fromJson(intent.getStringExtra("clothesModels"), listType);
         adapter.notifyDataSetChanged();
+
         if (!adapter.data.isEmpty()) {
-            findViewById(R.id.confirmClothesBtn).setVisibility(View.VISIBLE);
+            confirmClothesBtn.setVisibility(View.VISIBLE);
+            clothes_tv.setVisibility(View.GONE);
         }
 
-        confirmClothesBtn = findViewById(R.id.confirmClothesBtn);
 
         confirmClothesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,12 +79,6 @@ public class ClothesActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    void setResultAndFinish() {
-        Intent intent = new Intent();
-        intent.putExtra("clothesModels", new Gson().toJson(adapter.data));
-        ClothesActivity.this.setResult(RESULT_OK, intent);
-        finish();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -114,6 +115,7 @@ public class ClothesActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 View b = findViewById(R.id.confirmClothesBtn);
                 b.setVisibility(View.VISIBLE);
+                clothes_tv.setVisibility(View.GONE);
             }
         }
 
@@ -123,6 +125,7 @@ public class ClothesActivity extends AppCompatActivity {
                 int pos = data.getIntExtra("pos", -1);
                 adapter.data.set(pos, model);
                 adapter.notifyDataSetChanged();
+//                clothes_tv.setVisibility(View.GONE);
             }
         }
 
@@ -137,7 +140,13 @@ public class ClothesActivity extends AppCompatActivity {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
             }
         }
+    }
 
+    void setResultAndFinish() {
+        Intent intent = new Intent();
+        intent.putExtra("clothesModels", new Gson().toJson(adapter.data));
+        ClothesActivity.this.setResult(RESULT_OK, intent);
+        finish();
     }
 
     public void backPressedAlert(){

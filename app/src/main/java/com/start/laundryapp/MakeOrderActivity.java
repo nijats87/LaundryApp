@@ -34,6 +34,7 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -98,8 +99,6 @@ public class MakeOrderActivity extends AppCompatActivity {
             }
         };
 
-//        makeOrder_note_et.setFilters(new InputFilter[] {new InputFilter.LengthFilter(20)});
-
         makeOrder_clothesCount_et.setOnClickListener(listener);
 
         makeOrder_addPhoto_btn.setOnClickListener(listener);
@@ -107,7 +106,11 @@ public class MakeOrderActivity extends AppCompatActivity {
         makeOrder_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeOrder();
+                if (clothesModels.size() > 0){
+                    makeOrder();
+                }else {
+                    Toast.makeText(MakeOrderActivity.this, "Sifariş vermək üçün paltar əlavə edin", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -122,7 +125,11 @@ public class MakeOrderActivity extends AppCompatActivity {
                 Type listType = new TypeToken<ArrayList<EditClothesModel>>() {
                 }.getType();
                 clothesModels = new Gson().fromJson(data.getStringExtra("clothesModels"), listType);
-                makeOrder_clothesCount_et.setText(String.valueOf(clothesModels.size()));
+                if (clothesModels.size() > 0){
+                    makeOrder_clothesCount_et.setText(String.valueOf(clothesModels.size() + " ədəd"));
+                }else {
+                    makeOrder_clothesCount_et.setText("");
+                }
                 System.out.println(clothesModels);
 
                 Gson gson = new GsonBuilder().create();
@@ -137,7 +144,6 @@ public class MakeOrderActivity extends AppCompatActivity {
         final List<OrderClothesModel> orderClothesModels = new ArrayList<>();
 
         for (EditClothesModel m : clothesModels) {
-
             try {
                 Uri uri = Uri.parse(m.imageUri);
                 InputStream imageStream = getContentResolver().openInputStream(uri);
@@ -179,7 +185,6 @@ public class MakeOrderActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             ApiResponse<Void> body = response.body();
                             if (body.success) {
-
                                 Thread thread = new Thread() {
                                     @Override
                                     public void run() {
@@ -204,7 +209,6 @@ public class MakeOrderActivity extends AppCompatActivity {
                         Log.e(TAG, "onFailure: ", t);
                     }
                 });
-
     }
 
     public void backPressedAlert() {
@@ -222,7 +226,6 @@ public class MakeOrderActivity extends AppCompatActivity {
                         }
                     }).create().show();
         }
-
     }
 
     @Override

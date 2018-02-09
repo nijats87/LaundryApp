@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
-    android:id="@+id/swipe_layout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,38 +7,31 @@
     android:background="#e2e1e1"
     tools:context="com.start.laundryapp.ClothesActivity">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/clothes_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="Zəhmət olmasa yuxarı sağ küncdən paltarları daxil edin"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/clothes_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="Zəhmət olmasa yuxarı sağ küncdən paltarları daxil edin"
-            android:textColor="@android:color/black"
-            android:textSize="20sp" />
+    <Button
+        android:id="@+id/confirmClothesBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Təsdiqlə"
+        android:visibility="invisible" />
 
-        <Button
-            android:id="@+id/confirmClothesBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:text="Təsdiqlə"
-            android:visibility="invisible" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewClothes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/confirmClothesBtn" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerViewClothes"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/confirmClothesBtn" />
-
-    </RelativeLayout>
-
-
-</android.support.v4.widget.SwipeRefreshLayout>
+</RelativeLayout>

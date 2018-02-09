@@ -44,9 +44,9 @@
         />
 
     <View
-        android:layout_height="1dp"
+        android:layout_height="7dp"
         android:layout_width="match_parent"
-        android:background="@android:color/black"
+        android:background="@color/pretty_white"
         android:layout_alignParentBottom="true"
         />
 

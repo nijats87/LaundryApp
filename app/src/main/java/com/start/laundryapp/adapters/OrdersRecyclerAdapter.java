@@ -41,6 +41,9 @@ public class OrdersRecyclerAdapter extends BaseRecyclerAdapter<OrderModel, Order
             case 20:
                 holder.orderStatus.setText("Təsdiqlənib");
                 break;
+            case 45:
+                holder.orderStatus.setText("Hazırdır");
+                break;
             case 70:
                 holder.orderStatus.setText("Ləğv olunub");
                 break;

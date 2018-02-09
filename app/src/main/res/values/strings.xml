@@ -36,7 +36,7 @@
     <string name="home_settings_tv">Tənzimləmələr</string>
     <string name="home_exit_tv">Çıxış</string>
     <string name="makeorder_title_tv">Yeni sifariş</string>
-    <string name="makeOrder_clothesCount_et">Paltarlar</string>
+    <string name="makeOrder_clothesCount_et">Paltar sayı</string>
     <string name="makeOrder_terminalPoint_tv">Məntəqə</string>
     <string name="makeOrder_orderType_tv">Sifariş növü</string>
     <string name="makeOrder_executionType_tv">İcra müddəti</string>
@@ -50,4 +50,6 @@
     <string name="settings_about_tv">Haqqımızda</string>
     <string name="login_btn_txt">Daxil ol</string>
     <string name="hello_blank_fragment">SİZİN SİFARİŞİNİZ YOXDUR</string>
+    <string name="refresh_fail_tv">Xəta..!! Məlumat yüklənmədi, zəhmət olmasa səhifəni yeniləyin…</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
