@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,9 @@ public class LoginActivity extends AppCompatActivity {
     Button login_btn;
     ImageView facebook_login_img, imageView;
     public final String TAG = "LAUNDRY";
+    ProgressBar login_progressBar;
+    RelativeLayout dimLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,10 @@ public class LoginActivity extends AppCompatActivity {
         login_forgetPassword_tv = findViewById(R.id.login_forgetPassword_tv);
         login_btn = findViewById(R.id.login_btn);
         facebook_login_img = findViewById(R.id.facebook_login_img);
+
+        login_progressBar = findViewById(R.id.login_progressBar);
+
+        dimLayout = findViewById(R.id.dim_layout);
 
 
         login_btn.setOnClickListener(new View.OnClickListener() {
@@ -69,9 +78,15 @@ public class LoginActivity extends AppCompatActivity {
                     loginModel.emailAddressOrPhoneNumber = login_emailPhone_et.getText().toString();
                     loginModel.password = login_password_et.getText().toString();
 
+                    login_progressBar.setVisibility(View.VISIBLE);
+                    dimLayout.setVisibility(View.VISIBLE);
+
                     Api.getService().login(loginModel).enqueue(new Callback<ApiResponse<LoginResultModel>>() {
                         @Override
                         public void onResponse(Call<ApiResponse<LoginResultModel>> call, Response<ApiResponse<LoginResultModel>> response) {
+
+                            login_progressBar.setVisibility(View.GONE);
+                            dimLayout.setVisibility(View.GONE);
 
                             if (response.isSuccessful()) {
                                 ApiResponse<LoginResultModel> body = response.body();
@@ -130,6 +145,8 @@ public class LoginActivity extends AppCompatActivity {
                         public void onFailure(Call<ApiResponse<LoginResultModel>> call, Throwable t) {
                             Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
 
+                            login_progressBar.setVisibility(View.GONE);
+                            dimLayout.setVisibility(View.GONE);
                         }
                     });
                 }
