@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">LaundryApp</string>
-    <string name="appTitle">LaundryApp</string>
+    <string name="appTitle">Laundry App</string>
     <string name="main_Login_tv">Daxil ol</string>
     <string name="main_Register_tv">Qeydiyyat</string>
     <string name="main_About_tv">Haqqimizda</string>
@@ -49,7 +49,7 @@
     <string name="settings_language_tv">Dili dəyiş</string>
     <string name="settings_about_tv">Haqqımızda</string>
     <string name="login_btn_txt">Daxil ol</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">SİZİN SİFARİŞİNİZ YOXDUR</string>
+    <string name="refresh_fail_tv">Xəta..!! Məlumat yüklənmədi, zəhmət olmasa səhifəni yeniləyin…</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

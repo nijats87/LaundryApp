@@ -1,69 +1,119 @@
 package com.start.laundryapp;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.ArrayMap;
+import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.start.laundryapp.adapters.BaseRecyclerAdapter;
+import com.start.laundryapp.adapters.OrdersRecyclerAdapter;
+import com.start.laundryapp.models.ApiResponse;
+import com.start.laundryapp.models.ItemsHolder;
+import com.start.laundryapp.models.OrderModel;
+import com.start.laundryapp.retrofit.Api;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Map;
-
-import static com.start.laundryapp.ServerAdress.server_URL;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrdersActivity extends AppCompatActivity {
 
-    public String GET_MY_ORDERS_URL = server_URL + "api/services/app/order/my";
-    RequestQueue requestQueue;
+    RecyclerView recyclerView;
 
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    ProgressBar progressBar;
+
+    public OrdersRecyclerAdapter adapter = new OrdersRecyclerAdapter(this, new BaseRecyclerAdapter.OnClickListener<OrderModel>() {
+        @Override
+        public void onClick(OrderModel model, int position) {
+            Intent in = new Intent(OrdersActivity.this, OrderInfoActivity.class);
+            in.putExtra("orderModel", new Gson().toJson(model));
+            OrdersActivity.this.startActivity(in);
+        }
+    });
+
+    TextView ordersRecyclerViewTitle, noOrdersTextView, refreshFail_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orders);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
         getMyOrders();
+
+        recyclerView = findViewById(R.id.recyclerViewOrders);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
+        ordersRecyclerViewTitle = findViewById(R.id.ordersRecyclerViewTitle);
+        noOrdersTextView = findViewById(R.id.noOrdersTextView);
+        refreshFail_tv = findViewById(R.id.refresh_fail_tv);
+
+        swipeRefreshLayout = findViewById(R.id.swipeLayout);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+                getMyOrders();
+            }
+        });
+
     }
 
-
     public void getMyOrders() {
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, GET_MY_ORDERS_URL, new Response.Listener<String>() {
+        Call<ApiResponse<ItemsHolder<OrderModel>>> call = Api.getService().orders();
+        call.enqueue(new Callback<ApiResponse<ItemsHolder<OrderModel>>>() {
             @Override
-            public void onResponse(String response) {
-                System.out.println(response);
+            public void onResponse(@NonNull Call<ApiResponse<ItemsHolder<OrderModel>>> call, @NonNull Response<ApiResponse<ItemsHolder<OrderModel>>> response) {
+                progressBar.setVisibility(View.GONE);
+                swipeRefreshLayout.setRefreshing(false);
+                refreshFail_tv.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
+                if (response.isSuccessful()) {
+                    ApiResponse<ItemsHolder<OrderModel>> body = response.body();
+                    if (body.result.items.size() != 0) {
+                        ordersRecyclerViewTitle.setVisibility(View.VISIBLE);
+                        adapter.data = body.result.items;
+                        adapter.notifyDataSetChanged();
+                        return;
 
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray result = jsonObject.getJSONArray("result");
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                    } else {
+                        noOrdersTextView.setVisibility(View.VISIBLE);
+                        return;
+                    }
                 }
+                Toast.makeText(OrdersActivity.this, "Request was not succesful. Code: " + response.code(), Toast.LENGTH_SHORT).show();
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
+            public void onFailure(@NonNull Call<ApiResponse<ItemsHolder<OrderModel>>> call, Throwable t) {
+                swipeRefreshLayout.setRefreshing(false);
+                progressBar.setVisibility(View.GONE);
+                refreshFail_tv.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.GONE);
+                ordersRecyclerViewTitle.setVisibility(View.GONE);
             }
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> mHeader = new ArrayMap<String, String>();
-                mHeader.put("Authorization", SharedPrefs.getToken());
-                return mHeader;
-            }
-        };
-        requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

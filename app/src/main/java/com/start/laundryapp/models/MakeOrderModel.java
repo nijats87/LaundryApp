@@ -1,8 +1,6 @@
 package com.start.laundryapp.models;
 
 
-import org.json.JSONArray;
-
 import java.util.List;
 
 public class MakeOrderModel {

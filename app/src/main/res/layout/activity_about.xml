@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#e2e1e1"
-    tools:context="com.start.laundryapp.About">
+    tools:context="com.start.laundryapp.AboutActivity">
 
     <TextView
         android:id="@+id/about_title_tv"

@@ -1,0 +1,24 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=CE:2D:E7:DB:12:48:D6:ED:76:55:6D:D3:BB:C5:68:0E:55:A5:58:48%3Bcom.start.laundryapp
+
+    You can also add your credentials to an existing key, using these values:
+
+    Package name:
+    CE:2D:E7:DB:12:48:D6:ED:76:55:6D:D3:BB:C5:68:0E:55:A5:58:48
+
+    SHA-1 certificate fingerprint:
+    CE:2D:E7:DB:12:48:D6:ED:76:55:6D:D3:BB:C5:68:0E:55:A5:58:48
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDTaXQGpQ7-HvXi6ILqvYbSk00SNvrRfbE</string>
+</resources>

@@ -1,8 +1,5 @@
 package com.start.laundryapp.models;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ExecutionTypeModel {
 
     private String name;

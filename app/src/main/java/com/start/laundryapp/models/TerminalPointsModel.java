@@ -2,23 +2,22 @@ package com.start.laundryapp.models;
 
 public class TerminalPointsModel extends OrderTypeModel{
 
-    private int longitude;
-    private int latitude;
+    private double longitude;
+    private double latitude;
 
-    public int getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public int getLongitude() {
+    public double getLongitude() {
         return longitude;
-
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 }

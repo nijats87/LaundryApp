@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="#b0cef5"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/orderClothesPhoto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:contentDescription="ignore"
+        android:src="@drawable/addphoto" />
+
+    <TextView
+        android:id="@+id/orderClothesName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_toEndOf="@id/orderClothesPhoto"
+        android:layout_toRightOf="@id/orderClothesPhoto"
+        android:gravity="center"
+        android:text="Here will be clothes name"
+        android:textColor="@android:color/black"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/orderClothesNote"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/orderClothesName"
+        android:layout_toEndOf="@id/orderClothesPhoto"
+        android:layout_toRightOf="@id/orderClothesPhoto"
+        android:gravity="center"
+        android:text="Here will be clothes note"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/black" />
+
+</RelativeLayout>
